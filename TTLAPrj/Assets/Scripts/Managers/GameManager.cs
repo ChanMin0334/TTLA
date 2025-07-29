@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     // 싱글톤 인스턴스
     public static GameManager Instance { get; private set; }
-
+    public Player player;
     // 게임 진입 했는지 여부
     public bool isPlaying = false;
 
