@@ -6,23 +6,7 @@ using Newtonsoft.Json;
 
 public class SaveManager : MonoBehaviour
 {
-    public class PlayerTest
-    {
-        public float hp;
-        public float mp;
-        public string name;
-        public int gold;
-
-        public PlayerTest()
-        {
-            hp = 4f;
-            mp = 2f;
-            name = "broccoli";
-            gold = 10;
-        }
-    }
-
-    public PlayerTest playerData = new PlayerTest();
+    Player playerData = GameManager.Instance.player;
 
     private string path;
     [SerializeField] private string fileName = "save";
@@ -56,7 +40,7 @@ public class SaveManager : MonoBehaviour
     public void LoadData()
     {
         string data = File.ReadAllText(path + fileName);
-        playerData = JsonUtility.FromJson<PlayerTest>(data);
+        playerData = JsonUtility.FromJson<Player>(data);
         Debug.Log("Data Load"); 
     }
 }
