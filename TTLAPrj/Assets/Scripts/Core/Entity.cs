@@ -8,6 +8,10 @@ public class Entity : MonoBehaviour
     public Animator anim;
     public GameObject projectile;
 
+    public void Awake()
+    {
+        Stats = new Stats(0f,0f,0f,0f);
+    }
     public virtual void Damaged(float damage)
     {
         Stats.Hp -= damage;

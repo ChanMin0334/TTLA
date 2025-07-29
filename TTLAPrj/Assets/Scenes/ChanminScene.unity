@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6012049f28aaaf4b93b6c8b8a384895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   isPlaying: 0
   isPaused: 0
 --- !u!4 &1636146961

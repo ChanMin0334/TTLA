@@ -5,21 +5,12 @@ public class Stats
     public float Hp;
     public float AtkSpeed;
     public float Speed;
-    public float GetStatValue(string type)
+
+    public Stats(float atk, float hp, float atkSpeed, float speed)
     {
-        switch (type)
-        {
-            case "Atk":
-                return Atk;
-            case "Hp":
-                return Hp;
-            case "AtkSpeed":
-                return AtkSpeed;
-            case "Speed":
-                return Speed;
-            default:
-                UnityEngine.Debug.LogWarning("Unknown stat type: " + type);
-                return 0f;
-        }
+        Atk = atk;
+        Hp = hp;
+        AtkSpeed = atkSpeed;
+        Speed = speed;
     }
 }
