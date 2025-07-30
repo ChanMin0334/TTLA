@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,13 @@ public class UIManager : MonoBehaviour
     // 싱글톤 인스턴스
     public static UIManager Instance { get; private set; }
 
+    [Header("Ability관련 UI")]
     [SerializeField] AbilitySo abilitySO;
     [SerializeField] AbilityCards[] cards;
 
     AbilityCards selectedCard = null;
+
+    [SerializeField] GameObject levelUpBox;
 
     // UI 패널 예시 (필요에 따라 추가)
     // public GameObject mainMenuPanel;
@@ -31,86 +35,70 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void OnCardSelected(AbilityCards clickedCard) // 카드 하이라이트 기능
     {
-        foreach(var card in cards)
+        if(selectedCard != null && selectedCard != clickedCard) //선택한 카드 존재 && 기존카드 != 선택카드
         {
-            card.SetManager(this);
-        }
-    }
-
-    public void OnCardSelected(AbilityCards clickedCard)
-    {
-        if(selectedCard != null && selectedCard != clickedCard)
-        {
-            selectedCard.DeSelect();
+            selectedCard.DeSelect(); //기존카드 originalColor
         }
 
         selectedCard = clickedCard;
         selectedCard.Select();
+
+        Debug.Log("선택된 카드: " + selectedCard.GetAbilityID());
+
+        foreach(var card in cards)
+        {
+            card.Showout();
+        }   
     }
 
-
-
-#if UNITY_EDITOR
     private void Update()
     {
-        AbilityCardTest();
+        if(Input.GetKeyDown(KeyCode.Keypad2))
+        Test();
     }
 
-    void AbilityCardTest()
+    void ShowCard()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
             if(abilitySO != null && abilitySO.abilities.Length > 0)
             {
                 int maxCount = Mathf.Min(cards.Length, abilitySO.abilities.Length);
-                List<int> usedIndices = new List<int>();
+                List<int> Noduplication = new List<int>(); //중복 방지 
                 for(int i = 0; i < maxCount; i++)
                 {
                     int rand;
                     do
                     {
                         rand = Random.Range(0, abilitySO.abilities.Length);
-                    }while (usedIndices.Contains(rand));
-                    usedIndices.Add(rand);
+                    }while (Noduplication.Contains(rand));
+                    Noduplication.Add(rand);
 
                     Ability randomAbility = abilitySO.abilities[rand];
                     cards[i].SetAbility(randomAbility);
                     cards[i].ShowIn();
                 }
             }
-        }
-        if(Input.GetMouseButtonDown(1))
-        {
-            foreach(var card in cards)
-            {
-                card.Showout();
-            }
-
-            selectedCard = null;
-        }
     }
-#endif
+    void ShowlevelUp(System.Action onComplete)
+    {
+        levelUpBox.SetActive(true);
 
-
-    // UI 패널 표시
-    // public void ShowPanel(GameObject panel)
-    // {
-    //     panel.SetActive(true);
-    // }
-
-    // UI 패널 숨김
-    // public void HidePanel(GameObject panel)
-    // {
-    //     panel.SetActive(false);
-    // }
-
-    // 모든 패널 숨기기 예시
-    // public void HideAllPanels()
-    // {
-    //     mainMenuPanel.SetActive(false);
-    //     pausePanel.SetActive(false);
-    //     gameOverPanel.SetActive(false);
-    // }
+        Sequence seq = DOTween.Sequence();
+        seq.Append(levelUpBox.transform.DOScale(Vector3.one * 15 , 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.AppendInterval(1.5f);
+        seq.Append(levelUpBox.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));
+        seq.OnComplete(() =>
+        {
+            levelUpBox.SetActive(false);
+            onComplete?.Invoke();
+        });    
+    }
+    void Test() //ShowLevelUp 끝난후 ShowCard 호출
+    {
+        ShowlevelUp(() =>
+        {
+            ShowCard();
+        });           
+    }
 }

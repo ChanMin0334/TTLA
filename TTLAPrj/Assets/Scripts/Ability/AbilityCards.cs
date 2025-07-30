@@ -7,7 +7,7 @@ using UnityEngine;
 public class AbilityCards : MonoBehaviour
 {
     [Header("Data")]
-    [SerializeField] AbilitySo abilitySO;
+    [SerializeField] AbilitySo abilitySO; //추후 ID로 능력 참조할때 사용 가능
 
     [Header("UI Components")]
     [SerializeField] SpriteRenderer border;
@@ -40,11 +40,6 @@ public class AbilityCards : MonoBehaviour
         transform.localScale = Vector3.zero; //시작할땐 비활성화
 
         originalColor = border.color;
-    }
-
-    public void SetManager(UIManager uiManager)
-    {
-        manager = uiManager;
     }
 
     public void SetAbility(Ability ability)
@@ -114,10 +109,10 @@ public class AbilityCards : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(manager != null)
-        {
-            //manager.Card선택
-        }
+        //if(manager != null)
+        //{
+            UIManager.Instance.OnCardSelected(this);
+        //}
     }
 
     public int GetAbilityID() //null 이면 0 아니면 id 값 반환
