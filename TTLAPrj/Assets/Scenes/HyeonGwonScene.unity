@@ -153,6 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1533430389}
+  skillDatas:
+  - {fileID: 11400000, guid: 8cad664ac0421a14f835f781be89f008, type: 2}
+  - {fileID: 11400000, guid: 939219921852b6c4ab49acee3d184ef6, type: 2}
+  - {fileID: 11400000, guid: 418c33cdc452c3a48b3756b965236613, type: 2}
   isPlaying: 0
   isPaused: 0
 --- !u!4 &208092182
@@ -522,6 +526,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   projectile: {fileID: 0}
   EquipList: []
+  SkillEffect: {fileID: 0}
 --- !u!4 &1533430390
 Transform:
   m_ObjectHideFlags: 0
