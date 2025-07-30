@@ -6,12 +6,26 @@ using Newtonsoft.Json;
 
 public class SaveManager : MonoBehaviour
 {
+    //디버그용
+    public class TestPlayer
+    {
+        public float hp;
+        public float mp;
+
+        public TestPlayer(){
+            hp = 4;
+            mp = 3;
+        }
+    }
+
+    TestPlayer playerTest = new TestPlayer(); 
+
     Player playerData;
 
     private string path;
     [SerializeField] private string fileName = "save.json";
 
-    private void Awake()
+    private void Start()
     {
         if(GameManager.Instance.player != null) // 임시
         {
@@ -21,7 +35,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log(path);
     }
 
-    private void Update()
+    private void Update() //디버그용
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -31,6 +45,11 @@ public class SaveManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             LoadData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            DeleteData();
         }
     }
 
