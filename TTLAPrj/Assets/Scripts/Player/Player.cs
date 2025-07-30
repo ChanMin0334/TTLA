@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    //Public List<Item> EquipList; 
+    public List<Item> EquipList; 
     //Public Skill SkillEffect;
 
     private Rigidbody2D rb;
