@@ -10,11 +10,14 @@ public class Player : Entity
     //Public Skill SkillEffect;
 
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
     private Vector2 inputDir;
     private float lastAttackTime = 0f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     private void Update()
     {
@@ -44,6 +47,15 @@ public class Player : Entity
             anim.SetFloat("MoveX", direction.x);
             anim.SetFloat("MoveY", direction.y);
             anim.SetBool("IsMoving", direction != Vector2.zero);
+        }
+
+        if (direction.x > 0.01f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (direction.x < -0.01f)
+        {
+            spriteRenderer.flipX = true;
         }
     }
     private void AttackNearestEnemy()
