@@ -51,7 +51,5 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        throw new NotImplementedException();
     }
-
 }
