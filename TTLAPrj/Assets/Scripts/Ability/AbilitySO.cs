@@ -12,6 +12,8 @@ public class Ability
 
     public enum abilityType { normal, rare, unique, legend};
     public abilityType type;
+
+
 }
 
 [CreateAssetMenu(fileName = "AbilitySO", menuName = "Scriptable Object/ AbilitySO")] // fileName = 생성될 파일 이름 menuName = 생성 경로
