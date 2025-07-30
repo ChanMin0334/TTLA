@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stats:
-    Atk: 0
+    Atk: 1
     Hp: 0
     AtkSpeed: 0
     Speed: 5
@@ -3626,6 +3626,10 @@ PrefabInstance:
       value: -0.43474865
       objectReference: {fileID: 0}
     - target: {fileID: 2236026639391771569, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
+      propertyPath: Stats.Hp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236026639391771569, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
       propertyPath: projectile
       value: 
       objectReference: {fileID: 3761495750610948264, guid: f80253cfa27461f4a94d7921ef0367f8, type: 3}
@@ -3803,7 +3807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats:
     Atk: 0
-    Hp: 0
+    Hp: 10
     AtkSpeed: 1
     Speed: 5
   anim: {fileID: 343960927}

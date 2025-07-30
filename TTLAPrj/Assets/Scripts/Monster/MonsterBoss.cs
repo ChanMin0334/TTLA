@@ -28,7 +28,7 @@ public class MonsterBoss : Monster
         {
             lastActionTime = Time.time;
 
-            int random = Random.Range(0, 2);
+            int random = Random.Range(0, 2); // Chooses between two attacks randomly.
             if (random == 0)
             {
                 StartCoroutine(DashAttack(dir));
