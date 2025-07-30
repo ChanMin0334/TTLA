@@ -5,11 +5,11 @@ using UnityEngine;
 public class MonsterBoss : Monster
 {
     [Header("Boss Settings")]
-    public float dashSpeed = 20f;
+    public float dashSpeed = 10f;
     public float dashDuration = 0.3f;
-    public float dashCooldown = 0.5f;
-    public int projectileCount = 5;
-    public float projectileSpreadAngle = 30f;
+    public float dashCooldown = 1f;
+    public int projectileCount = 8;
+    public float projectileSpreadAngle = 20f;
     public float projectileSpeed = 6f;
     private float lastActionTime;
 
@@ -51,18 +51,18 @@ public class MonsterBoss : Monster
             elapsed += Time.deltaTime;
             yield return null;
         }
-
         rb.velocity = Vector2.zero;
+
     }
 
     private void SpreadShot(Vector2 baseDir)
     {
-        float startAngle = -projectileSpreadAngle * (projectileCount - 1)  / 2f;
+        float maxOffset = projectileSpreadAngle;
 
         for (int i = 0; i < projectileCount; i++)
         {
-            float angle = startAngle + projectileSpreadAngle * i;
-            Vector2 shootDir = Quaternion.Euler(0, 0, angle) * baseDir;
+            float randomAngle = Random.Range(-maxOffset, maxOffset);
+            Vector2 shootDir = Quaternion.Euler(0, 0, randomAngle) * baseDir;
 
             GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
             proj.layer = LayerMask.NameToLayer("EnemyProjectile");
