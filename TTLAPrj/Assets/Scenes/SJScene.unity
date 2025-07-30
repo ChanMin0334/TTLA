@@ -133,37 +133,16 @@ GameObject:
   m_Component:
   - component: {fileID: 400631752}
   - component: {fileID: 400631751}
-  - component: {fileID: 400631750}
   - component: {fileID: 400631754}
   - component: {fileID: 400631753}
-  m_Layer: 0
+  - component: {fileID: 400631755}
+  m_Layer: 7
   m_Name: Monster(Close)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &400631750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400631749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1a4a8e916b9bce4b85fc40cd1149528, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Stats:
-    Atk: 0
-    Hp: 0
-    AtkSpeed: 0
-    Speed: 5
-  anim: {fileID: 0}
-  projectile: {fileID: 0}
-  attackRange: 0.5
-  attackCooldown: 1
 --- !u!212 &400631751
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -257,7 +236,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &400631754
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -303,6 +282,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &400631755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400631749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382ddfacb9b372c45b743327b5ee65e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Stats:
+    Atk: 0
+    Hp: 0
+    AtkSpeed: 1
+    Speed: 5
+  anim: {fileID: 0}
+  projectile: {fileID: 3761495750610948264, guid: f80253cfa27461f4a94d7921ef0367f8, type: 3}
+  attackRange: 5
 --- !u!1 &1209592971
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,6 +402,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 119632234388837475, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 167893600769357295, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
       propertyPath: m_Size.y
       value: 1.0248427
@@ -410,6 +413,18 @@ PrefabInstance:
     - target: {fileID: 167893600769357295, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
       propertyPath: m_Offset.y
       value: -0.43474865
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236026639391771569, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 3761495750610948264, guid: f80253cfa27461f4a94d7921ef0367f8, type: 3}
+    - target: {fileID: 2236026639391771569, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
+      propertyPath: Stats.AtkSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616963244979851009, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5125140158234117714, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -454,6 +469,10 @@ PrefabInstance:
     - target: {fileID: 5616307649707969130, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616307649707969130, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5616307649707969130, guid: 4dfe0c23cd551f24b90bf2b75f0acfff, type: 3}
       propertyPath: m_TagString
