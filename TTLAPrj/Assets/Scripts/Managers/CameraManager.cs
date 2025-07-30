@@ -42,12 +42,12 @@ public class CameraManager : MonoBehaviour
 
     void LateUpdate()
     {
-        // 타겟이 있으면 따라감
-        if (target != null)
+        // 타겟 따라가는 기능 구현만 해둠
+        /*if (target != null)
         {
             Vector3 desiredPosition = target.position + offset;
             mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, desiredPosition, followSpeed * Time.deltaTime);
-        }
+        }*/
     }
 
     // 카메라 타겟 설정
