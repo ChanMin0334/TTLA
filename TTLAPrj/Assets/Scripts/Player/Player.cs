@@ -71,10 +71,18 @@ public class Player : Entity
         if (projectile != null)
         {
             GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
+            proj.layer = LayerMask.NameToLayer("PlayerProjectile");
             Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
             if (projRb != null)
             {
                 projRb.velocity = dir * 10f; // 임시 코드
+            }
+            ProjectileTarget projTarget = proj.GetComponent<ProjectileTarget>();
+            if (projTarget != null)
+            {
+                projTarget.damage = Stats.Atk;
+                projTarget.shooterLayer = gameObject.layer;
+                projTarget.targetLayers = LayerMask.GetMask("Enemy");
             }
         }
     }

@@ -16,10 +16,20 @@ public class MonsterRange : Monster
         if (projectile != null)
         {
             GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
+            proj.layer = LayerMask.NameToLayer("EnemyProjectile");
+
             Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
             if (projRb != null)
             {
                 projRb.velocity = dir * 5f;
+            }
+
+            ProjectileTarget projTarget = proj.GetComponent<ProjectileTarget>();
+            if (projTarget != null)
+            {
+                projTarget.damage = Stats.Atk;
+                projTarget.shooterLayer = gameObject.layer;
+                projTarget.targetLayers = LayerMask.GetMask("Player");
             }
 
             //animation?
