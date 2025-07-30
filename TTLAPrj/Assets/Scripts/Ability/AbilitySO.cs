@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilitySO : MonoBehaviour
+[System.Serializable]
+public class Ability
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int id; 
+    public string name; 
+    public Sprite sprite;
+    public string description;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public enum abilityType { normal, rare, unique, legend};
+    public abilityType type;
+}
+
+[CreateAssetMenu(fileName = "AbilitySO", menuName = "Scriptable Object/ AbilitySO")] // fileName = 생성될 파일 이름 menuName = 생성 경로
+public class AbilitySo : ScriptableObject
+{
+    public Ability[] abilities;
 }
