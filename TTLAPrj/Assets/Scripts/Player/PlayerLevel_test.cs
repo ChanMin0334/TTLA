@@ -28,11 +28,13 @@ public class PlayerLevel_test : MonoBehaviour
 
     public void LevelUp()
     {
-        // 레벨업 함수
         playerLevel++;
-        
-        // 플레이어한테 선택지 띄워주기
-        
+
+        // 레벨업 사운드 재생
+        SoundManager.Instance.PlaySFX(SFX_Name.Player_LevelUp, 0.5f);
+
+         // 플레이어한테 선택지 띄워주기
+
         // 플레이어 체력 10% 회복
 
         Debug.Log("플레이어 레벨이 " + playerLevel + "로 상승했습니다!");
