@@ -7,12 +7,13 @@ using UnityEngine;
 public class Player : Entity
 {
     public List<Item> EquipList; 
-    //Public Skill SkillEffect;
+    public Skill SkillEffect;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Vector2 inputDir;
     private float lastAttackTime = 0f;
+    private Interact interact;
 
     private void Awake()
     {
@@ -103,5 +104,23 @@ public class Player : Entity
         }
         //Debug.Log(closest);
         return closest; 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interact"))
+        {
+            interact = collision.GetComponent<Interact>();
+            interact.OnEnterTrigger(this);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interact"))
+        {
+            interact = collision.GetComponent<Interact>();
+            interact.OnExitTrigger(this);
+        }
     }
 }
