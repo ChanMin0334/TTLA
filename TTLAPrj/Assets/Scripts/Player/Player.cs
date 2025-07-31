@@ -125,7 +125,7 @@ public class Player : Entity
             {
                 projTarget.damage = Stats.Atk;
                 projTarget.shooterLayer = gameObject.layer;
-                projTarget.targetLayers = LayerMask.GetMask("Enemy");
+                projTarget.targetLayers = LayerMask.GetMask("Monster");
             }
         }
     }
