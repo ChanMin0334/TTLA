@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : Entity
 {
-    public List<Item> EquipList; 
+    public List<Item> EquipList;
     public Skill SkillEffect;
 
     private Rigidbody2D rb;
@@ -145,7 +145,7 @@ public class Player : Entity
             }
         }
         //Debug.Log(closest);
-        return closest; 
+        return closest;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
