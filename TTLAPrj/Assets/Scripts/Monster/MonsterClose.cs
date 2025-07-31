@@ -11,7 +11,6 @@ public class MonsterClose : Monster
             StopMovement();
             target.Damaged(Stats.Atk);
             //Animation for Attack
-            //
         }
     }
 }

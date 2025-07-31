@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Monster : Entity
@@ -7,7 +8,7 @@ public class Monster : Entity
     protected Player target;
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
-    protected Vector2 moveDirection;
+    protected NavMeshAgent agent;
 
     [Header("Combat")]
     public float attackRange = 1.5f;
@@ -17,6 +18,12 @@ public class Monster : Entity
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        agent = GetComponent<NavMeshAgent>();
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.speed = Stats.Speed;
 
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null)
@@ -27,18 +34,22 @@ public class Monster : Entity
 
     protected virtual void Update()
     {
-        if (target == null) return;
+        if (target == null)
+        {
+            return;
+        }
 
         float distance = Vector2.Distance(transform.position, target.transform.position);
         Vector2 dir = (target.transform.position - transform.position).normalized;
 
         if (distance > attackRange)
         {
-            moveDirection = dir;
+            agent.isStopped = false;
+            agent.SetDestination(target.transform.position);
         }
         else
         {
-            moveDirection = Vector2.zero;
+            agent.isStopped = true;
             StopMovement();
 
             if (Time.time - lastAttackTime >= 1f / Stats.AtkSpeed)
@@ -49,23 +60,6 @@ public class Monster : Entity
         }
 
         HandleSpriteFlip(dir);
-    }
-
-    protected virtual void FixedUpdate()
-    {
-        Move(moveDirection);
-    }
-
-    public override void Move(Vector2 direction)
-    {
-        rb.velocity = direction * Stats.Speed;
-
-        // if (anim != null)
-        // {
-        //     anim.SetBool("IsMoving", direction != Vector2.zero);
-        //     anim.SetFloat("MoveX", direction.x);
-        //     anim.SetFloat("MoveY", direction.y);
-        // }
     }
 
     protected void StopMovement()

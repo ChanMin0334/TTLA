@@ -5,6 +5,20 @@ using UnityEngine;
 public abstract class Interact : MonoBehaviour
 {
     [SerializeField] protected float value = 0f;
-    protected abstract void OnEnterTrigger(Player player);
-    protected abstract void OnExitTrigger(Player player);
+
+    private static readonly int IsInteract = Animator.StringToHash("IsInteract");
+    protected Animator animator;
+
+    protected virtual void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
+
+    public void InteractAnimation()
+    {
+        animator.SetTrigger(IsInteract);
+    }
+
+    public abstract void OnEnterTrigger(Player player);
+    public abstract void OnExitTrigger(Player player);
 }
