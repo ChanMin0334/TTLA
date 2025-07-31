@@ -6,6 +6,7 @@ public class Stats
     public float AtkSpeed;
     public float Speed;
 
+    public Stats() {}
     public Stats(float atk, float hp, float atkSpeed, float speed)
     {
         Atk = atk;
