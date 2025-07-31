@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 public class MonsterSniper : Monster
 {
     [Header("Sniper Setting")]
-    public float chargeTime = 1.5f; // Time taken to fire.
     public LineRenderer laserLine;
     public Transform firePoint;
     private bool isCharging = false;
@@ -35,8 +34,6 @@ public class MonsterSniper : Monster
         }
 
         Vector2 dir = (target.transform.position - transform.position).normalized;
-        float distance = Vector2.Distance(transform.position, target.transform.position);
-
         HandleSpriteFlip(dir);
 
         if (!isCharging && Time.time - lastAttackTime >= 1f / Stats.AtkSpeed)
@@ -50,7 +47,7 @@ public class MonsterSniper : Monster
     {
         isCharging = true;
 
-        float trackingtime = chargeTime - 0.3f;
+        float trackingtime = Stats.AtkSpeed - 0.3f;
         float elapsed = 0f;
 
         //Show Red Line
@@ -61,12 +58,32 @@ public class MonsterSniper : Monster
 
         while (elapsed < trackingtime)
         {
-            if (laserLine != null && firePoint != null && target != null)
+            if (target == null)
             {
-                Vector2 currentDir = (target.transform.position - transform.position).normalized;
-                laserLine.SetPosition(0, firePoint.position);
-                laserLine.SetPosition(1, firePoint.position + (Vector3)(currentDir * 20f));
+                if (laserLine != null)
+                {
+                    laserLine.enabled = false;
+                }
+
+                isCharging = false;
+                yield break;
             }
+            if (laserLine != null && firePoint != null && target != null)
+                {
+                    Vector2 currentDir = (target.transform.position - transform.position).normalized;
+                    //If hits a wall it will re adjust the length of the Area.
+                    RaycastHit2D hit = Physics2D.Raycast(firePoint.position, currentDir, 20f, LayerMask.GetMask("Default", "Wall")); // Add your actual wall layers here
+                    laserLine.SetPosition(0, firePoint.position);
+
+                    if (hit.collider != null)
+                    {
+                        laserLine.SetPosition(1, hit.point);
+                    }
+                    else
+                    {
+                        laserLine.SetPosition(1, firePoint.position + (Vector3)(currentDir * 20f));
+                    }
+                }
 
             elapsed += Time.deltaTime;
             yield return null;
@@ -76,10 +93,19 @@ public class MonsterSniper : Monster
         if (laserLine != null && firePoint != null)
         {
             laserLine.SetPosition(0, firePoint.position);
-            laserLine.SetPosition(1, firePoint.position + (Vector3)(finalDir * 20f));
+
+            RaycastHit2D hit = Physics2D.Raycast(firePoint.position, finalDir, 20f, LayerMask.GetMask("Default", "Wall"));
+            if (hit.collider != null)
+            {
+                laserLine.SetPosition(1, hit.point);
+            }
+            else
+            {
+                laserLine.SetPosition(1, firePoint.position + (Vector3)(finalDir * 20f));
+            }
         }
 
-        yield return new WaitForSeconds(chargeTime - trackingtime);
+        yield return new WaitForSeconds(Stats.AtkSpeed - trackingtime);
 
         ShootProjectile(finalDir);
 
