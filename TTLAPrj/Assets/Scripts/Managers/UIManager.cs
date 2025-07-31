@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,12 +21,15 @@ public class UIManager : MonoBehaviour
     [Header("GameState UI")] // 패널 하나로 하고 글자만 다르게 해도 될듯
     [SerializeField] GameObject clearPanel;
     [SerializeField] SpriteRenderer[] clearStars;
-
+    [SerializeField] GameObject overPanel;
     [SerializeField] GameObject mainBtn;
     [SerializeField] GameObject exitBtn;
 
-
-
+    [Header("Utility UI")]
+    [SerializeField] Image character;
+    [SerializeField] Sprite[] otherCharacters;
+    int characterIndex;
+    
     //[SerializeField] GameObject gameOverPanel;
 
     // UI 패널 예시 (필요에 따라 추가)
@@ -57,6 +61,9 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Keypad3))
             StartCoroutine(GameClear());
+
+        if(Input.GetKeyDown(KeyCode.Keypad4))
+            StartCoroutine(GameOver());
     }
 
     #region 레벨업쪽 UI
@@ -122,6 +129,7 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region 유틸리티? 옵션, 캐릭터 이미지 변경
     public void SoundPanelOn()
     {
         soundPanel.SetActive(true);
@@ -132,23 +140,73 @@ public class UIManager : MonoBehaviour
         soundPanel.SetActive(false);
     }
 
+    public void ChangeSprite(int index)
+    {
+        characterIndex += index;
+
+        if (characterIndex < 0)
+            characterIndex = otherCharacters.Length - 1;
+        else if (characterIndex >= otherCharacters.Length)
+            characterIndex = 0;
+
+        character.DOFade(0f, 0.2f).OnComplete(() =>
+        {
+            character.sprite = otherCharacters[characterIndex];
+            character.DOFade(1f, 0.2f);
+        });
+    }
+
+    public void OnLeftButton() => ChangeSprite(-1);
+    public void OnRightButton() => ChangeSprite(1);
+
+    #endregion
+
     #region 게임오버 / 게임 클리어
 
     IEnumerator GameClear()
     {
         clearPanel.SetActive(true);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(clearPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.AppendInterval(1.5f);
+
         yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < clearStars.Length; i++)
         {
             clearStars[i].gameObject.SetActive(true);
             clearStars[i].transform.localScale = Vector3.zero;
-            clearStars[i].transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            clearStars[i].transform.DOScale(0.06f, 0.3f).SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.5f);
         }
 
+        SetBtn();
+    }
+
+    IEnumerator GameOver()
+    {
+        overPanel.SetActive(true);
+
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(overPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.AppendInterval(1.5f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        SetBtn();
+    }
+
+    void SetBtn()
+    {
+        Sequence seq = DOTween.Sequence();
+
         mainBtn.SetActive(true);
         exitBtn.SetActive(true);
+
+        seq.Append(mainBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(exitBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
     }
     #endregion
 }
