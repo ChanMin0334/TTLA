@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,10 +10,11 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [Header("Ability관련 UI")]
-    [SerializeField] AbilitySo abilitySO;
-    [SerializeField] AbilityCards[] cards;
+    //[SerializeField] AbilitySo abilitySO;
+    [SerializeField] SkillDataBase skillDataBase;
+    [SerializeField] SkillCards[] cards;
     [SerializeField] GameObject levelUpPanel;
-    AbilityCards selectedCard = null;
+    SkillCards selectedCard = null;
 
     [Header("Option UI")]
     [SerializeField] GameObject soundPanel;
@@ -20,12 +22,18 @@ public class UIManager : MonoBehaviour
     [Header("GameState UI")] // 패널 하나로 하고 글자만 다르게 해도 될듯
     [SerializeField] GameObject clearPanel;
     [SerializeField] SpriteRenderer[] clearStars;
-
+    [SerializeField] GameObject overPanel;
     [SerializeField] GameObject mainBtn;
     [SerializeField] GameObject exitBtn;
 
+    [Header("Utility UI")]
+    [SerializeField] Image character;
+    [SerializeField] Sprite[] otherCharacters;
+    int characterIndex;
 
-
+    //임시용
+    [SerializeField] Player player;
+    
     //[SerializeField] GameObject gameOverPanel;
 
     // UI 패널 예시 (필요에 따라 추가)
@@ -57,10 +65,13 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Keypad3))
             StartCoroutine(GameClear());
+
+        if(Input.GetKeyDown(KeyCode.Keypad4))
+            StartCoroutine(GameOver());
     }
 
     #region 레벨업쪽 UI
-    public void OnCardSelected(AbilityCards clickedCard) // 카드 하이라이트 기능
+    public void OnCardSelected(SkillCards clickedCard) // 카드 하이라이트 기능a
     {
         if (selectedCard != null && selectedCard != clickedCard) //선택한 카드 존재 && 기존카드 != 선택카드
         {
@@ -70,31 +81,40 @@ public class UIManager : MonoBehaviour
         selectedCard = clickedCard;
         selectedCard.Select();
 
-        Debug.Log("선택된 카드: " + selectedCard.GetAbilityID());
+        Debug.Log("선택된 카드: " + selectedCard.GetSkillID());
+
+        Debug.Log($"플레이어의 카드선택전 공격력 : {player.Stats.Atk}");
+        Debug.Log($"플레이어의 카드선택전 공격속도 {player.Stats.AtkSpeed}");
+
+        selectedCard.currentSkill.ApplySkill(player);
 
         foreach (var card in cards)
         {
             card.Showout();
         }
+
+        Debug.Log($"플레이어의 카드선택후 공격력 : {player.Stats.Atk}");
+        Debug.Log($"플레이어의 카드선택후 공격속도 {player.Stats.AtkSpeed}");
+
     }
 
     void ShowCard()
     {
-        if (abilitySO != null && abilitySO.abilities.Length > 0)
+        if (skillDataBase != null && skillDataBase.skills.Length > 0)
         {
-            int maxCount = Mathf.Min(cards.Length, abilitySO.abilities.Length);
+            int maxCount = Mathf.Min(cards.Length, skillDataBase.skills.Length);
             List<int> Noduplication = new List<int>(); //중복 방지 
             for (int i = 0; i < maxCount; i++)
             {
                 int rand;
                 do
                 {
-                    rand = Random.Range(0, abilitySO.abilities.Length);
+                    rand = Random.Range(0, skillDataBase.skills.Length);
                 } while (Noduplication.Contains(rand));
                 Noduplication.Add(rand);
 
-                Ability randomAbility = abilitySO.abilities[rand];
-                cards[i].SetAbility(randomAbility);
+                Skill randomSkill = skillDataBase.skills[rand];
+                cards[i].SetSkill(randomSkill);
                 cards[i].ShowIn();
             }
         }
@@ -122,6 +142,7 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region 유틸리티? 옵션, 캐릭터 이미지 변경
     public void SoundPanelOn()
     {
         soundPanel.SetActive(true);
@@ -132,23 +153,73 @@ public class UIManager : MonoBehaviour
         soundPanel.SetActive(false);
     }
 
+    public void ChangeSprite(int index)
+    {
+        characterIndex += index;
+
+        if (characterIndex < 0)
+            characterIndex = otherCharacters.Length - 1;
+        else if (characterIndex >= otherCharacters.Length)
+            characterIndex = 0;
+
+        character.DOFade(0f, 0.2f).OnComplete(() =>
+        {
+            character.sprite = otherCharacters[characterIndex];
+            character.DOFade(1f, 0.2f);
+        });
+    }
+
+    public void OnLeftButton() => ChangeSprite(-1);
+    public void OnRightButton() => ChangeSprite(1);
+
+    #endregion
+
     #region 게임오버 / 게임 클리어
 
     IEnumerator GameClear()
     {
         clearPanel.SetActive(true);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(clearPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.AppendInterval(1.5f);
+
         yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < clearStars.Length; i++)
         {
             clearStars[i].gameObject.SetActive(true);
             clearStars[i].transform.localScale = Vector3.zero;
-            clearStars[i].transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            clearStars[i].transform.DOScale(0.06f, 0.3f).SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.5f);
         }
 
+        SetBtn();
+    }
+
+    IEnumerator GameOver()
+    {
+        overPanel.SetActive(true);
+
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(overPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.AppendInterval(1.5f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        SetBtn();
+    }
+
+    void SetBtn()
+    {
+        Sequence seq = DOTween.Sequence();
+
         mainBtn.SetActive(true);
         exitBtn.SetActive(true);
+
+        seq.Append(mainBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(exitBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
     }
     #endregion
 }
