@@ -18,7 +18,7 @@ public enum SFX_Name
     Player_ByAttack,
     SFX_ButtonClick,
     SFX_GameOver,
-    SFX_StageClear,
+    SFX_IntroSound,
     SFX_EnterBoss,
     SFX_PickupMoney
 }
@@ -94,7 +94,7 @@ public class SoundManager : MonoBehaviour
             case SFX_Name.SFX_GameOver:
                 clip = sfxClips[5];
                 break;
-            case SFX_Name.SFX_StageClear:
+            case SFX_Name.SFX_IntroSound:
                 clip = sfxClips[6];
                 break;
             case SFX_Name.SFX_EnterBoss:
