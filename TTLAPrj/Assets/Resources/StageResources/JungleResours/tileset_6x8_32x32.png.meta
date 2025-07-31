@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -202,7 +202,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -82, y: -31.5}
+        - {x: -82, y: 81.5}
+        - {x: 82, y: 81.5}
+        - {x: 82, y: -30.5}
       tessellationDetail: 0
       bones: []
       spriteID: d214e9a55f34d4c51af97e71f8ce554e
@@ -232,6 +236,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tileset_6x8_32x32_4
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 528
+        width: 164
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d16253ae1940b469f979795e77106f81
+      internalID: 1314733084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -247,6 +272,7 @@ TextureImporter:
       tileset_6x8_32x32_1: 1675782377
       tileset_6x8_32x32_2: 1822137101
       tileset_6x8_32x32_3: 28303606
+      tileset_6x8_32x32_4: 1314733084
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
