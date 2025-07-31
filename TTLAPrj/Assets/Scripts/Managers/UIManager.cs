@@ -10,10 +10,11 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [Header("Ability관련 UI")]
-    [SerializeField] AbilitySo abilitySO;
-    [SerializeField] AbilityCards[] cards;
+    //[SerializeField] AbilitySo abilitySO;
+    [SerializeField] SkillDataBase skillDataBase;
+    [SerializeField] SkillCards[] cards;
     [SerializeField] GameObject levelUpPanel;
-    AbilityCards selectedCard = null;
+    SkillCards selectedCard = null;
 
     [Header("Option UI")]
     [SerializeField] GameObject soundPanel;
@@ -29,6 +30,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image character;
     [SerializeField] Sprite[] otherCharacters;
     int characterIndex;
+
+    //임시용
+    [SerializeField] Player player;
     
     //[SerializeField] GameObject gameOverPanel;
 
@@ -67,7 +71,7 @@ public class UIManager : MonoBehaviour
     }
 
     #region 레벨업쪽 UI
-    public void OnCardSelected(AbilityCards clickedCard) // 카드 하이라이트 기능
+    public void OnCardSelected(SkillCards clickedCard) // 카드 하이라이트 기능a
     {
         if (selectedCard != null && selectedCard != clickedCard) //선택한 카드 존재 && 기존카드 != 선택카드
         {
@@ -77,31 +81,40 @@ public class UIManager : MonoBehaviour
         selectedCard = clickedCard;
         selectedCard.Select();
 
-        Debug.Log("선택된 카드: " + selectedCard.GetAbilityID());
+        Debug.Log("선택된 카드: " + selectedCard.GetSkillID());
+
+        Debug.Log($"플레이어의 카드선택전 공격력 : {player.Stats.Atk}");
+        Debug.Log($"플레이어의 카드선택전 공격속도 {player.Stats.AtkSpeed}");
+
+        selectedCard.currentSkill.ApplySkill(player);
 
         foreach (var card in cards)
         {
             card.Showout();
         }
+
+        Debug.Log($"플레이어의 카드선택후 공격력 : {player.Stats.Atk}");
+        Debug.Log($"플레이어의 카드선택후 공격속도 {player.Stats.AtkSpeed}");
+
     }
 
     void ShowCard()
     {
-        if (abilitySO != null && abilitySO.abilities.Length > 0)
+        if (skillDataBase != null && skillDataBase.skills.Length > 0)
         {
-            int maxCount = Mathf.Min(cards.Length, abilitySO.abilities.Length);
+            int maxCount = Mathf.Min(cards.Length, skillDataBase.skills.Length);
             List<int> Noduplication = new List<int>(); //중복 방지 
             for (int i = 0; i < maxCount; i++)
             {
                 int rand;
                 do
                 {
-                    rand = Random.Range(0, abilitySO.abilities.Length);
+                    rand = Random.Range(0, skillDataBase.skills.Length);
                 } while (Noduplication.Contains(rand));
                 Noduplication.Add(rand);
 
-                Ability randomAbility = abilitySO.abilities[rand];
-                cards[i].SetAbility(randomAbility);
+                Skill randomSkill = skillDataBase.skills[rand];
+                cards[i].SetSkill(randomSkill);
                 cards[i].ShowIn();
             }
         }
