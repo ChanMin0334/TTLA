@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : Entity
 {
-    public List<Item> EquipList; 
+    public List<Item> EquipList;
     public Skill SkillEffect;
 
     private Rigidbody2D rb;
@@ -14,6 +14,10 @@ public class Player : Entity
     private Vector2 inputDir;
     private float lastAttackTime = 0f;
     private Interact interact;
+
+    [Header("Invicibility")]
+    private bool isInvincible = false;
+    public float invicibilityDuration = 1f;
 
     private void Awake()
     {
@@ -33,6 +37,44 @@ public class Player : Entity
     private void FixedUpdate()
     {
         Move(inputDir);
+    }
+
+    public override void Damaged(float damage)
+    {
+        if (isInvincible)
+        {
+            return;
+        }
+
+        base.Damaged(damage);
+        StartCoroutine(InvincibilityCoroutine());
+    }
+
+    private IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+
+        float elapsed = 0f;
+        while (elapsed < invicibilityDuration)
+        {
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = new Color(1, 1, 1, 0.5f);
+            }
+
+            yield return new WaitForSeconds(0.1f);
+
+
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = Color.white;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+            elapsed += 0.2f;
+        }
+
+        isInvincible = false;
     }
 
     private void HandleInput()
@@ -103,7 +145,7 @@ public class Player : Entity
             }
         }
         //Debug.Log(closest);
-        return closest; 
+        return closest;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

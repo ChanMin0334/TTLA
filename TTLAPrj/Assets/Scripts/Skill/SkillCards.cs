@@ -2,12 +2,13 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class AbilityCards : MonoBehaviour
+public class SkillCards : MonoBehaviour
 {
     [Header("Data")]
-    [SerializeField] AbilitySo abilitySO; //추후 ID로 능력 참조할때 사용 가능
+    [SerializeField] SkillDataBase skillDataBase; //추후 ID로 능력 참조할때 사용 가능
 
     [Header("UI Components")]
     [SerializeField] SpriteRenderer border;
@@ -26,7 +27,7 @@ public class AbilityCards : MonoBehaviour
 
     UIManager manager;
 
-    Ability currentAbility;
+    public Skill currentSkill;
 
     public int CardIndex { get; set; }
 
@@ -42,25 +43,25 @@ public class AbilityCards : MonoBehaviour
         originalColor = border.color;
     }
 
-    public void SetAbility(Ability ability)
+    public void SetSkill(Skill skill)
     {
-        nameTMP.text = ability.name;
-        descriptionTMP.text = ability.description;
-        abilityImage.sprite = ability.sprite;
-        SetBorder(ability.type);
-        currentAbility = ability;
+        nameTMP.text = skill.skillName;
+        descriptionTMP.text = skill.skillDescription;
+        abilityImage.sprite = skill.skillIcon;
+        SetBorder(skill.type);
+        currentSkill = skill;
 
         DeSelect();
     }
 
-    void SetBorder(Ability.abilityType type) //카드 등급별로 Border 세팅
+    void SetBorder(Skill.skillType type) //카드 등급별로 Border 세팅
     {
         switch (type)
         {
-            case Ability.abilityType.normal: border.sprite = normalBorder; break;
-            case Ability.abilityType.rare: border.sprite = rareBorder; break;
-            case Ability.abilityType.unique: border.sprite = uniqueBorder; break;
-            case Ability.abilityType.legend: border.sprite = legendBorder; break;
+            case Skill.skillType.normal: border.sprite = normalBorder; break;
+            case Skill.skillType.rare: border.sprite = rareBorder; break;
+            case Skill.skillType.unique: border.sprite = uniqueBorder; break;
+            case Skill.skillType.legend: border.sprite = legendBorder; break;
         }
     }
 
@@ -81,7 +82,7 @@ public class AbilityCards : MonoBehaviour
     {
         if (isSelected) return;
         isSelected = true;
-        border.color = highlightColor; 
+        border.color = highlightColor;
     }
 
     public void DeSelect() //원래색
@@ -109,15 +110,12 @@ public class AbilityCards : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //if(manager != null)
-        //{
-            UIManager.Instance.OnCardSelected(this);
-        //}
+        UIManager.Instance.OnCardSelected(this);
     }
 
-    public int GetAbilityID() //null 이면 0 아니면 id 값 반환
+    public int GetSkillID() //null 이면 0 아니면 id 값 반환
     {
-        return currentAbility != null ? currentAbility.id : 0;
+        return currentSkill != null ? currentSkill.id : 0;
     }
 }
 

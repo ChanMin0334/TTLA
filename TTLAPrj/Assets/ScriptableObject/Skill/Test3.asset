@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5ba9999d332dfe4fb06c8bcdbfa2705, type: 3}
-  m_Name: Atk
+  m_Name: Test3
   m_EditorClassIdentifier: 
-  id: 0
-  skillName: "\uD5E4\uB4DC\uC0F7"
-  skillIcon: {fileID: -204934096, guid: 4a5869bce2058ac4883c2bf8cf019497, type: 3}
-  skillDescription: "\uACF5\uACA9\uB825\uC774 1\uC99D\uAC00\uD55C\uB2E4"
-  type: 0
-  skills:
-  - {fileID: 11400000, guid: 66bc5855fb6c9c7489aa34855ffda9fd, type: 2}
+  id: 6
+  skillName: "6\uBC88\uC2A4\uD0AC"
+  skillIcon: {fileID: -2130620500, guid: 4a5869bce2058ac4883c2bf8cf019497, type: 3}
+  skillDescription: "\uB300\uD3EC\uACF5\uACA9\uC774\uB2E4"
+  type: 3
+  skills: []
