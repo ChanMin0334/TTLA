@@ -64,7 +64,7 @@ public class UpgradeUI : MonoBehaviour
 
         nameText.text = $"Àåºñ¸í :{equip.name}";
         levelText.text = $"·¹º§ {equip.nowLevel}";
-        chanceText.text = $"È®·ü {equip.chances[equip.nowLevel]}";
+        chanceText.text = $"È®·ü {equip.chances[equip.nowLevel] * 100}%";
 
         switch(equip.equipmentType)
         {
