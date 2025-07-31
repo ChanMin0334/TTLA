@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ba9999d332dfe4fb06c8bcdbfa2705, type: 3}
   m_Name: AtkBoost
   m_EditorClassIdentifier: 
+  id: 1
   skillName: "\uACF5\uACA9\uB825\uACFC \uC18D\uB3C4 \uC99D\uAC00"
-  skillIcon: {fileID: 0}
+  skillIcon: {fileID: -1350044765, guid: 4a5869bce2058ac4883c2bf8cf019497, type: 3}
+  skillDescription: "\uACF5\uACA9\uB8251\uACFC \uACF5\uACA9\uC18D\uB3C41\uC774 \uC99D\uAC00\uD55C\uB2E4."
+  type: 0
   skills:
   - {fileID: 11400000, guid: 66bc5855fb6c9c7489aa34855ffda9fd, type: 2}
   - {fileID: 11400000, guid: a8c4205b50e8d344f9a3d6233dca5499, type: 2}
