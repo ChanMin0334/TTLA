@@ -19,11 +19,11 @@ public class UISlider : MonoBehaviour
 
     public void SlideOn(float duration)
     {
-        rect.DOAnchorPosX(onX, duration).SetEase(Ease.OutCubic);
+        rect.DOAnchorPosX(onX, duration).SetEase(Ease.Unset);
     }
 
     public void SlideOff(float duration)
     {
-        rect.DOAnchorPosX(offX, duration).SetEase(Ease.InCubic);
+        rect.DOAnchorPosX(offX, duration).SetEase(Ease.Unset);
     }
 }
