@@ -1,29 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public enum BGMName
+{
+    BGM_01,
+    BGM_02,
+    BGM_03,
+    BGM_04,
+    BossBGM,
+}
+
+public enum SFX_Name
+{
+    Player_Attack,
+    Player_LevelUp,
+    Player_Death,
+    Player_Heal,
+    Player_ByAttack,
+    SFX_ButtonClick,
+    SFX_GameOver,
+    SFX_StageClear,
+    SFX_EnterBoss,
+    SFX_PickupMoney
+}
 
 public class SoundManager : MonoBehaviour
 {
-    // 싱글톤 인스턴스
     public static SoundManager Instance { get; private set; }
 
-    // 배경음악용 AudioSource
     private AudioSource bgmSource;
-    // 효과음용 AudioSource
     private AudioSource sfxSource;
 
-    // 효과음 클립 리스트 예시
+    // 여러 BGM을 Inspector에서 할당
+    public AudioClip[] bgmClips;
     public AudioClip[] sfxClips;
 
     private void Awake()
     {
-        // 싱글톤 인스턴스 할당 및 중복 방지
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // AudioSource 컴포넌트 2개 추가 (BGM, SFX)
             bgmSource = gameObject.AddComponent<AudioSource>();
             sfxSource = gameObject.AddComponent<AudioSource>();
 
@@ -35,36 +52,74 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // 배경음악 재생
-    public void PlayBGM(AudioClip clip, float volume = 1f)
+    // 인덱스로 BGM 재생
+    public void PlayBGM(BGMName soundName, float volume = 1f)
     {
-        if (bgmSource.clip != clip)
-        {
-            bgmSource.clip = clip;
-            bgmSource.volume = volume;
-            bgmSource.Play();
-        }
+        int index = (int)soundName;
+
+        if (index < 0 || index >= bgmClips.Length) return;
+        if (bgmSource.clip == bgmClips[index]) return;
+
+        bgmSource.clip = bgmClips[index];
+        bgmSource.volume = volume;
+        bgmSource.Play();
     }
 
-    // 효과음 재생
-    public void PlaySFX(AudioClip clip, float volume = 1f)
-    {
-        sfxSource.PlayOneShot(clip, volume);
-    }
-
-    // 배경음악 정지
     public void StopBGM()
     {
         bgmSource.Stop();
     }
 
-    // 효과음 볼륨 조절
+    public void PlaySFX(SFX_Name name, float volume = 1f)
+    {
+        AudioClip clip;
+
+        switch (name)
+        {
+            case SFX_Name.Player_Attack:
+                clip = sfxClips[0];
+                break;
+            case SFX_Name.Player_LevelUp:
+                clip = sfxClips[1];
+                break;
+            case SFX_Name.Player_Death:
+                clip = sfxClips[2];
+                break;
+            case SFX_Name.Player_Heal:
+                clip = sfxClips[3];
+                break;
+            case SFX_Name.Player_ByAttack:
+                clip = sfxClips[4];
+                break;
+            case SFX_Name.SFX_GameOver:
+                clip = sfxClips[5];
+                break;
+            case SFX_Name.SFX_StageClear:
+                clip = sfxClips[6];
+                break;
+            case SFX_Name.SFX_EnterBoss:
+                clip = sfxClips[7];
+                break;
+            case SFX_Name.SFX_PickupMoney:
+                clip = sfxClips[8];
+                break;
+            case SFX_Name.SFX_ButtonClick:
+                clip = sfxClips[9];
+                break;
+            default:
+                Debug.LogWarning("SFX clip not found for: " + name);
+                return;
+
+        }
+
+        sfxSource.PlayOneShot(clip, volume);
+    }
+
     public void SetSFXVolume(float volume)
     {
         sfxSource.volume = volume;
     }
 
-    // 배경음악 볼륨 조절
     public void SetBGMVolume(float volume)
     {
         bgmSource.volume = volume;

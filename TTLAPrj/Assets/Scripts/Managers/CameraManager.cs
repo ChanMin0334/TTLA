@@ -36,7 +36,7 @@ public class CameraManager : MonoBehaviour
 
         // FHD(1920x1080) 비율로 고정 (16:9)
         mainCamera.aspect = 1920f / 1080f;
-
+        SoundManager.Instance.PlayBGM(BGMName.BGM_01, 0.5f); // BGM 재생, 볼륨 조절 가능
     }
 
 

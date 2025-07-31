@@ -6,6 +6,7 @@ using UnityEngine;
 public class Skill : ScriptableObject
 {
     [Header("Skill Info")]
+    public int id;
     public string skillName;
     public Sprite skillIcon;
     [TextArea(3,5)]
