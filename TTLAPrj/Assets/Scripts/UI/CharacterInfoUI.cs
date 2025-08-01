@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class CharacterInfoUI : MonoBehaviour
 {
@@ -11,6 +12,19 @@ public class CharacterInfoUI : MonoBehaviour
     [SerializeField] Sprite[] otherCharacters;
     int characterIndex;
 
+    [Header("Character Info")]
+    [SerializeField] TMP_Text hpText;
+    [SerializeField] TMP_Text atkText;
+    [SerializeField] TMP_Text atkSpeedText;
+    [SerializeField] TMP_Text speedText;
+
+    //테스트
+    [SerializeField] Player player;
+
+    private void OnEnable()
+    {
+        ShowCharacterInfo();
+    }
     public void ChangeSprite(int index)
     {
         characterIndex += index;
@@ -29,4 +43,12 @@ public class CharacterInfoUI : MonoBehaviour
 
     public void OnLeftButton() => ChangeSprite(-1);
     public void OnRightButton() => ChangeSprite(1);
+
+    public void ShowCharacterInfo()
+    {
+        hpText.text = $"체력 : {player.Stats.Hp}"; 
+        atkText.text = $"공격력 : {player.Stats.Atk}";
+        atkSpeedText.text = $"공격속도 : {player.Stats.AtkSpeed}";
+        speedText.text = $"이동속도 : {player.Stats.Speed}";
+    }
 }

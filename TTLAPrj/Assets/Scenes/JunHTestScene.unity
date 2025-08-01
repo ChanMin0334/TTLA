@@ -12435,7 +12435,7 @@ GameObject:
   - component: {fileID: 1245336078}
   - component: {fileID: 1245336079}
   m_Layer: 5
-  m_Name: Character
+  m_Name: CharacterUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12493,6 +12493,11 @@ MonoBehaviour:
   - {fileID: -1113444524, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
   - {fileID: 1582527935, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
   - {fileID: -2109595773, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
+  hpText: {fileID: 259132110}
+  atkText: {fileID: 101111492}
+  atkSpeedText: {fileID: 1251278298}
+  speedText: {fileID: 1417525052}
+  player: {fileID: 1533430389}
 --- !u!1 &1248153332
 GameObject:
   m_ObjectHideFlags: 0
@@ -18698,9 +18703,10 @@ MonoBehaviour:
   - {fileID: 901622195}
   levelUpPanel: {fileID: 994687107}
   soundPanel: {fileID: 159240554}
-  player: {fileID: 0}
+  player: {fileID: 1533430389}
   upgradeUI: {fileID: 1055115703}
   gamestateUI: {fileID: 1889576615}
+  characterInfoUI: {fileID: 1245336079}
 --- !u!4 &1485917268
 Transform:
   m_ObjectHideFlags: 0
@@ -18902,7 +18908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a59c902e91f374e829846beb733cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invType: 0
+  invType: 1
   InvSlotPlace: {fileID: 392385299}
   enhancePlace: {fileID: 1218394428}
   equipPlace: {fileID: 0}
