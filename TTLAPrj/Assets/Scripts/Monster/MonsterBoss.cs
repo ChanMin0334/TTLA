@@ -12,12 +12,18 @@ public class MonsterBoss : Monster
     public float projectileSpreadAngle = 20f;
     public float projectileSpeed = 6f;
     private float lastActionTime;
-    public bool isActive = false;
-    
+    private bool isPhaseTwo = false;
+    private float initialHp;
+    private bool isPerformingAttack = false;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        initialHp = Stats.Hp;
+    }
     protected override void Update()
     {
-        if (!isActive) return;
-        if (target == null)
+        if (target == null || isPerformingAttack)
         {
             return;
         }
@@ -26,19 +32,43 @@ public class MonsterBoss : Monster
         Vector2 dir = (target.transform.position - transform.position).normalized;
         HandleSpriteFlip(dir);
 
+        if (!isPhaseTwo && Stats.Hp <= initialHp / 2f)
+        {
+            EnterPhaseTwo();
+        }
         if (Time.time - lastActionTime >= dashCooldown)
         {
             lastActionTime = Time.time;
-
-            int random = Random.Range(0, 2); // Chooses between two attacks randomly.
-            if (random == 0)
+            if (isPhaseTwo)
             {
-                StartCoroutine(DashAttack(dir));
+                int random = Random.Range(0, 10); // Three Attacks, based on chance
+                Debug.Log("Chance" + random);
+                if (0 <= random && random <= 4)
+                {
+                    StartCoroutine(DashAttack(dir));
+                }
+                else if (5 <= random && random <= 8)
+                {
+                    SpreadShot(dir);
+                }
+                else
+                {
+                    StartCoroutine(SpiralShotAttack());
+                }
             }
             else
-            {
-                SpreadShot(dir);
+            {     
+                int random = Random.Range(0, 2);       
+                if (random == 0)
+                {
+                    StartCoroutine(DashAttack(dir));
+                }
+                else
+                {
+                    SpreadShot(dir);
+                }
             }
+
         }
     }
 
@@ -87,6 +117,73 @@ public class MonsterBoss : Monster
             }
         }
     }
+
+    private void EnterPhaseTwo()
+    {
+        isPhaseTwo = true;
+
+        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.color = new Color(1f, 0.5f, 0.5f);
+        }
+
+        dashSpeed *= 1.5f;
+
+        StartCoroutine(SpiralShotAttack());
+    }
+
+    private IEnumerator SpiralShotAttack()
+    {
+        isPerformingAttack = true;
+        Vector2 centerPosition = Vector2.zero; // Change if Center is not 0,0
+        float moveSpeed = 6f;
+
+        // Move to center
+        while (Vector2.Distance(transform.position, centerPosition) > 0.1f)
+        {
+            Vector2 direction = (centerPosition - (Vector2)transform.position).normalized;
+            rb.velocity = direction * moveSpeed;
+            yield return null;
+        }
+
+        rb.velocity = Vector2.zero;
+
+        // Spiral shot Settings
+        int totalShots = 30;
+        float angle = 0f;
+        float angleStep = 15f;
+
+        for (int i = 0; i < totalShots; i++)
+        {
+            float radians = angle * Mathf.Deg2Rad;
+            Vector2 shootDir = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)).normalized;
+
+            GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
+            proj.layer = LayerMask.NameToLayer("EnemyProjectile");
+
+            Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
+            if (projRb != null)
+            {
+                projRb.velocity = shootDir * projectileSpeed;
+            }
+
+            ProjectileTarget projTarget = proj.GetComponent<ProjectileTarget>();
+            if (projTarget != null)
+            {
+                projTarget.damage = Stats.Atk;
+                projTarget.shooterLayer = gameObject.layer;
+                projTarget.targetLayers = LayerMask.GetMask("Player");
+            }
+
+            angle += angleStep;
+            yield return new WaitForSeconds(0.05f);
+        }
+        yield return new WaitForSeconds(0.5f); // Pause before resuming normal behavior
+
+        isPerformingAttack = false;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -97,9 +194,5 @@ public class MonsterBoss : Monster
                 player.Damaged(Stats.Atk);
             }
         }
-    }
-    public void ActivateBoss()
-    {
-        isActive = true;
     }
 }
