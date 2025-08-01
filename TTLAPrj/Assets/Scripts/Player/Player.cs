@@ -87,8 +87,6 @@ public class Player : Entity
 
         if (anim != null)
         {
-            anim.SetFloat("MoveX", direction.x);
-            anim.SetFloat("MoveY", direction.y);
             anim.SetBool("IsMoving", direction != Vector2.zero);
         }
 

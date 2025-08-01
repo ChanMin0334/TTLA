@@ -7,7 +7,7 @@ public class Entity : MonoBehaviour
     public Stats Stats;
     public Animator anim;
     public GameObject projectile;
-    protected AnimationManagers animationManager;
+    public AnimationManagers animationManager;
 
     public void Awake()
     {
