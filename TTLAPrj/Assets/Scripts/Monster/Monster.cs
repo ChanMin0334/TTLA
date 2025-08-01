@@ -46,11 +46,6 @@ public class Monster : Entity
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
-
-            if (anim != null)
-            {
-                anim.SetBool("IsMoving", true);
-            }
         }
         else
         {
