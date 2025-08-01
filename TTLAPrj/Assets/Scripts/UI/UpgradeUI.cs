@@ -13,6 +13,8 @@ public class UpgradeUI : MonoBehaviour
     [SerializeField] TMP_Text chanceText;
     [SerializeField] TMP_Text equipBonus;
 
+    [SerializeField] UISlider uiSlider; 
+
     private SlotItem GetEnhanceSlotItem()
     {
         if(enhancePlace == null)
@@ -30,7 +32,7 @@ public class UpgradeUI : MonoBehaviour
 
         if (slotItem == null)
         {
-            Debug.LogWarning("SlotItem is Null");
+            Debug.Log("SlotItem is Null");
             SetUpgradeUI(null);
             return;
         }
@@ -42,9 +44,6 @@ public class UpgradeUI : MonoBehaviour
             Debug.Log("equip°¡ nullÀÔ´Ï´Ù.");
             return;
         }
-
-        Debug.Log("UpdateUpgradeUI°¡ È£ÃúµÊ.");
-
         SetUpgradeUI(equip);
     }
 
@@ -56,6 +55,9 @@ public class UpgradeUI : MonoBehaviour
             levelText.text = "";
             chanceText.text = "";
             equipBonus.text = "";
+
+            if (uiSlider != null)
+                uiSlider.SlideOff(0.3f);
             return;
         }
 
@@ -85,6 +87,7 @@ public class UpgradeUI : MonoBehaviour
         }
         equipBonus.text = $"{type} + {bonusStat}";
 
-        Debug.Log("SetUpgradeUI°¡ È£ÃúµÊ.");
+        if (uiSlider != null)
+            uiSlider.SlideOn(0.3f);
     }
 }
