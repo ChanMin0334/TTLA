@@ -5434,6 +5434,7 @@ MonoBehaviour:
   levelText: {fileID: 2008104494}
   chanceText: {fileID: 1549551965}
   equipBonus: {fileID: 1363755084}
+  uiSlider: {fileID: 1290776251}
 --- !u!4 &1055115704
 Transform:
   m_ObjectHideFlags: 0
@@ -7230,6 +7231,7 @@ GameObject:
   - component: {fileID: 1290776247}
   - component: {fileID: 1290776250}
   - component: {fileID: 1290776249}
+  - component: {fileID: 1290776251}
   m_Layer: 5
   m_Name: EquipmentInfo
   m_TagString: Untagged
@@ -7298,6 +7300,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290776246}
   m_CullTransparentMesh: 1
+--- !u!114 &1290776251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290776246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f973a32f683ff5743b679c4d785905ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onX: -700
+  offX: -1255
+  onY: -1255
+  offY: -1255
 --- !u!1 &1340522695
 GameObject:
   m_ObjectHideFlags: 0
@@ -9819,6 +9837,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8cca01fe77d32064bb1d6e491348addb, type: 2}
   - {fileID: 11400000, guid: 8cca01fe77d32064bb1d6e491348addb, type: 2}
   - {fileID: 11400000, guid: 8cca01fe77d32064bb1d6e491348addb, type: 2}
+  - {fileID: 11400000, guid: e5c05097245c3ea4ab0d2f3ff34d11b8, type: 2}
+  - {fileID: 11400000, guid: e5c05097245c3ea4ab0d2f3ff34d11b8, type: 2}
+  - {fileID: 11400000, guid: c80639332aeb50a49bbe79a2ec4500b2, type: 2}
+  - {fileID: 11400000, guid: c80639332aeb50a49bbe79a2ec4500b2, type: 2}
 --- !u!4 &1737847244
 Transform:
   m_ObjectHideFlags: 0

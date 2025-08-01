@@ -70,8 +70,8 @@ public class Enhance : MonoBehaviour
         {
             case EnhanceResult.Success:
                 data.nowLevel++;
-                UIManager.Instance.CallUpgradeSuccess();
                 UpdateItemStat(data);
+                UIManager.Instance.CallUpgradeSuccess();
                 Debug.Log("강화 성공");
                 break;
             case EnhanceResult.Fail:
@@ -92,10 +92,15 @@ public class Enhance : MonoBehaviour
             return;
         }
 
-        data.itemStat.Atk = data.itemData.appendStat.Atk * (data.nowLevel + 1);
-        data.itemStat.AtkSpeed = data.itemData.appendStat.Atk * (data.nowLevel + 1);
-        data.itemStat.Hp = data.itemData.appendStat.Atk * (data.nowLevel + 1);
-        data.itemStat.Speed = data.itemData.appendStat.Atk * (data.nowLevel + 1);
+        //data.itemStat.Atk = data.itemData.appendStat.Atk * (data.nowLevel + 1);
+        //data.itemStat.AtkSpeed = data.itemData.appendStat.Atk * (data.nowLevel + 1);
+        //data.itemStat.Hp = data.itemData.appendStat.Atk * (data.nowLevel + 1);
+        //data.itemStat.Speed = data.itemData.appendStat.Atk * (data.nowLevel + 1);
+
+        data.itemStat.Atk = data.itemData.bonus.Atk * (data.nowLevel + 1);
+        data.itemStat.AtkSpeed = data.itemData.bonus.AtkSpeed * (data.nowLevel + 1);
+        data.itemStat.Hp = data.itemData.bonus.Hp * (data.nowLevel + 1);
+        data.itemStat.Speed = data.itemData.bonus.Speed * (data.nowLevel + 1);
 
         Debug.Log("아이템 스탯 업그레이드 반영 성공!");
     }

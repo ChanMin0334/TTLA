@@ -78,25 +78,25 @@ public class UpgradeUI : MonoBehaviour
         string type = "";
         float bonusStat = 0f;
 
-        nameText.text = $"장비명 :{equip.itemData.name}";
-        levelText.text = $"레벨 {equip.nowLevel}";
-        chanceText.text = $"확률 {equip.itemData.chances[equip.nowLevel] * 100}%";
+        nameText.text = $"장비 : {equip.itemData.itemName}";
+        levelText.text = $"레벨 : {equip.nowLevel}";
+        chanceText.text = $"확률 : {equip.itemData.chances[equip.nowLevel] * 100}%";
 
         switch(equip.itemData.equipmentType)
         {
             case EquipmentType.Weapon:
             type = "공격력";
-                bonusStat = equip.itemStat.Atk;
+                bonusStat = equip.itemData.bonus.Atk * (equip.nowLevel) + equip.itemData.appendStat.Atk;
                 break;
 
             case EquipmentType.Armor:
                 type = "체력";
-                bonusStat = equip.itemStat.Hp;
+                bonusStat = equip.itemData.bonus.Hp * (equip.nowLevel) + equip.itemData.appendStat.Hp;
                 break;
 
             case EquipmentType.Shoes:
                 type = "이동속도";
-                bonusStat = equip.itemStat.Speed;
+                bonusStat = equip.itemData.bonus.Speed * (equip.nowLevel) + equip.itemData.appendStat.Speed;
                 break;
         }
         equipBonus.text = $"{type} + {bonusStat}";
