@@ -54,6 +54,8 @@ public class InventoryUI : MonoBehaviour
         if(enhancePlace.childCount > 0)
         {
             //이미 강화칸에 물건 올려둠
+
+            UIManager.Instance.CallUpdateUI();
             return;
         }
 
@@ -61,7 +63,8 @@ public class InventoryUI : MonoBehaviour
         slotItem.transform.SetParent(enhancePlace, false);
         slotItem.transform.localPosition = Vector3.zero;
 
-        slotItem.SetEvent(OnReturnEvent);
+        UIManager.Instance.CallUpdateUI();
+        slotItem.SetEvent(OnReturnEvent);    
         Debug.Log("나 강화 인벤에 있음");
     }
 
@@ -98,7 +101,8 @@ public class InventoryUI : MonoBehaviour
         else if (invType == InvType.Enhance) {
             slotItem.SetEvent(OnEnhanceEvent);
         }
-        
+
+        UIManager.Instance.CallUpdateUI();
         Debug.Log("돌려보내주셈");
     }
 

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SkillDataBase
   m_EditorClassIdentifier: Assembly-CSharp::SkillDataBase
   skills:
-  - {fileID: 11400000, guid: 8cad664ac0421a14f835f781be89f008, type: 2}
   - {fileID: 11400000, guid: 939219921852b6c4ab49acee3d184ef6, type: 2}
-  - {fileID: 11400000, guid: 418c33cdc452c3a48b3756b965236613, type: 2}
-  - {fileID: 11400000, guid: 0948cd34e11f94c49acebc7de7e58185, type: 2}
   - {fileID: 11400000, guid: c9cb39a02aaa82d479d3fece61eea234, type: 2}
-  - {fileID: 11400000, guid: 58c7e2ae3abc8044faa3ba0408d91ad3, type: 2}
+  - {fileID: 11400000, guid: 418c33cdc452c3a48b3756b965236613, type: 2}
+  - {fileID: 11400000, guid: 8cad664ac0421a14f835f781be89f008, type: 2}
+  - {fileID: 11400000, guid: 0948cd34e11f94c49acebc7de7e58185, type: 2}
   - {fileID: 11400000, guid: 77222d440c44f1b40ab6974c2854b5c2, type: 2}
+  - {fileID: 11400000, guid: 58c7e2ae3abc8044faa3ba0408d91ad3, type: 2}

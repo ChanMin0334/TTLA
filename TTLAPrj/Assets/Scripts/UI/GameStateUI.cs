@@ -13,12 +13,12 @@ public class GameStateUI : MonoBehaviour
     [SerializeField] GameObject mainBtn;
     [SerializeField] GameObject exitBtn;
 
-    IEnumerator GameClear()
+    public IEnumerator GameClear()
     {
         clearPanel.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(clearPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(clearPanel.transform.DOScale(Vector3.one * 25, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
         seq.AppendInterval(1.5f);
 
         yield return new WaitForSeconds(0.5f);
@@ -27,20 +27,20 @@ public class GameStateUI : MonoBehaviour
         {
             clearStars[i].gameObject.SetActive(true);
             clearStars[i].transform.localScale = Vector3.zero;
-            clearStars[i].transform.DOScale(0.06f, 0.3f).SetEase(Ease.OutBack);
+            clearStars[i].transform.DOScale(Vector3.one * 10, 0.3f).SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.5f);
         }
 
         SetBtn();
     }
 
-    IEnumerator GameOver()
+    public IEnumerator GameOver()
     {
         overPanel.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(overPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(overPanel.transform.DOScale(Vector3.one * 25, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
         seq.AppendInterval(1.5f);
 
         yield return new WaitForSeconds(0.5f);
@@ -55,7 +55,7 @@ public class GameStateUI : MonoBehaviour
         mainBtn.SetActive(true);
         exitBtn.SetActive(true);
 
-        seq.Append(mainBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-        seq.Append(exitBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(mainBtn.transform.DOScale(new Vector3(400f, 200f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(exitBtn.transform.DOScale(new Vector3(400f, 200f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
     }
 }

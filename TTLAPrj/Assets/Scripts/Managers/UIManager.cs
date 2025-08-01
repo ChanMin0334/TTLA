@@ -18,16 +18,11 @@ public class UIManager : MonoBehaviour
     [Header("Option UI")]
     [SerializeField] GameObject soundPanel;
 
-    //[Header("GameState UI")] // 패널 하나로 하고 글자만 다르게 해도 될듯
-    //[SerializeField] GameObject clearPanel;
-    //[SerializeField] SpriteRenderer[] clearStars;
-    //[SerializeField] GameObject overPanel;
-    //[SerializeField] GameObject mainBtn;
-    //[SerializeField] GameObject exitBtn;
-
-    //임시용
+    [Header("UI Component")]
     [SerializeField] Player player;
     [SerializeField] UpgradeUI upgradeUI; //upgrade UI 호출용
+    [SerializeField] GameStateUI gamestateUI; //gamestate UI 호출용
+
     private void Awake()
     {
         // 싱글톤 인스턴스 할당 및 중복 방지
@@ -44,20 +39,20 @@ public class UIManager : MonoBehaviour
 
 
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Keypad2))
-    //        levelUpUI();
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+            levelUpUI();
 
-    //    if (Input.GetKeyDown(KeyCode.Keypad3))
-    //        StartCoroutine(GameClear());
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+            CallGameClear();
 
-    //    if(Input.GetKeyDown(KeyCode.Keypad4))
-    //        StartCoroutine(GameOver());
-    //}
+        if (Input.GetKeyDown(KeyCode.Keypad4))
+            CallGameOver();            
+    }
 
-    #region 레벨업쪽 UI 수정예정
-    public void OnCardSelected(SkillCards clickedCard) // 카드 하이라이트 기능a
+    #region 레벨업쪽
+    public void OnCardSelected(SkillCards clickedCard) // 카드 하이라이트 기능
     {
         if (selectedCard != null && selectedCard != clickedCard) //선택한 카드 존재 && 기존카드 != 선택카드
         {
@@ -110,7 +105,7 @@ public class UIManager : MonoBehaviour
         levelUpPanel.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(levelUpPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(levelUpPanel.transform.DOScale(Vector3.one * 25, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
         seq.AppendInterval(1.5f);
         seq.Append(levelUpPanel.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));
         seq.OnComplete(() =>
@@ -126,7 +121,9 @@ public class UIManager : MonoBehaviour
             ShowCard();
         });
     }
-    #endregion 
+
+    #endregion
+
 
     #region 유틸리티? 옵션, 캐릭터 이미지 변경 수정예정
     public void SoundPanelOn()
@@ -140,54 +137,15 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region 게임오버 / 게임 클리어 수정예정
+    public void CallGameClear() // 게임클리어시 호출
+    {
+        StartCoroutine(gamestateUI.GameClear());
+    }
 
-    //IEnumerator GameClear()
-    //{
-    //    clearPanel.SetActive(true);
-
-    //    Sequence seq = DOTween.Sequence();
-    //    seq.Append(clearPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-    //    seq.AppendInterval(1.5f);
-
-    //    yield return new WaitForSeconds(0.5f);
-
-    //    for (int i = 0; i < clearStars.Length; i++)
-    //    {
-    //        clearStars[i].gameObject.SetActive(true);
-    //        clearStars[i].transform.localScale = Vector3.zero;
-    //        clearStars[i].transform.DOScale(0.06f, 0.3f).SetEase(Ease.OutBack);
-    //        yield return new WaitForSeconds(0.5f);
-    //    }
-
-    //    SetBtn();
-    //}
-
-    //IEnumerator GameOver()
-    //{
-    //    overPanel.SetActive(true);
-
-    //    Sequence seq = DOTween.Sequence();
-
-    //    seq.Append(overPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-    //    seq.AppendInterval(1.5f);
-
-    //    yield return new WaitForSeconds(0.5f);
-
-    //    SetBtn();
-    //}
-
-    //void SetBtn()
-    //{
-    //    Sequence seq = DOTween.Sequence();
-
-    //    mainBtn.SetActive(true);
-    //    exitBtn.SetActive(true);
-
-    //    seq.Append(mainBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-    //    seq.Append(exitBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-    //}
-    #endregion
+    public void CallGameOver() // 게임 오버시 호출
+    {
+        StartCoroutine(gamestateUI.GameOver());
+    }
 
     public void CallUpdateUI()
     {

@@ -91,12 +91,6 @@ public class Enhance : MonoBehaviour
             Debug.Log("itemData.bonus is NULL");
             return;
         }
-
-        //data.itemStat.Atk = data.itemData.appendStat.Atk * (data.nowLevel + 1);
-        //data.itemStat.AtkSpeed = data.itemData.appendStat.Atk * (data.nowLevel + 1);
-        //data.itemStat.Hp = data.itemData.appendStat.Atk * (data.nowLevel + 1);
-        //data.itemStat.Speed = data.itemData.appendStat.Atk * (data.nowLevel + 1);
-
         data.itemStat.Atk = data.itemData.bonus.Atk * (data.nowLevel + 1);
         data.itemStat.AtkSpeed = data.itemData.bonus.AtkSpeed * (data.nowLevel + 1);
         data.itemStat.Hp = data.itemData.bonus.Hp * (data.nowLevel + 1);

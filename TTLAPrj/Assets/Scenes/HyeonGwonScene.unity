@@ -2430,8 +2430,9 @@ GameObject:
   - component: {fileID: 486354151}
   - component: {fileID: 486354153}
   - component: {fileID: 486354152}
+  - component: {fileID: 486354154}
   m_Layer: 5
-  m_Name: Inven
+  m_Name: BagInven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2496,6 +2497,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486354150}
   m_CullTransparentMesh: 1
+--- !u!114 &486354154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486354150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a59c902e91f374e829846beb733cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invType: 0
+  InvSlotPlace: {fileID: 693645581}
+  enhancePlace: {fileID: 0}
+  equipPlace: {fileID: 1874201904}
 --- !u!1 &539453762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,7 +3354,6 @@ GameObject:
   m_Component:
   - component: {fileID: 693645581}
   - component: {fileID: 693645583}
-  - component: {fileID: 693645584}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -3388,21 +3404,6 @@ MonoBehaviour:
   m_Spacing: {x: 2, y: 2}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &693645584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693645580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93a59c902e91f374e829846beb733cab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invType: 0
-  enhancePlace: {fileID: 0}
-  equipPlace: {fileID: 0}
 --- !u!1 &694092746
 GameObject:
   m_ObjectHideFlags: 0
@@ -5348,7 +5349,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1014558622}
   - component: {fileID: 1014558623}
-  - component: {fileID: 1014558624}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -5399,21 +5399,6 @@ MonoBehaviour:
   m_Spacing: {x: 2, y: 2}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &1014558624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014558621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93a59c902e91f374e829846beb733cab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invType: 1
-  enhancePlace: {fileID: 1218394428}
-  equipPlace: {fileID: 0}
 --- !u!1 &1029766524
 GameObject:
   m_ObjectHideFlags: 0
@@ -5527,6 +5512,9 @@ MonoBehaviour:
   levelText: {fileID: 2008104494}
   chanceText: {fileID: 1549551965}
   equipBonus: {fileID: 1363755084}
+  successEffect: {fileID: 0}
+  failEffect: {fileID: 0}
+  uiSlider: {fileID: 0}
 --- !u!4 &1055115704
 Transform:
   m_ObjectHideFlags: 0
@@ -8128,16 +8116,6 @@ MonoBehaviour:
   - {fileID: 901622195}
   levelUpPanel: {fileID: 994687107}
   soundPanel: {fileID: 159240554}
-  clearPanel: {fileID: 157792998}
-  clearStars:
-  - {fileID: 539453765}
-  - {fileID: 1573877896}
-  - {fileID: 124946419}
-  overPanel: {fileID: 0}
-  mainBtn: {fileID: 311536783}
-  exitBtn: {fileID: 690657249}
-  character: {fileID: 0}
-  otherCharacters: []
   player: {fileID: 0}
   upgradeUI: {fileID: 1055115703}
 --- !u!4 &1485917268
@@ -8463,6 +8441,7 @@ MonoBehaviour:
     Speed: 2
   anim: {fileID: 0}
   projectile: {fileID: 0}
+  animationManager: {fileID: 0}
   EquipList: []
   SkillEffect: {fileID: 0}
   invicibilityDuration: 1
@@ -9904,6 +9883,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7eec3b6bb9649c47a741dd77a700331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipUI: {fileID: 486354154}
+  enhanceUI: {fileID: 1799147654}
   slotPrefab: {fileID: 9151785835875493750, guid: 562f9228118f5d146b4011c09a33ab68, type: 3}
   inventory: []
   slots:
@@ -10237,8 +10218,9 @@ GameObject:
   - component: {fileID: 1799147651}
   - component: {fileID: 1799147653}
   - component: {fileID: 1799147652}
+  - component: {fileID: 1799147654}
   m_Layer: 5
-  m_Name: Inven
+  m_Name: UpInven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10303,6 +10285,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799147650}
   m_CullTransparentMesh: 1
+--- !u!114 &1799147654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799147650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a59c902e91f374e829846beb733cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invType: 1
+  InvSlotPlace: {fileID: 1014558622}
+  enhancePlace: {fileID: 1218394428}
+  equipPlace: {fileID: 0}
 --- !u!1 &1803456944
 GameObject:
   m_ObjectHideFlags: 0

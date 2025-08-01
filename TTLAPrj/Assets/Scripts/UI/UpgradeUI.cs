@@ -81,8 +81,8 @@ public class UpgradeUI : MonoBehaviour
         string type = "";
         float bonusStat = 0f;
 
-        nameText.text = $"장비 : {equip.itemData.itemName}";
-        levelText.text = $"레벨 : {equip.nowLevel}";
+        nameText.text = $"장비 : {equip.itemData.itemName} + {equip.nowLevel}";
+        levelText.text = $"레벨 : {equip.nowLevel}"; // 강화 비용이 생긴다면 비용을 넣을예정
         chanceText.text = $"확률 : {equip.itemData.chances[equip.nowLevel] * 100}%";
 
         switch(equip.itemData.equipmentType)
