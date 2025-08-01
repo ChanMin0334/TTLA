@@ -70,11 +70,13 @@ public class Enhance : MonoBehaviour
         {
             case EnhanceResult.Success:
                 data.nowLevel++;
+                UIManager.Instance.CallUpgradeSuccess();
                 UpdateItemStat(data);
                 Debug.Log("강화 성공");
                 break;
             case EnhanceResult.Fail:
                 Debug.Log("강화 실패");
+                UIManager.Instance.CallUpgradeFail();
                 break;
             case EnhanceResult.MaxLevel:
                 Debug.Log("최대 레벨");

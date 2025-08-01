@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
             StartCoroutine(GameOver());
     }
 
-    #region 레벨업쪽 UI
+    #region 레벨업쪽 UI 수정예정
     public void OnCardSelected(SkillCards clickedCard) // 카드 하이라이트 기능a
     {
         if (selectedCard != null && selectedCard != clickedCard) //선택한 카드 존재 && 기존카드 != 선택카드
@@ -140,9 +140,9 @@ public class UIManager : MonoBehaviour
             ShowCard();
         });
     }
-    #endregion
+    #endregion 
 
-    #region 유틸리티? 옵션, 캐릭터 이미지 변경
+    #region 유틸리티? 옵션, 캐릭터 이미지 변경 수정예정
     public void SoundPanelOn()
     {
         soundPanel.SetActive(true);
@@ -174,7 +174,7 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
-    #region 게임오버 / 게임 클리어
+    #region 게임오버 / 게임 클리어 수정예정
 
     IEnumerator GameClear()
     {
@@ -224,7 +224,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
 
-    //test
+    #region 업그레이드 UI호출
 
     public void CallUpdateUI()
     {
@@ -234,10 +234,32 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("CallUPdateUI가 호출됨.");
-
         upgradeUI.UpdateUpgradeUI();
     }
+
+    public void CallUpgradeSuccess()
+    {
+        if (upgradeUI == null)
+        {
+            Debug.LogWarning("upgradeUI is Null");
+            return;
+        }
+
+        upgradeUI.UpgradeSuccess();
+    }
+
+    public void CallUpgradeFail()
+    {
+        if (upgradeUI == null)
+        {
+            Debug.LogWarning("upgradeUI is Null");
+            return;
+        }
+
+        upgradeUI.UpgradeFail();
+    }
+
+    #endregion
 }
 
 
