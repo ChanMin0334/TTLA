@@ -12,9 +12,11 @@ public class MonsterBoss : Monster
     public float projectileSpreadAngle = 20f;
     public float projectileSpeed = 6f;
     private float lastActionTime;
-
+    public bool isActive = false;
+    
     protected override void Update()
     {
+        if (!isActive) return;
         if (target == null)
         {
             return;
@@ -95,5 +97,9 @@ public class MonsterBoss : Monster
                 player.Damaged(Stats.Atk);
             }
         }
+    }
+    public void ActivateBoss()
+    {
+        isActive = true;
     }
 }
