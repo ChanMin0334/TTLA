@@ -37,6 +37,11 @@ public class SlotItem : MonoBehaviour
             image.enabled = false;
         }
 
+        SetEvent(onClick);
+    }
+
+    public void SetEvent(Action<GameObject> onClick)
+    {
         clickButton.onClick.RemoveAllListeners();
         if (clickButton != null)
         {
