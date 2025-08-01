@@ -2021,7 +2021,6 @@ GameObject:
   m_Component:
   - component: {fileID: 245091824}
   - component: {fileID: 245091826}
-  - component: {fileID: 245091827}
   - component: {fileID: 245091828}
   m_Layer: 5
   m_Name: PlayerSprite
@@ -2057,27 +2056,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245091823}
   m_CullTransparentMesh: 1
---- !u!95 &245091827
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 245091823}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 270fd008d6dee104f94b8ae4aa3a3922, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &245091828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2644,11 +2622,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1371311016}
+  m_Father: {fileID: 1831979805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -578, y: -263}
+  m_AnchoredPosition: {x: 67, y: -104}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &453942385
@@ -3399,11 +3377,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1371311016}
+  m_Father: {fileID: 1831979805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -209, y: -263}
+  m_AnchoredPosition: {x: 436, y: -104}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &664354915
@@ -5171,19 +5149,8 @@ MonoBehaviour:
   overPanel: {fileID: 1903534927}
   mainBtn: {fileID: 42466851}
   exitBtn: {fileID: 232555220}
-  character: {fileID: 245091828}
-  otherCharacters:
-  - {fileID: -1397713370, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: -543766895, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: 2070301869, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: 699842756, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: 793140757, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: 1290807165, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: 1957764756, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: -1113444524, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: 1582527935, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
-  - {fileID: -2109595773, guid: 1f7b364e0e34b3f4085aa89db79bb665, type: 3}
   player: {fileID: 1219277436}
+  upgradeUI: {fileID: 0}
 --- !u!4 &845444233
 Transform:
   m_ObjectHideFlags: 0
@@ -6589,6 +6556,7 @@ MonoBehaviour:
     Speed: 5
   anim: {fileID: 1916478028}
   projectile: {fileID: 8923618896048010356, guid: f80253cfa27461f4a94d7921ef0367f8, type: 3}
+  animationManager: {fileID: 0}
   EquipList: []
   SkillEffect: {fileID: 0}
   invicibilityDuration: 1
@@ -7066,8 +7034,6 @@ RectTransform:
   - {fileID: 573555632}
   - {fileID: 850724733}
   - {fileID: 1957421073}
-  - {fileID: 453942384}
-  - {fileID: 664354914}
   m_Father: {fileID: 1492674982}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -9267,6 +9233,8 @@ RectTransform:
   m_Children:
   - {fileID: 523442321}
   - {fileID: 245091824}
+  - {fileID: 453942384}
+  - {fileID: 664354914}
   m_Father: {fileID: 1371311016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}

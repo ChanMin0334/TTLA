@@ -15,7 +15,7 @@ public class Equipment : Item
 
     public int nowLevel = 0;
     public int maxEnhanceLevel = 10;
-    public Stats bonus;
+    public Stats bonus; // 
 
     public int[] costs;
     [Range(0, 1)] public float[] chances; // 배열 길이 늘여야함

@@ -12,57 +12,26 @@ public enum InvType
 
 public class InventoryUI : MonoBehaviour
 {
-    InventoryManager inventoryManager;
+    ItemManager inventoryManager;
     public InvType invType;
-
-    [SerializeField] private Transform enhancePlace;
-    [SerializeField] private Transform equipPlace;
+    //아이템을 추가 삭제는 아이템 매니저가 할일
+    public Transform InvSlotPlace;
+    public Transform enhancePlace;
+    public Transform equipPlace;
 
     public void Start()
     {
-        inventoryManager = InventoryManager.Instance;
-        InventoryUIPrint(gameObject);
+        inventoryManager = ItemManager.Instance;
+        InventoryUIPrint();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Home))
-        {
-            InventoryUIPrint(gameObject);
-        }
-        if (Input.GetKeyDown(KeyCode.End))
-        {
-            InventoryUIClear();
-        }
-    }
-
-    public void InventoryItemAdd(Equipment So)
-    {
-        inventoryManager.inventory.Add(new InventoryItem(So));
-    }
-
-    public void InventoryUIClear()
-    {
-        //모르겠띠
-        for(int i = transform.childCount - 1; i >= 0; i--)
-        {
-            Destroy(transform.GetChild(i).gameObject);
-        }
-
-        if(enhancePlace.childCount > 0 || equipPlace.childCount > 0)
-        {
-            Destroy(enhancePlace.GetChild(0).gameObject);
-            Destroy(equipPlace.GetChild(0).gameObject);
-        }
-    }
-
-    public void InventoryUIPrint(GameObject obj)
+    public void InventoryUIPrint()
     {
         Action<GameObject> action = null;
         //인벤토리 내용 출력 = 즉 슬롯 생성, 근데 인벤토리의 부모 하위에 생성해야됨. 그걸 어캐암?
         foreach (InventoryItem item in inventoryManager.inventory)
         {
-            GameObject slot = Instantiate(inventoryManager.slotPrefab, transform);
+            GameObject slot = Instantiate(inventoryManager.slotPrefab, InvSlotPlace);
             SlotItem slotItem = slot.GetComponent<SlotItem>();
 
             if (invType == InvType.Enhance)
@@ -85,13 +54,17 @@ public class InventoryUI : MonoBehaviour
         if(enhancePlace.childCount > 0)
         {
             //이미 강화칸에 물건 올려둠
+
+            UIManager.Instance.CallUpdateUI();
             return;
         }
 
+        //만들고 꺼두었다가 정보 넘기면서 켜주기
         slotItem.transform.SetParent(enhancePlace, false);
         slotItem.transform.localPosition = Vector3.zero;
 
-        slotItem.SetEvent(OnReturnEvent);
+        UIManager.Instance.CallUpdateUI();
+        slotItem.SetEvent(OnReturnEvent);    
         Debug.Log("나 강화 인벤에 있음");
     }
 
@@ -119,7 +92,7 @@ public class InventoryUI : MonoBehaviour
         SlotItem slotItem = clickSlot.GetComponent<SlotItem>();
         if (slotItem == null) return;
 
-        slotItem.transform.SetParent(this.transform, false);
+        slotItem.transform.SetParent(InvSlotPlace, false);
 
         if (invType == InvType.Equip)
         {
@@ -128,7 +101,8 @@ public class InventoryUI : MonoBehaviour
         else if (invType == InvType.Enhance) {
             slotItem.SetEvent(OnEnhanceEvent);
         }
-        
+
+        UIManager.Instance.CallUpdateUI();
         Debug.Log("돌려보내주셈");
     }
 

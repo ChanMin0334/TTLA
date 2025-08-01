@@ -18,29 +18,11 @@ public class UIManager : MonoBehaviour
     [Header("Option UI")]
     [SerializeField] GameObject soundPanel;
 
-    [Header("GameState UI")] // 패널 하나로 하고 글자만 다르게 해도 될듯
-    [SerializeField] GameObject clearPanel;
-    [SerializeField] SpriteRenderer[] clearStars;
-    [SerializeField] GameObject overPanel;
-    [SerializeField] GameObject mainBtn;
-    [SerializeField] GameObject exitBtn;
-
-    [Header("Utility UI")]
-    [SerializeField] Image character;
-    [SerializeField] Sprite[] otherCharacters;
-    int characterIndex;
-
-    //임시용
+    [Header("UI Component")]
     [SerializeField] Player player;
-    [SerializeField] UpgradeUI upgradeUI;
-    
-    //[SerializeField] GameObject gameOverPanel;
-
-    // UI 패널 예시 (필요에 따라 추가)
-    // public GameObject mainMenuPanel;
-    // public GameObject pausePanel;
-    // public GameObject gameOverPanel;
-
+    [SerializeField] UpgradeUI upgradeUI; //upgrade UI 호출용
+    [SerializeField] GameStateUI gamestateUI; //gamestate UI 호출용
+    [SerializeField] CharacterInfoUI characterInfoUI; // 호출용
 
     private void Awake()
     {
@@ -64,14 +46,14 @@ public class UIManager : MonoBehaviour
             levelUpUI();
 
         if (Input.GetKeyDown(KeyCode.Keypad3))
-            StartCoroutine(GameClear());
+            CallGameClear();
 
-        if(Input.GetKeyDown(KeyCode.Keypad4))
-            StartCoroutine(GameOver());
+        if (Input.GetKeyDown(KeyCode.Keypad4))
+            CallGameOver();            
     }
 
-    #region 레벨업쪽 UI
-    public void OnCardSelected(SkillCards clickedCard) // 카드 하이라이트 기능a
+    #region 레벨업쪽
+    public void OnCardSelected(SkillCards clickedCard) // 카드 하이라이트 기능
     {
         if (selectedCard != null && selectedCard != clickedCard) //선택한 카드 존재 && 기존카드 != 선택카드
         {
@@ -124,7 +106,7 @@ public class UIManager : MonoBehaviour
         levelUpPanel.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(levelUpPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(levelUpPanel.transform.DOScale(Vector3.one * 25, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
         seq.AppendInterval(1.5f);
         seq.Append(levelUpPanel.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));
         seq.OnComplete(() =>
@@ -140,9 +122,11 @@ public class UIManager : MonoBehaviour
             ShowCard();
         });
     }
+
     #endregion
 
-    #region 유틸리티? 옵션, 캐릭터 이미지 변경
+
+    #region 유틸리티? 옵션, 캐릭터 이미지 변경 수정예정
     public void SoundPanelOn()
     {
         soundPanel.SetActive(true);
@@ -152,79 +136,17 @@ public class UIManager : MonoBehaviour
     {
         soundPanel.SetActive(false);
     }
-
-    public void ChangeSprite(int index)
-    {
-        characterIndex += index;
-
-        if (characterIndex < 0)
-            characterIndex = otherCharacters.Length - 1;
-        else if (characterIndex >= otherCharacters.Length)
-            characterIndex = 0;
-
-        character.DOFade(0f, 0.2f).OnComplete(() =>
-        {
-            character.sprite = otherCharacters[characterIndex];
-            character.DOFade(1f, 0.2f);
-        });
-    }
-
-    public void OnLeftButton() => ChangeSprite(-1);
-    public void OnRightButton() => ChangeSprite(1);
-
     #endregion
 
-    #region 게임오버 / 게임 클리어
-
-    IEnumerator GameClear()
+    public void CallGameClear() // 게임클리어시 호출
     {
-        clearPanel.SetActive(true);
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(clearPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-        seq.AppendInterval(1.5f);
-
-        yield return new WaitForSeconds(0.5f);
-
-        for (int i = 0; i < clearStars.Length; i++)
-        {
-            clearStars[i].gameObject.SetActive(true);
-            clearStars[i].transform.localScale = Vector3.zero;
-            clearStars[i].transform.DOScale(0.06f, 0.3f).SetEase(Ease.OutBack);
-            yield return new WaitForSeconds(0.5f);
-        }
-
-        SetBtn();
+        StartCoroutine(gamestateUI.GameClear());
     }
 
-    IEnumerator GameOver()
+    public void CallGameOver() // 게임 오버시 호출
     {
-        overPanel.SetActive(true);
-
-        Sequence seq = DOTween.Sequence();
-
-        seq.Append(overPanel.transform.DOScale(Vector3.one * 15, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-        seq.AppendInterval(1.5f);
-
-        yield return new WaitForSeconds(0.5f);
-
-        SetBtn();
+        StartCoroutine(gamestateUI.GameOver());
     }
-
-    void SetBtn()
-    {
-        Sequence seq = DOTween.Sequence();
-
-        mainBtn.SetActive(true);
-        exitBtn.SetActive(true);
-
-        seq.Append(mainBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-        seq.Append(exitBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-    }
-    #endregion
-
-
-    //test
 
     public void CallUpdateUI()
     {
@@ -234,10 +156,36 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("CallUPdateUI가 호출됨.");
-
         upgradeUI.UpdateUpgradeUI();
     }
+
+    public void CallUpgradeSuccess()
+    {
+        if (upgradeUI == null)
+        {
+            Debug.LogWarning("upgradeUI is Null");
+            return;
+        }
+
+        upgradeUI.UpgradeSuccess();
+    }
+
+    public void CallUpgradeFail()
+    {
+        if (upgradeUI == null)
+        {
+            Debug.LogWarning("upgradeUI is Null");
+            return;
+        }
+
+        upgradeUI.UpgradeFail();
+    }
+    public void CallShowCharacterInfo()
+    {
+        characterInfoUI.ShowCharacterInfo();
+    }
+    public Player GetPlayer() //테스트
+    {
+        return player;
+    }
 }
-
-
