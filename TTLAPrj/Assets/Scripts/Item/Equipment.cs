@@ -18,5 +18,5 @@ public class Equipment : Item
     public Stats bonus;
 
     public int[] costs;
-    [Range(0, 1)] public float[] chances;
+    [Range(0, 1)] public float[] chances; // 배열 길이 늘여야함
 }

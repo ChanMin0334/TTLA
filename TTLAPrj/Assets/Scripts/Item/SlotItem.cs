@@ -45,11 +45,13 @@ public class SlotItem : MonoBehaviour
             transform.localPosition = Vector3.zero;
             IsEnhance = false;
         }
+
+        UIManager.Instance.CallUpdateUI();
     }
 
     public void SetItem(Equipment equipData, GameObject inv, GameObject en)
     {
-        this.Data = equipData;
+        this.Data = equipData; 
         this.inventoryPlace = inv.transform;
         this.enhancePlace = en.transform;
 

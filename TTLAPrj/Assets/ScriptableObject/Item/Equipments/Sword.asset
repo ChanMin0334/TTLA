@@ -23,7 +23,7 @@ MonoBehaviour:
     AtkSpeed: 1
     Speed: 0
   equipmentType: 0
-  nowLevel: 0
+  nowLevel: 1
   maxEnhanceLevel: 10
   bonus:
     Atk: 3
@@ -32,5 +32,13 @@ MonoBehaviour:
     Speed: 1
   costs: 0000000000000000
   chances:
-  - 0.725
-  - 0.618
+  - 0.9
+  - 0.8
+  - 0.7
+  - 0.6
+  - 0.5
+  - 0.4
+  - 0.3
+  - 0.2
+  - 0.1
+  - 0

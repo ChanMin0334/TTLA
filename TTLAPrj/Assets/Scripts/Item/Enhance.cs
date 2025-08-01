@@ -41,6 +41,8 @@ public class Enhance : MonoBehaviour
         EnhanceResult result = TryEnhancement(data);
 
         UpgradeResult(result, data);
+
+        UIManager.Instance.CallUpdateUI(); // UI Update
     }
 
     public EnhanceResult TryEnhancement(Equipment item)
@@ -68,6 +70,7 @@ public class Enhance : MonoBehaviour
         {
             case EnhanceResult.Success:
                 data.nowLevel++;
+                UpdateItemStat(data);
                 Debug.Log("강화 성공");
                 break;
             case EnhanceResult.Fail:
