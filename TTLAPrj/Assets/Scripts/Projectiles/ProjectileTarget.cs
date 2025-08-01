@@ -12,20 +12,23 @@ public class ProjectileTarget : MonoBehaviour
     {
         int otherLayer = collision.gameObject.layer;
 
+        // Ignore collision with the shooter
         if (otherLayer == shooterLayer)
         {
             return;
         }
 
-        if ((targetLayers.value & (1 << otherLayer)) != 0) //Bitmask Check
+        // If it's a valid target (e.g. Player), deal damage
+        if ((targetLayers.value & (1 << otherLayer)) != 0)
         {
             Entity entity = collision.GetComponent<Entity>();
             if (entity != null)
             {
                 entity.Damaged(damage);
             }
-
-            Destroy(gameObject);
         }
+
+        // Destroy the projectile on any collision
+        Destroy(gameObject);
     }
 }

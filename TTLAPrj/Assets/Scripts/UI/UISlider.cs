@@ -18,20 +18,16 @@ public class UISlider : MonoBehaviour
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
-        //rect.anchoredPosition = new Vector2(offX, rect.anchoredPosition.y);
         rect.anchoredPosition = new Vector2(offX, offY);
     }
 
     public void SlideOn(float duration)
     {
-        //rect.DOAnchorPosX(onX, duration).SetEase(Ease.Unset);
         rect.DOAnchorPos(new Vector2(onX, onY), duration).SetEase(Ease.Unset);
     }
 
     public void SlideOff(float duration)
     {
-        //rect.DOAnchorPosX(offX, duration).SetEase(Ease.Unset);
         rect.DOAnchorPos(new Vector2(offX, offY), duration).SetEase(Ease.Unset);
-
     }
 }

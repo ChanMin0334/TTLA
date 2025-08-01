@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ece8ecf1ec0cfa43949ef57815f2ea8, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  itemName: Sword
+  icon: {fileID: 1125014937, guid: 3ffb422ebd4646443a99e64d0745041d, type: 3}
+  itemID: 0
+  isUsable: 0
+  description: sword desu
+  appendStat:
+    Atk: 3
+    Hp: 1
+    AtkSpeed: 1
+    Speed: 0
+  equipmentType: 0
+  nowLevel: 0
+  maxEnhanceLevel: 10
+  bonus:
+    Atk: 3
+    Hp: 3
+    AtkSpeed: 3
+    Speed: 3
+  costs: 0000000000000000
+  chances:
+  - 0.9
+  - 0.8
+  - 0.7
+  - 0.6
+  - 0.5
+  - 0.4
+  - 0.3
+  - 0.2
+  - 0.1
+  - 0
