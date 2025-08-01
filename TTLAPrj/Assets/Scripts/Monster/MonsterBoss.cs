@@ -42,8 +42,10 @@ public class MonsterBoss : Monster
 
     private IEnumerator DashAttack(Vector2 direction)
     {
+        animationManager?.SetMoveAnimation(true);   
+        HandleSpriteFlip(direction);               
+
         float elapsed = 0f;
-        StopMovement();
 
         while (elapsed < dashDuration)
         {
@@ -51,8 +53,9 @@ public class MonsterBoss : Monster
             elapsed += Time.deltaTime;
             yield return null;
         }
-        rb.velocity = Vector2.zero;
 
+        rb.velocity = Vector2.zero;
+        animationManager?.SetMoveAnimation(false);  // Stop anim
     }
 
     private void SpreadShot(Vector2 baseDir)
