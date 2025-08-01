@@ -432,7 +432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &940139717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,7 +696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1614960951
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -759,7 +759,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.36, y: -2.62, z: 0}
-  m_LocalScale: {x: 19.050512, y: 19.050512, z: 19.050512}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -798,6 +798,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   projectile: {fileID: 0}
   EquipList: []
+  SkillEffect: {fileID: 0}
 --- !u!50 &1614960955
 Rigidbody2D:
   serializedVersion: 4
@@ -913,6 +914,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a146d317fdd774cbd7cd54c48370bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitySO: {fileID: 0}
+  cards: []
+  levelUpPanel: {fileID: 0}
+  soundPanel: {fileID: 0}
+  clearPanel: {fileID: 0}
+  clearStars: []
+  mainBtn: {fileID: 0}
+  exitBtn: {fileID: 0}
 --- !u!114 &1636146964
 MonoBehaviour:
   m_ObjectHideFlags: 0
