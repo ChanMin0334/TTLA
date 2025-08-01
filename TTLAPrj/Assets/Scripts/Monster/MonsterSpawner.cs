@@ -43,6 +43,7 @@ public class MonsterSpawner : MonoBehaviour
         Bounds bounds = area.bounds;
         float x = Random.Range(bounds.min.x, bounds.max.x);
         float y = Random.Range(bounds.min.y, bounds.max.y);
+       
         return new Vector3(x, y, 0f);
     }
 }
