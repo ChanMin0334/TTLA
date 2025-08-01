@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class MonsterBow : MonsterRange
 {
-    public Transform bowPoint; // Where the projectile is spawned
-    public Transform bowVisual; // Optional: visual object that rotates with the bow
+    public Transform bowPoint; // Arrow spawn position
+    public SpriteRenderer bowSpriteRenderer; // The visual bow's SpriteRenderer
+
+    public Sprite unpulledSprite; // Default sprite
+    public Sprite pulledSprite;   // Pulled bow sprite
+
+    public float shootDelay = 0.2f; // Optional delay before firing
 
     protected override void Update()
     {
@@ -15,10 +20,9 @@ public class MonsterBow : MonsterRange
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             bowPoint.rotation = Quaternion.Euler(0, 0, angle);
 
-            // Optional: flip visual if aiming left
-            if (bowVisual != null)
+            if (bowSpriteRenderer != null)
             {
-                bowVisual.localScale = new Vector3(1, dir.x < 0 ? -1 : 1, 1);
+                bowSpriteRenderer.flipY = dir.x < 0;
             }
         }
     }
@@ -30,7 +34,16 @@ public class MonsterBow : MonsterRange
         StopMovement();
         HandleSpriteFlip((target.transform.position - transform.position).normalized);
 
-        // Fire arrow immediately
+        // Change sprite to pulled bow
+        if (bowSpriteRenderer != null && pulledSprite != null)
+            bowSpriteRenderer.sprite = pulledSprite;
+
+        // Fire after delay
+        Invoke(nameof(FireArrow), shootDelay);
+    }
+
+    private void FireArrow()
+    {
         Vector2 dir = (target.transform.position - transform.position).normalized;
         GameObject proj = Instantiate(projectile, bowPoint.position, bowPoint.rotation);
         proj.layer = LayerMask.NameToLayer("EnemyProjectile");
@@ -48,5 +61,9 @@ public class MonsterBow : MonsterRange
             projTarget.shooterLayer = gameObject.layer;
             projTarget.targetLayers = LayerMask.GetMask("Player");
         }
+
+        // Revert sprite to unpulled after short time
+        if (bowSpriteRenderer != null && unpulledSprite != null)
+            bowSpriteRenderer.sprite = unpulledSprite;
     }
 }
