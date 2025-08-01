@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class SlotItem : MonoBehaviour
 {
+    //모노가 빠지면 -> 초기화를 직접적으로 해줘야한다
     private Transform enhancePlace;
     private Transform inventoryPlace;
-    public Equipment Data { get; private set; }
+    public InventoryItem Data { get; private set; }
 
     [SerializeField] private Image image;
     [SerializeField] private bool IsEnhance;
@@ -49,7 +50,7 @@ public class SlotItem : MonoBehaviour
         UIManager.Instance.CallUpdateUI();
     }
 
-    public void SetItem(Equipment equipData, GameObject inv, GameObject en)
+    public void SetItem(InventoryItem equipData, GameObject inv, GameObject en)
     {
         this.Data = equipData; 
         this.inventoryPlace = inv.transform;
@@ -57,7 +58,7 @@ public class SlotItem : MonoBehaviour
 
         if (this.Data != null)
         {
-            image.sprite = this.Data.icon;
+            image.sprite = this.Data.itemData.icon;
             image.enabled = true;
         }
         else
