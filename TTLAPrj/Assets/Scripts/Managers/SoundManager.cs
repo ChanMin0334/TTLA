@@ -1,4 +1,6 @@
+using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum BGMName
 {
@@ -45,10 +47,40 @@ public class SoundManager : MonoBehaviour
             sfxSource = gameObject.AddComponent<AudioSource>();
 
             bgmSource.loop = true;
+            sfxSource.playOnAwake = false; // SFX는 자동 재생하지 않음
+            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 등록
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 해제
+        }
+    }
+
+    // 씬이 로드될 때마다 호출되는 메서드
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"씬 로드됨: {scene.name}");
+
+        switch(scene.name)
+        {
+            case "IntroScene":
+                break;
+            case "MainScene":
+                PlayBGM(BGMName.BGM_01);
+                break;
+            case "GameScene":
+                PlayBGM(BGMName.BGM_02); //아직 없음
+                break;
+            default:
+                break;
         }
     }
 

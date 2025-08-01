@@ -7,8 +7,8 @@ public class GameIntro : MonoBehaviour
 {
     public GameObject introText; // 20조 텍스트
     public GameObject introPanel; // 인트로 패널
-    public GameObject titleImg; // 타이틀 이미지
-    public GameObject titleText; // 타이틀 텍스트
+    public GameObject titleText; // 타이틀 이미지
+    public GameObject titleSubText; // 타이틀 텍스트
     public float fadeDuration = 10f; // 패널 밝아지는 시간
     public float titleFadeDuration = 5f; // 패널 밝아지는 시간
     public float moveDuration = 1f; // 패널 올라오는 시간
@@ -17,7 +17,6 @@ public class GameIntro : MonoBehaviour
     private AudioSource audioSource;
     private Image panelImage;
     private RectTransform panelRect;
-    private Image titleImage;
     private bool isPanelOn = false; // 패널이 켜져 있는지 여부
     private bool canStart = false; // 인트로 시작 여부
 
@@ -26,7 +25,6 @@ public class GameIntro : MonoBehaviour
         panelImage = introPanel.GetComponent<Image>();
         panelRect = introPanel.GetComponent<RectTransform>();
         audioSource = GetComponent<AudioSource>();
-        titleImage = titleImg.GetComponent<Image>();
         StartCoroutine(ShowIntroAndLoadNext());
     }
 
@@ -39,6 +37,7 @@ public class GameIntro : MonoBehaviour
             if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
             {
                 canStart = false; // 중복 입력 방지
+                SoundManager.Instance.PlaySFX(SFX_Name.SFX_ButtonClick); // 버튼 클릭 사운드 재생
                 LoadNextScene();
             }
         }
@@ -49,12 +48,11 @@ public class GameIntro : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SoundManager.Instance.PlaySFX(SFX_Name.SFX_IntroSound);
         introText.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.3f);
         introText.SetActive(false);
-        yield return new WaitForSeconds(1f);
 
         introPanel.SetActive(true);
-        titleImg.SetActive(true);
+        titleText.SetActive(true);
 
         // 두 코루틴을 동시에 실행
         Coroutine move = StartCoroutine(MovePanel());
@@ -127,17 +125,18 @@ public class GameIntro : MonoBehaviour
 
     IEnumerator FadeInTitleImg()
     {
-        if (titleImage == null || titleText == null)
+        if (titleText == null || titleSubText == null)
             yield break;
 
-        Color imgColor = titleImage.color;
-        Text textComp = titleText.GetComponent<Text>();
+        Text titleTextComp = titleText.GetComponent<Text>();
+        Color imgColor = titleTextComp.color;
+        Text textComp = titleSubText.GetComponent<Text>();
         Color textColor = textComp.color;
 
         float elapsed = 0f;
         imgColor.a = 0f;
         textColor.a = 0f;
-        titleImage.color = imgColor;
+        titleTextComp.color = imgColor;
         textComp.color = textColor;
 
         while (!isPanelOn) // 패널이 켜질 때까지 대기
@@ -154,13 +153,13 @@ public class GameIntro : MonoBehaviour
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
             imgColor.a = Mathf.Lerp(0f, 1f, smoothT);
             textColor.a = Mathf.Lerp(0f, 1f, smoothT);
-            titleImage.color = imgColor;
+            titleTextComp.color = imgColor;
             textComp.color = textColor;
             yield return null;
         }
         imgColor.a = 1f;
         textColor.a = 1f;
-        titleImage.color = imgColor;
+        titleTextComp.color = imgColor;
         textComp.color = textColor;
     }
 
