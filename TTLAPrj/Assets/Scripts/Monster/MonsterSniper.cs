@@ -84,8 +84,10 @@ public class MonsterSniper : Monster
     {
         if (laserLine == null || firePoint == null)
             return;
+        
+        Vector3 fireOrigin = firePoint.position + new Vector3(0f, -0.1f, 0f);
 
-        laserLine.SetPosition(0, firePoint.position);
+        laserLine.SetPosition(0, fireOrigin);
 
         RaycastHit2D hit = Physics2D.Raycast(firePoint.position, dir, 20f, wallMask);
         if (hit.collider != null)
@@ -113,11 +115,6 @@ public class MonsterSniper : Monster
         {
             pt.damage = Stats.Atk;
             pt.shooterLayer = gameObject.layer;
-        }
-
-        if (anim != null)
-        {
-            // Add animation trigger here if needed
         }
     }
 }

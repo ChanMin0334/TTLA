@@ -6,7 +6,7 @@ public class AnimationManagers : MonoBehaviour
 {
     private Animator animator;
     [Header("Particle Systems")]
-    public ParticleSystem Death;
+    public GameObject deathParticlePrefab;
 
     private void Awake()
     {
@@ -24,6 +24,28 @@ public class AnimationManagers : MonoBehaviour
 
     public void PlayDeath()
     {
-        Death.Play();
+        if (deathParticlePrefab != null)
+        {
+            GameObject particle = Instantiate(
+                deathParticlePrefab,
+                transform.position,
+                Quaternion.identity
+            );
+
+            // Automatically destroy after particle system duration
+            ParticleSystem ps = particle.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                Destroy(particle, ps.main.duration + ps.main.startLifetime.constantMax);
+            }
+            else
+            {
+                Destroy(particle, 2f); // fallback
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Death particle prefab not assigned!");
+        }
     }
 }

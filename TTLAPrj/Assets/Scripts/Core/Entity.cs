@@ -7,7 +7,7 @@ public class Entity : MonoBehaviour
     public Stats Stats;
     public Animator anim;
     public GameObject projectile;
-    protected AnimationManagers animationManager;
+    public AnimationManagers animationManager;
 
     public void Awake()
     {
@@ -30,5 +30,6 @@ public class Entity : MonoBehaviour
     public virtual void Move(Vector2 movement)
     {
         transform.Translate(movement * Stats.Speed * Time.deltaTime);
+        anim.SetBool("IsMoving", true);
     }
 }
