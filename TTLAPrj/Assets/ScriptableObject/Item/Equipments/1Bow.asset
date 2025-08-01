@@ -26,7 +26,7 @@ MonoBehaviour:
   nowLevel: 0
   maxEnhanceLevel: 10
   bonus:
-    Atk: 0
+    Atk: 3
     Hp: 0
     AtkSpeed: 0
     Speed: 0

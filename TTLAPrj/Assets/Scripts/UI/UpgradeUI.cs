@@ -16,6 +16,9 @@ public class UpgradeUI : MonoBehaviour
     [SerializeField] TMP_Text chanceText;
     [SerializeField] TMP_Text equipBonus;
 
+    [SerializeField] ParticleSystem successEffect;
+    [SerializeField] ParticleSystem failEffect;
+
     [SerializeField] UISlider uiSlider; 
 
    
@@ -117,6 +120,8 @@ public class UpgradeUI : MonoBehaviour
             .Join(target.transform.DOScale(1.2f, 0.15f).SetLoops(2, LoopType.Yoyo))
             .Append(target.DOFade(0.5f, 0.2f).SetLoops(2, LoopType.Yoyo));
 
+        successEffect.Play();
+
         seq.OnComplete(() =>
         {
             Debug.Log("강화 연출 끝");
@@ -130,8 +135,11 @@ public class UpgradeUI : MonoBehaviour
         target.color = Color.white;
 
         seq.Append(target.transform.DOShakeRotation(0.3f, new Vector3(0, 0, 30), 10, 90))
-            .Join(target.DOFade(0.3f, 0.2f).SetLoops(2, LoopType.Yoyo))
-            .OnComplete(() =>
+            .Join(target.DOFade(0.3f, 0.2f).SetLoops(2, LoopType.Yoyo));
+
+            failEffect.Play();
+
+            seq.OnComplete(() =>
             {
                 Debug.Log("강화 실패");
             });

@@ -29,7 +29,7 @@ MonoBehaviour:
     Atk: 0
     Hp: 0
     AtkSpeed: 0
-    Speed: 3
+    Speed: 1
   costs: 0000000000000000
   chances:
   - 0.9
