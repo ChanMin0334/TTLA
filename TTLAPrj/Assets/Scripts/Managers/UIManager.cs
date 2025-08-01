@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [Header("Ability관련 UI")]
-    //[SerializeField] AbilitySo abilitySO;
     [SerializeField] SkillDataBase skillDataBase;
     [SerializeField] SkillCards[] cards;
     [SerializeField] GameObject levelUpPanel;
@@ -33,6 +32,7 @@ public class UIManager : MonoBehaviour
 
     //임시용
     [SerializeField] Player player;
+    [SerializeField] UpgradeUI upgradeUI;
     
     //[SerializeField] GameObject gameOverPanel;
 
@@ -222,6 +222,22 @@ public class UIManager : MonoBehaviour
         seq.Append(exitBtn.transform.DOScale(new Vector3(10.5f, 4.5f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
     }
     #endregion
+
+
+    //test
+
+    public void CallUpdateUI()
+    {
+        if(upgradeUI == null)
+        {
+            Debug.LogWarning("upgradeUI is Null");
+            return;
+        }
+
+        Debug.Log("CallUPdateUI가 호출됨.");
+
+        upgradeUI.UpdateUpgradeUI();
+    }
 }
 
 

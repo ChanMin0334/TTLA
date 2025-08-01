@@ -36,21 +36,23 @@ public class Enhance : MonoBehaviour
             return;
         }
 
-        Equipment data = slotItem.Data;
+        InventoryItem data = slotItem.Data;
 
         EnhanceResult result = TryEnhancement(data);
 
         UpgradeResult(result, data);
+
+        UIManager.Instance.CallUpdateUI(); // UI Update
     }
 
-    public EnhanceResult TryEnhancement(Equipment item)
+    public EnhanceResult TryEnhancement(InventoryItem item)
     {
-        if(item.maxEnhanceLevel <= item.nowLevel) //최대 레벨 일시에
+        if(item.itemData.maxEnhanceLevel <= item.nowLevel) //최대 레벨 일시에
         {
             return EnhanceResult.MaxLevel;
         }
 
-        float successChance = item.chances[item.nowLevel];
+        float successChance = item.itemData.chances[item.nowLevel];
     
         if(Random.value < successChance) //강화 성공
         {
@@ -62,12 +64,13 @@ public class Enhance : MonoBehaviour
         }
     }
 
-    public void UpgradeResult(EnhanceResult result, Equipment data) //Enum결과값 처리
+    public void UpgradeResult(EnhanceResult result, InventoryItem data) //Enum결과값 처리
     {
         switch (result)
         {
             case EnhanceResult.Success:
                 data.nowLevel++;
+                UpdateItemStat(data);
                 Debug.Log("강화 성공");
                 break;
             case EnhanceResult.Fail:
@@ -79,18 +82,18 @@ public class Enhance : MonoBehaviour
         }
     }
 
-    public void UpdateItemStat(Equipment data)
+    public void UpdateItemStat(InventoryItem data)
     {
-        if (data.bonus == null)
+        if (data.itemData.bonus == null)
         {
             Debug.Log("itemData.bonus is NULL");
             return;
         }
 
-        data.bonus.Atk = data.appendStat.Atk * (data.nowLevel + 1);
-        data.bonus.AtkSpeed = data.appendStat.Atk * (data.nowLevel + 1);
-        data.bonus.Hp = data.appendStat.Atk * (data.nowLevel + 1);
-        data.bonus.Speed = data.appendStat.Atk * (data.nowLevel + 1);
+        data.itemStat.Atk = data.itemData.appendStat.Atk * (data.nowLevel + 1);
+        data.itemStat.AtkSpeed = data.itemData.appendStat.Atk * (data.nowLevel + 1);
+        data.itemStat.Hp = data.itemData.appendStat.Atk * (data.nowLevel + 1);
+        data.itemStat.Speed = data.itemData.appendStat.Atk * (data.nowLevel + 1);
 
         Debug.Log("아이템 스탯 업그레이드 반영 성공!");
     }

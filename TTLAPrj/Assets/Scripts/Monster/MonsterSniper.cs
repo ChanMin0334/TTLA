@@ -1,27 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MonsterSniper : Monster
 {
-    [Header("Sniper Setting")]
+    [Header("Sniper Settings")]
     public LineRenderer laserLine;
     public Transform firePoint;
+    public LayerMask wallMask; // Assign in Inspector (e.g., Wall, Ground)
+
     private bool isCharging = false;
-
-
 
     protected override void Awake()
     {
         base.Awake();
-        agent.isStopped = true; //Stationary
+        agent.isStopped = true;
 
         if (laserLine == null)
         {
-            Debug.Log("Help ME");
+            Debug.LogWarning("Laser LineRenderer not assigned, trying to auto-find...");
             laserLine = GetComponentInChildren<LineRenderer>();
         }
     }
@@ -29,9 +25,7 @@ public class MonsterSniper : Monster
     protected override void Update()
     {
         if (target == null)
-        {
             return;
-        }
 
         Vector2 dir = (target.transform.position - transform.position).normalized;
         HandleSpriteFlip(dir);
@@ -47,99 +41,85 @@ public class MonsterSniper : Monster
     {
         isCharging = true;
 
-        float trackingtime = Stats.AtkSpeed - 0.3f;
+        float trackingTime = Stats.AtkSpeed - 0.3f;
         float elapsed = 0f;
 
-        //Show Red Line
         if (laserLine != null)
-        {
             laserLine.enabled = true;
-        }
 
-        while (elapsed < trackingtime)
+        // Tracking phase
+        while (elapsed < trackingTime)
         {
             if (target == null)
             {
                 if (laserLine != null)
-                {
                     laserLine.enabled = false;
-                }
 
                 isCharging = false;
                 yield break;
             }
-            if (laserLine != null && firePoint != null && target != null)
-                {
-                    Vector2 currentDir = (target.transform.position - transform.position).normalized;
-                    //If hits a wall it will re adjust the length of the Area.
-                    RaycastHit2D hit = Physics2D.Raycast(firePoint.position, currentDir, 20f, LayerMask.GetMask("Default", "Wall")); // Add your actual wall layers here
-                    laserLine.SetPosition(0, firePoint.position);
 
-                    if (hit.collider != null)
-                    {
-                        laserLine.SetPosition(1, hit.point);
-                    }
-                    else
-                    {
-                        laserLine.SetPosition(1, firePoint.position + (Vector3)(currentDir * 20f));
-                    }
-                }
+            Vector2 currentDir = (target.transform.position - transform.position).normalized;
+            UpdateLaserLine(currentDir);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
+        // Lock in final direction
         Vector2 finalDir = (target.transform.position - transform.position).normalized;
-        if (laserLine != null && firePoint != null)
-        {
-            laserLine.SetPosition(0, firePoint.position);
+        UpdateLaserLine(finalDir);
 
-            RaycastHit2D hit = Physics2D.Raycast(firePoint.position, finalDir, 20f, LayerMask.GetMask("Default", "Wall"));
-            if (hit.collider != null)
-            {
-                laserLine.SetPosition(1, hit.point);
-            }
-            else
-            {
-                laserLine.SetPosition(1, firePoint.position + (Vector3)(finalDir * 20f));
-            }
-        }
-
-        yield return new WaitForSeconds(Stats.AtkSpeed - trackingtime);
+        yield return new WaitForSeconds(Stats.AtkSpeed - trackingTime);
 
         ShootProjectile(finalDir);
 
         if (laserLine != null)
-        {
             laserLine.enabled = false;
-        }
 
         isCharging = false;
+    }
+
+    private void UpdateLaserLine(Vector2 dir)
+    {
+        if (laserLine == null || firePoint == null)
+            return;
+        
+        Vector3 fireOrigin = firePoint.position + new Vector3(0f, -0.1f, 0f);
+
+        laserLine.SetPosition(0, fireOrigin);
+
+        RaycastHit2D hit = Physics2D.Raycast(firePoint.position, dir, 20f, wallMask);
+        if (hit.collider != null)
+        {
+            laserLine.SetPosition(1, hit.point);
+        }
+        else
+        {
+            laserLine.SetPosition(1, firePoint.position + (Vector3)(dir * 20f));
+        }
     }
 
     private void ShootProjectile(Vector2 dir)
     {
         if (projectile == null || firePoint == null)
-        {
             return;
-        }
 
         GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
-        {
-            rb.velocity = dir * 50f; //Very fast
-        }
+            rb.velocity = dir * 50f;
+
         ProjectileTarget pt = bullet.GetComponent<ProjectileTarget>();
         if (pt != null)
         {
             pt.damage = Stats.Atk;
-            pt.shooterLayer = gameObject.layer; 
+            pt.shooterLayer = gameObject.layer;
         }
 
         if (anim != null)
-            {
-                //Animations?
-            }
+        {
+            // Add animation trigger here if needed
+        }
     }
 }
