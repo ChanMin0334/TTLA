@@ -51,7 +51,7 @@ public class MonsterBow : MonsterRange
         Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
         if (projRb != null)
         {
-            projRb.velocity = dir * 5f;
+            projRb.velocity = bowPoint.right * 5f;
         }
 
         ProjectileTarget projTarget = proj.GetComponent<ProjectileTarget>();

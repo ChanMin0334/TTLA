@@ -34,10 +34,7 @@ public class Monster : Entity
 
     protected virtual void Update()
     {
-        if (target == null)
-        {
-            return;
-        }
+        if (target == null) return;
 
         float distance = Vector2.Distance(transform.position, target.transform.position);
         Vector2 dir = (target.transform.position - transform.position).normalized;
@@ -46,6 +43,12 @@ public class Monster : Entity
         {
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
+
+            // Set IsMoving true if distance is large enough
+            if (anim != null)
+            {
+                anim.SetBool("IsMoving", true);
+            }
         }
         else
         {
