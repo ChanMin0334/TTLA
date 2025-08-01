@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoblinWalk
+  m_Name: Idle
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 8d77a1886b4f5414c923b8b8a4ffe4f7, type: 3}
+      value: {fileID: 21300000, guid: 54653bac486864a428f9ec9ed6f0dcca, type: 3}
     - time: 0.125
-      value: {fileID: 21300000, guid: 128a48bc82894214fbc20dbcc31404af, type: 3}
+      value: {fileID: 21300000, guid: 2707eed3b14f6cc44b45f6ab313c2e2f, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: f2509e3f2125362438aef0f245444e86, type: 3}
+      value: {fileID: 21300000, guid: 666d3f86b23f327459b69defd327f169, type: 3}
     - time: 0.375
-      value: {fileID: 21300000, guid: 5f6bf79af6ca1fa498976effbdfaca62, type: 3}
+      value: {fileID: 21300000, guid: 70a553fdb8f356149a1c6e6b149c5f13, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 8d77a1886b4f5414c923b8b8a4ffe4f7, type: 3}
-    - {fileID: 21300000, guid: 128a48bc82894214fbc20dbcc31404af, type: 3}
-    - {fileID: 21300000, guid: f2509e3f2125362438aef0f245444e86, type: 3}
-    - {fileID: 21300000, guid: 5f6bf79af6ca1fa498976effbdfaca62, type: 3}
+    - {fileID: 21300000, guid: 54653bac486864a428f9ec9ed6f0dcca, type: 3}
+    - {fileID: 21300000, guid: 2707eed3b14f6cc44b45f6ab313c2e2f, type: 3}
+    - {fileID: 21300000, guid: 666d3f86b23f327459b69defd327f169, type: 3}
+    - {fileID: 21300000, guid: 70a553fdb8f356149a1c6e6b149c5f13, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
