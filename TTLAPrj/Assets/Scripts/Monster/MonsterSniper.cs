@@ -116,10 +116,5 @@ public class MonsterSniper : Monster
             pt.damage = Stats.Atk;
             pt.shooterLayer = gameObject.layer;
         }
-
-        if (anim != null)
-        {
-            // Add animation trigger here if needed
-        }
     }
 }
