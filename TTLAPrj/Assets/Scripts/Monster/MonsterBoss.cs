@@ -22,7 +22,7 @@ public class MonsterBoss : Monster
 
         base.agent.isStopped = true;
         Vector2 dir = (target.transform.position - transform.position).normalized;
-        //HandleSpriteFlip(dir)
+        HandleSpriteFlip(dir);
 
         if (Time.time - lastActionTime >= dashCooldown)
         {
@@ -42,8 +42,8 @@ public class MonsterBoss : Monster
 
     private IEnumerator DashAttack(Vector2 direction)
     {
-        animationManager?.SetMoveAnimation(true);   
-        HandleSpriteFlip(direction);               
+        animationManager?.SetMoveAnimation(true);
+        HandleSpriteFlip(direction);
 
         float elapsed = 0f;
 
@@ -55,7 +55,7 @@ public class MonsterBoss : Monster
         }
 
         rb.velocity = Vector2.zero;
-        animationManager?.SetMoveAnimation(false);  // Stop anim
+        animationManager?.SetMoveAnimation(false);
     }
 
     private void SpreadShot(Vector2 baseDir)
@@ -82,6 +82,17 @@ public class MonsterBoss : Monster
                 projTarget.damage = Stats.Atk;
                 projTarget.shooterLayer = gameObject.layer;
                 projTarget.targetLayers = LayerMask.GetMask("Player");
+            }
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damaged(Stats.Atk);
             }
         }
     }
