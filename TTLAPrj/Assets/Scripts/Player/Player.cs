@@ -87,8 +87,6 @@ public class Player : Entity
 
         if (anim != null)
         {
-            anim.SetFloat("MoveX", direction.x);
-            anim.SetFloat("MoveY", direction.y);
             anim.SetBool("IsMoving", direction != Vector2.zero);
         }
 
@@ -125,7 +123,7 @@ public class Player : Entity
             {
                 projTarget.damage = Stats.Atk;
                 projTarget.shooterLayer = gameObject.layer;
-                projTarget.targetLayers = LayerMask.GetMask("Enemy");
+                projTarget.targetLayers = LayerMask.GetMask("Monster");
             }
         }
     }

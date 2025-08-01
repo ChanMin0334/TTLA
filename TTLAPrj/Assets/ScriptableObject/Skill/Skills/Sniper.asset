@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5ba9999d332dfe4fb06c8bcdbfa2705, type: 3}
-  m_Name: Test2
+  m_Name: Sniper
   m_EditorClassIdentifier: 
-  id: 5
-  skillName: "5\uBC88\uC2A4\uD0AC"
-  skillIcon: {fileID: 1302559916, guid: 4a5869bce2058ac4883c2bf8cf019497, type: 3}
-  skillDescription: "\uC218\uB958\uD0C4\uC774\uB2E4"
+  id: 7
+  skillName: "\uAD00\uD1B5"
+  skillIcon: {fileID: 21300000, guid: b450d0b398880cb458f83d1a01b399ca, type: 3}
+  skillDescription: "\uC801\uC744 \uAD00\uD1B5\uD55C\uB2E4."
   type: 3
   skills: []

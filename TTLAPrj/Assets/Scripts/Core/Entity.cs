@@ -7,16 +7,18 @@ public class Entity : MonoBehaviour
     public Stats Stats;
     public Animator anim;
     public GameObject projectile;
+    public AnimationManagers animationManager;
 
     public void Awake()
     {
-        Stats = new Stats(0f,0f,0f,0f);
+        Stats = new Stats(0f, 0f, 0f, 0f);
     }
     public virtual void Damaged(float damage)
     {
         Stats.Hp -= damage;
         if (Stats.Hp <= 0)
         {
+            animationManager.PlayDeath();
             Destroy(gameObject);
         }
     }
@@ -28,5 +30,6 @@ public class Entity : MonoBehaviour
     public virtual void Move(Vector2 movement)
     {
         transform.Translate(movement * Stats.Speed * Time.deltaTime);
+        anim.SetBool("IsMoving", true);
     }
 }
