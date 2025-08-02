@@ -482,7 +482,7 @@ MonoBehaviour:
     AtkSpeed: 1
     Speed: 5
   anim: {fileID: 0}
-  projectile: {fileID: 6062439469579545198, guid: c84762129b2ebbf4ab24069bea359d51, type: 3}
+  projectile: {fileID: 6585539213759686725, guid: 39c8e2f8acd0e7b4293ba8301486a3da, type: 3}
   animationManager: {fileID: 481130573}
   attackRange: 5
   bowPoint: {fileID: 999247572}
