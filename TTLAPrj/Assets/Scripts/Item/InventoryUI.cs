@@ -19,6 +19,9 @@ public class InventoryUI : MonoBehaviour
     public Transform enhancePlace;
     public Transform equipPlace;
 
+    //test
+    [SerializeField] Player player;
+
     public void Start()
     {
         inventoryManager = ItemManager.Instance;
@@ -84,6 +87,10 @@ public class InventoryUI : MonoBehaviour
         slotItem.transform.localPosition = Vector3.zero;
 
         slotItem.SetEvent(OnReturnEvent);
+
+        player.AddStats(slotItem.Data.itemStat); // 테스트
+        UIManager.Instance.CallShowCharacterInfo();
+
         Debug.Log("나 장착 인벤에 있음");
     }
 
@@ -97,6 +104,8 @@ public class InventoryUI : MonoBehaviour
         if (invType == InvType.Equip)
         {
             slotItem.SetEvent(OnEquipEvent);
+            player.RemoveStats(slotItem.Data.itemStat); // 테스트
+            UIManager.Instance.CallShowCharacterInfo();
         }
         else if (invType == InvType.Enhance) {
             slotItem.SetEvent(OnEnhanceEvent);

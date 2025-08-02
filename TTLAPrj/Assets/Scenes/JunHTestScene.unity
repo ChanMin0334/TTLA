@@ -23495,6 +23495,7 @@ MonoBehaviour:
   InvSlotPlace: {fileID: 1023389451}
   enhancePlace: {fileID: 0}
   equipPlace: {fileID: 1874201904}
+  player: {fileID: 1533430389}
 --- !u!114 &1445273894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23912,6 +23913,7 @@ MonoBehaviour:
   InvSlotPlace: {fileID: 392385299}
   enhancePlace: {fileID: 1218394428}
   equipPlace: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &1503059666
 MonoBehaviour:
   m_ObjectHideFlags: 0
