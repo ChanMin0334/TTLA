@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2545736012065709251}
   - component: {fileID: 7766129011391238499}
   - component: {fileID: 7686226635998331252}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mage
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 1014975843679774647}
   - component: {fileID: 1524736543254483648}
   - component: {fileID: 7336396409138053560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4320459842230572324}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1522208997320951774}
   - component: {fileID: 7361204190168513492}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}

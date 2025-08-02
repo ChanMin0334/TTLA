@@ -15,7 +15,7 @@ public class MonsterBoss : Monster
     private bool isPhaseTwo = false;
     private float initialHp;
     private bool isPerformingAttack = false;
-
+    public bool isActive = false;
     protected override void Awake()
     {
         base.Awake();
@@ -23,6 +23,7 @@ public class MonsterBoss : Monster
     }
     protected override void Update()
     {
+        if (!isActive) return;
         if (target == null || isPerformingAttack)
         {
             return;
@@ -194,5 +195,10 @@ public class MonsterBoss : Monster
                 player.Damaged(Stats.Atk);
             }
         }
+    }
+
+    public void ActivateBoss()
+    {
+        isActive = true;
     }
 }
