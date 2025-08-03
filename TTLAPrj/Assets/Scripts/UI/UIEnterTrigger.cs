@@ -32,6 +32,7 @@ public class UIEnterTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (type != TriggerType.Click)
             return;
 
+        UIManager.Instance.CallInventoryReDraw();
         targetUI.SlideOn(duration);
     }
 
@@ -40,6 +41,7 @@ public class UIEnterTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (type != TriggerType.Click)
             return;
 
+        UIManager.Instance.CallInventoryReDraw();
         targetUI.SlideOff(duration);
     }
 }

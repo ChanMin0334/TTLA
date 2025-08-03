@@ -23835,7 +23835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invType: 0
   InvSlotPlace: {fileID: 1023389451}
-  enhancePlace: {fileID: 0}
+  enhancePlace: {fileID: 1218394428}
   equipPlace: {fileID: 1874201904}
   player: {fileID: 1533430389}
 --- !u!114 &1445273894
@@ -24050,6 +24050,7 @@ MonoBehaviour:
   upgradeUI: {fileID: 1055115703}
   gamestateUI: {fileID: 1889576615}
   characterInfoUI: {fileID: 1245336079}
+  inventoryUI: {fileID: 1503059665}
 --- !u!4 &1485917268
 Transform:
   m_ObjectHideFlags: 0
@@ -24254,7 +24255,7 @@ MonoBehaviour:
   invType: 1
   InvSlotPlace: {fileID: 392385299}
   enhancePlace: {fileID: 1218394428}
-  equipPlace: {fileID: 0}
+  equipPlace: {fileID: 1218394428}
   player: {fileID: 0}
 --- !u!114 &1503059666
 MonoBehaviour:
