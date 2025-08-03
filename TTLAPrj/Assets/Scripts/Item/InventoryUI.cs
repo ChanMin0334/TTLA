@@ -12,11 +12,13 @@ public enum InvType
 
 public class InventoryUI : MonoBehaviour
 {
-    ItemManager inventoryManager;
+    ItemManager itemManager;
     public InvType invType;
-    //아이템을 추가 삭제는 아이템 매니저가 할일
+    
     public Transform InvSlotPlace;
     public Transform enhancePlace;
+
+    //무기, 갑옷, 신발 위치 만들어서 따로 지정해줘야함
     public Transform equipPlace;
 
     //test
@@ -24,17 +26,38 @@ public class InventoryUI : MonoBehaviour
 
     public void Start()
     {
-        inventoryManager = ItemManager.Instance;
+        itemManager = ItemManager.Instance;
         InventoryUIPrint();
+        itemManager.OnInvenAction += InventoryReDraw;
+    }
+
+    //아이템을 추가 삭제는 아이템 매니저가 할일
+    //필요한거
+    //인벤토리 그리고 지우기(슬롯 생성 및 제거), 슬롯들을 관리
+
+    public void InventoryReDraw()
+    {
+        InventoryClear(InvSlotPlace);
+        InventoryClear(enhancePlace);
+        InventoryClear(equipPlace);
+        InventoryUIPrint();
+    }
+
+    public void InventoryClear(Transform transform)
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
     }
 
     public void InventoryUIPrint()
     {
         Action<GameObject> action = null;
         //인벤토리 내용 출력 = 즉 슬롯 생성, 근데 인벤토리의 부모 하위에 생성해야됨. 그걸 어캐암?
-        foreach (InventoryItem item in inventoryManager.inventory)
+        foreach (InventoryItem item in itemManager.inventory)
         {
-            GameObject slot = Instantiate(inventoryManager.slotPrefab, InvSlotPlace);
+            GameObject slot = Instantiate(itemManager.slotPrefab, InvSlotPlace);
             SlotItem slotItem = slot.GetComponent<SlotItem>();
 
             if (invType == InvType.Enhance)

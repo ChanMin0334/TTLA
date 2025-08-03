@@ -9883,8 +9883,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7eec3b6bb9649c47a741dd77a700331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipUI: {fileID: 486354154}
-  enhanceUI: {fileID: 1799147654}
+  equipUI: {fileID: 0}
+  enhanceUI: {fileID: 0}
   slotPrefab: {fileID: 9151785835875493750, guid: 562f9228118f5d146b4011c09a33ab68, type: 3}
   inventory: []
   slots:
