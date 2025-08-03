@@ -12,7 +12,7 @@ public class InventoryItem
     public InventoryItem(Equipment data)
     {
         itemData = data;
-        itemStat = new Stats(data.bonus.Atk, data.bonus.Hp, data.bonus.AtkSpeed, data.bonus.Speed);
+        itemStat = new Stats(data.bonus.Atk, data.bonus.Hp, data.bonus.AtkSpeed, data.bonus.Speed, data.bonus.HpMax);
         nowLevel = 0;
     }
 }
