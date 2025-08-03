@@ -166,6 +166,6 @@ public class GameIntro : MonoBehaviour
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene("MainScene"); // 다음 씬 로드
+        SceneManager.LoadScene("MainTest"); // 다음 씬 로드 // 테스트
     }
 }
