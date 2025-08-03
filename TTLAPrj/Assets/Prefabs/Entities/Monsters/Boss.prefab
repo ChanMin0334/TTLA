@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6362332411157729590}
   - component: {fileID: 8456279208969041139}
   - component: {fileID: 2309674349168063171}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats:
     Atk: 5
-    Hp: 5
+    Hp: 100
     AtkSpeed: 3
     Speed: 5
   anim: {fileID: 4459957792426970320}
@@ -157,6 +157,7 @@ MonoBehaviour:
   projectileCount: 8
   projectileSpreadAngle: 20
   projectileSpeed: 6
+  isActive: 0
 --- !u!1 &8677714492219962824
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +170,7 @@ GameObject:
   - component: {fileID: 6874113976877880812}
   - component: {fileID: 4459957792426970320}
   - component: {fileID: 854872060494945534}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

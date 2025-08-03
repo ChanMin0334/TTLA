@@ -12,57 +12,52 @@ public enum InvType
 
 public class InventoryUI : MonoBehaviour
 {
-    InventoryManager inventoryManager;
+    ItemManager itemManager;
     public InvType invType;
+    
+    public Transform InvSlotPlace;
+    public Transform enhancePlace;
 
-    [SerializeField] private Transform enhancePlace;
-    [SerializeField] private Transform equipPlace;
+    //무기, 갑옷, 신발 위치 만들어서 따로 지정해줘야함
+    public Transform equipPlace;
+
+    //test
+    [SerializeField] Player player;
 
     public void Start()
     {
-        inventoryManager = InventoryManager.Instance;
-        InventoryUIPrint(gameObject);
+        itemManager = ItemManager.Instance;
+        InventoryUIPrint();
+        itemManager.OnInvenAction += InventoryReDraw;
     }
 
-    private void Update()
+    //아이템을 추가 삭제는 아이템 매니저가 할일
+    //필요한거
+    //인벤토리 그리고 지우기(슬롯 생성 및 제거), 슬롯들을 관리
+
+    public void InventoryReDraw()
     {
-        if (Input.GetKeyDown(KeyCode.Home))
-        {
-            InventoryUIPrint(gameObject);
-        }
-        if (Input.GetKeyDown(KeyCode.End))
-        {
-            InventoryUIClear();
-        }
+        InventoryClear(InvSlotPlace);
+        InventoryClear(enhancePlace);
+        InventoryClear(equipPlace);
+        InventoryUIPrint();
     }
 
-    public void InventoryItemAdd(Equipment So)
+    public void InventoryClear(Transform transform)
     {
-        inventoryManager.inventory.Add(new InventoryItem(So));
-    }
-
-    public void InventoryUIClear()
-    {
-        //모르겠띠
-        for(int i = transform.childCount - 1; i >= 0; i--)
+        for (int i = transform.childCount - 1; i >= 0; i--)
         {
             Destroy(transform.GetChild(i).gameObject);
         }
-
-        if(enhancePlace.childCount > 0 || equipPlace.childCount > 0)
-        {
-            Destroy(enhancePlace.GetChild(0).gameObject);
-            Destroy(equipPlace.GetChild(0).gameObject);
-        }
     }
 
-    public void InventoryUIPrint(GameObject obj)
+    public void InventoryUIPrint()
     {
         Action<GameObject> action = null;
         //인벤토리 내용 출력 = 즉 슬롯 생성, 근데 인벤토리의 부모 하위에 생성해야됨. 그걸 어캐암?
-        foreach (InventoryItem item in inventoryManager.inventory)
+        foreach (InventoryItem item in itemManager.inventory)
         {
-            GameObject slot = Instantiate(inventoryManager.slotPrefab, transform);
+            GameObject slot = Instantiate(itemManager.slotPrefab, InvSlotPlace);
             SlotItem slotItem = slot.GetComponent<SlotItem>();
 
             if (invType == InvType.Enhance)
@@ -85,13 +80,17 @@ public class InventoryUI : MonoBehaviour
         if(enhancePlace.childCount > 0)
         {
             //이미 강화칸에 물건 올려둠
+
+            UIManager.Instance.CallUpdateUI();
             return;
         }
 
+        //만들고 꺼두었다가 정보 넘기면서 켜주기
         slotItem.transform.SetParent(enhancePlace, false);
         slotItem.transform.localPosition = Vector3.zero;
 
-        slotItem.SetEvent(OnReturnEvent);
+        UIManager.Instance.CallUpdateUI();
+        slotItem.SetEvent(OnReturnEvent);    
         Debug.Log("나 강화 인벤에 있음");
     }
 
@@ -111,6 +110,10 @@ public class InventoryUI : MonoBehaviour
         slotItem.transform.localPosition = Vector3.zero;
 
         slotItem.SetEvent(OnReturnEvent);
+
+        player.AddStats(slotItem.Data.itemStat); // 테스트
+        UIManager.Instance.CallShowCharacterInfo();
+
         Debug.Log("나 장착 인벤에 있음");
     }
 
@@ -119,16 +122,19 @@ public class InventoryUI : MonoBehaviour
         SlotItem slotItem = clickSlot.GetComponent<SlotItem>();
         if (slotItem == null) return;
 
-        slotItem.transform.SetParent(this.transform, false);
+        slotItem.transform.SetParent(InvSlotPlace, false);
 
         if (invType == InvType.Equip)
         {
             slotItem.SetEvent(OnEquipEvent);
+            player.RemoveStats(slotItem.Data.itemStat); // 테스트
+            UIManager.Instance.CallShowCharacterInfo();
         }
         else if (invType == InvType.Enhance) {
             slotItem.SetEvent(OnEnhanceEvent);
         }
-        
+
+        UIManager.Instance.CallUpdateUI();
         Debug.Log("돌려보내주셈");
     }
 
