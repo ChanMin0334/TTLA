@@ -22,7 +22,7 @@ public class SkillCards : MonoBehaviour
     [SerializeField] Sprite uniqueBorder;
     [SerializeField] Sprite legendBorder;
 
-    [SerializeField] Color highlightColor = Color.black;
+    [SerializeField] Color highlightColor = new Color(1f, 1f, 1f, 0.5f);
     Color originalColor;
 
     UIManager manager;
