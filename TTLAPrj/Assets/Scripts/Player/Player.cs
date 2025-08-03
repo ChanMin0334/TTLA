@@ -219,4 +219,23 @@ public class Player : Entity
             interact.OnExitTrigger(this);
         }
     }
+
+
+    //Test
+
+    public void AddStats(Stats stats)
+    {
+        this.Stats.Atk += stats.Atk;
+        this.Stats.Hp += stats.Hp;
+        this.Stats.AtkSpeed += stats.AtkSpeed;
+        this.Stats.Speed += stats.Speed;
+    }
+
+    public void RemoveStats(Stats stats)
+    {
+        this.Stats.Atk -= stats.Atk;
+        this.Stats.Hp -= stats.Hp;
+        this.Stats.AtkSpeed -= stats.AtkSpeed;
+        this.Stats.Speed -= stats.Speed;
+    }
 }
