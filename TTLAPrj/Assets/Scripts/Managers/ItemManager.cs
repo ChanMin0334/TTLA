@@ -7,16 +7,16 @@ public class ItemManager : MonoBehaviour
 {
     //ItemManager 아이템 관리
     public static ItemManager Instance { get; private set; }
-
-    public InventoryUI equipUI;
-    public InventoryUI enhanceUI;
     public GameObject slotPrefab; //슬롯 프리팹
     //실 아이템 객체가 저장된 곳
     public List<InventoryItem> inventory = new List<InventoryItem>();
 
+    //호출할 인벤토리의 이벤트들 저장
+    public Action OnInvenAction;
+
     //데이터만 가지고 꺼내쓸 수 있는 함수가 필요하다.
 
-    //mvc 패턴
+    //mvc 패턴 필요
 
     //초기 아이템 테스트용
     [SerializeField] public Equipment[] slots;
@@ -35,38 +35,33 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    //추가 제거 테스트
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Home))
         {
-            enhanceUI.InventoryUIPrint();
-            equipUI.InventoryUIPrint();
+            InventoryItemRemove(inventory[0]);
         }
         if (Input.GetKeyDown(KeyCode.End))
         {
-            InventoryUIClear();
+            InventoryItem testItem = new InventoryItem(slots[0]);
+            InventoryItemAdd(testItem);
         }
     }
 
     //인벤토리에 있는 함수를 호출한다.
-    public void InventoryItemAdd(Equipment So)
+    public void InventoryItemAdd(InventoryItem slotItem)
     {
-        inventory.Add(new InventoryItem(So));
+        inventory.Add(slotItem);
+        OnInvenAction?.Invoke();
     }
 
-    public void InventoryUIClear()
+    //삭제가 필요한가 모르겠네?
+    public void InventoryItemRemove(InventoryItem slotItem)
     {
-        //모르겠띠
-        for (int i = transform.childCount - 1; i >= 0; i--)
-        {
-            Destroy(transform.GetChild(i).gameObject);
-        }
-
-        if (enhanceUI.enhancePlace.childCount > 0 || equipUI.equipPlace.childCount > 0)
-        {
-            Destroy(enhanceUI.enhancePlace.GetChild(0).gameObject);
-            Destroy(equipUI.equipPlace.GetChild(0).gameObject);
-        }
+        //삭제 이렇게 하면 안되네 ㅋㅋ
+        inventory.Remove(slotItem);
+        OnInvenAction?.Invoke();
     }
 
     //강화 슬롯에 넣고 메인메뉴로 갈 시 돌아가기
