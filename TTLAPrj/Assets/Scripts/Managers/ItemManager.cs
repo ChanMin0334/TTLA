@@ -49,6 +49,12 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    //그냥 새로고침용
+    public void InventoryCall()
+    {
+        OnInvenAction?.Invoke();
+    }
+
     //인벤토리에 있는 함수를 호출한다.
     public void InventoryItemAdd(InventoryItem slotItem)
     {

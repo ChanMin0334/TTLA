@@ -17,6 +17,8 @@ public class InventoryUI : MonoBehaviour
     
     public Transform InvSlotPlace;
     public Transform enhancePlace;
+
+    //무기, 갑옷, 신발 위치 만들어서 따로 지정해줘야함
     public Transform equipPlace;
 
     public void Start()
