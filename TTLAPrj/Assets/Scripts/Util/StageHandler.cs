@@ -114,7 +114,7 @@ public class StageHandler : MonoBehaviour
     {
         int nextStageIndex = GameManager.Instance.currentStage;
         if (nextStageIndex < stages.Length)
-        {
+        {    
             StartCoroutine(MoveStagesAndLoad(nextStageIndex));
             GameManager.Instance.SaveStage?.Invoke(); // 스테이지 저장 호출
         }

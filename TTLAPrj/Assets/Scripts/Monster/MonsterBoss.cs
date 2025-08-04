@@ -17,6 +17,8 @@ public class MonsterBoss : Monster
     private bool isPerformingAttack = false;
     public bool isActive = false;
 
+    public bool isDead = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -206,4 +208,24 @@ public class MonsterBoss : Monster
     {
         isActive = true;
     }
+
+    public override void Damaged(float damage)
+    {
+        Stats.Hp -= damage;
+        if (Stats.Hp <= 0)
+        {
+            
+            animationManager.PlayDeath();
+            Destroy(gameObject);
+
+            if(!isDead)
+            {
+                isDead = true;
+                UIManager.Instance.CallGameClear();
+            }
+
+        }
+        soundManager.PlaySFX(SFX_Name.Player_Attack);
+    }
+
 }
