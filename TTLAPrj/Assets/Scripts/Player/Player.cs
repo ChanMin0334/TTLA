@@ -98,7 +98,35 @@ public class Player : Entity
     }
     public override void Move(Vector2 direction)
     {
-        rb.velocity = direction * Stats.Speed;
+        if (CameraManager.Instance != null && CameraManager.Instance.mainCamera != null)
+        {
+            Camera cam = CameraManager.Instance.mainCamera;
+            Vector3 camPos = cam.transform.position;
+            float vertExtent = cam.orthographicSize;
+            float horzExtent = vertExtent * cam.aspect;
+
+            // 플레이어의 현재 위치와 이동 후 위치 계산
+            Vector3 nextPos = rb.position + direction * Stats.Speed * Time.fixedDeltaTime;
+
+            // 카메라 뷰의 월드 좌표 범위 계산
+            float minX = camPos.x - horzExtent;
+            float maxX = camPos.x + horzExtent;
+            float minY = camPos.y - vertExtent;
+            float maxY = camPos.y + vertExtent;
+
+            // 플레이어의 스프라이트 크기만큼 여유를 둘 경우
+            float offsetX = 0f;
+            float offsetY = 0f;
+
+            nextPos.x = Mathf.Clamp(nextPos.x, minX + offsetX, maxX - offsetX);
+            nextPos.y = Mathf.Clamp(nextPos.y, minY + offsetY, maxY - offsetY);
+
+            rb.MovePosition(nextPos);
+        }
+        else
+        {
+            rb.velocity = direction * Stats.Speed;
+        }
 
         if (anim != null)
         {
@@ -114,6 +142,7 @@ public class Player : Entity
             spriteRenderer.flipX = true;
         }
     }
+
     private void AttackNearestEnemy()
     {
         //Debug.Log("Attacking Enemy");

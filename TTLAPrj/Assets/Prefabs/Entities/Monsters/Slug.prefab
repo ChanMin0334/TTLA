@@ -60,7 +60,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1289156891
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &4301557092777438133
@@ -443,8 +443,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats:
     Atk: 5
-    HpMax: 0
-    Hp: 5
+    HpMax: 10
+    Hp: 10
     AtkSpeed: 5
     Speed: 5
   anim: {fileID: 109362674768523097}

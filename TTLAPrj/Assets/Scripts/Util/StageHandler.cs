@@ -120,6 +120,7 @@ public class StageHandler : MonoBehaviour
         else
         {
             Debug.Log("모든 스테이지를 클리어했습니다!");
+            // UI로 나가기 버튼
         }
     }
 
@@ -159,7 +160,6 @@ public class StageHandler : MonoBehaviour
         ActivateCurrentStage();
         GameManager.Instance.playerObj.transform.position = new Vector3(0f, -4f, 0); // 플레이어 위치 이동
         GameManager.Instance.playerObj.SetActive(true); // 플레이어 활성화
-
         SpawnMonstersOnMapLoaded(); // 다음 스테이지 맵 로드 후 몬스터 스폰
         isCleared = false;
         isReward = false;
@@ -170,7 +170,7 @@ public class StageHandler : MonoBehaviour
     {
         var collider = portal.GetComponent<BoxCollider2D>();
         collider.isTrigger = true; // 포탈 활성화
-        portal.GetComponent<SpriteRenderer>().color = Color.blue;
+        portal.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 255f, 0.4f);
 
         // PortalTriggerHandler가 없으면 추가
         if (portal.GetComponent<PortalTriggerHandler>() == null)
