@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,5 +53,14 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
+    }
+
+    public void GoMainScene()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+    public void GoGameScene()
+    {
+        SceneManager.LoadScene("Level1_Forest");
     }
 }

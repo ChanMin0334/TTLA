@@ -31,7 +31,7 @@ public class PlayerLevel_test : MonoBehaviour
         playerLevel++;
 
         // 레벨업 사운드 재생
-        SoundManager.Instance.PlaySFX(SFX_Name.Player_LevelUp, 0.5f);
+        SoundManager.Instance.PlaySFX(SFX_Name.Player_LevelUp);
 
          // 플레이어한테 선택지 띄워주기
 

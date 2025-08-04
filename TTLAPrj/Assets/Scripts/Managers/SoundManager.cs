@@ -1,4 +1,7 @@
+using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum BGMName
 {
@@ -18,7 +21,6 @@ public enum SFX_Name
     Player_ByAttack,
     SFX_ButtonClick,
     SFX_GameOver,
-    SFX_StageClear,
     SFX_EnterBoss,
     SFX_PickupMoney
 }
@@ -27,13 +29,15 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    private AudioSource bgmSource;
-    private AudioSource sfxSource;
-
     // 여러 BGM을 Inspector에서 할당
     public AudioClip[] bgmClips;
     public AudioClip[] sfxClips;
 
+    private AudioSource bgmSource;
+    private AudioSource sfxSource;
+
+    private float bgmVolume = 1f;
+    private float sfxVolume = 1f;
     private void Awake()
     {
         if (Instance == null)
@@ -45,6 +49,8 @@ public class SoundManager : MonoBehaviour
             sfxSource = gameObject.AddComponent<AudioSource>();
 
             bgmSource.loop = true;
+            sfxSource.playOnAwake = false; // SFX는 자동 재생하지 않음
+            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 등록
         }
         else
         {
@@ -52,8 +58,36 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 해제
+        }
+    }
+
+    // 씬이 로드될 때마다 호출되는 메서드
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"씬 로드됨: {scene.name}");
+
+        switch(scene.name)
+        {
+            case "IntroScene":
+                break;
+            case "MainScene":
+                PlayBGM(BGMName.BGM_01);
+                break;
+            case "Level1_Forest":
+                PlayBGM(BGMName.BGM_02); 
+                break;
+            default:
+                break;
+        }
+    }
+
     // 인덱스로 BGM 재생
-    public void PlayBGM(BGMName soundName, float volume = 1f)
+    public void PlayBGM(BGMName soundName)
     {
         int index = (int)soundName;
 
@@ -61,7 +95,7 @@ public class SoundManager : MonoBehaviour
         if (bgmSource.clip == bgmClips[index]) return;
 
         bgmSource.clip = bgmClips[index];
-        bgmSource.volume = volume;
+        bgmSource.volume = bgmVolume;
         bgmSource.Play();
     }
 
@@ -70,7 +104,7 @@ public class SoundManager : MonoBehaviour
         bgmSource.Stop();
     }
 
-    public void PlaySFX(SFX_Name name, float volume = 1f)
+    public void PlaySFX(SFX_Name name)
     {
         AudioClip clip;
 
@@ -94,17 +128,14 @@ public class SoundManager : MonoBehaviour
             case SFX_Name.SFX_GameOver:
                 clip = sfxClips[5];
                 break;
-            case SFX_Name.SFX_StageClear:
+            case SFX_Name.SFX_EnterBoss:
                 clip = sfxClips[6];
                 break;
-            case SFX_Name.SFX_EnterBoss:
+            case SFX_Name.SFX_PickupMoney:
                 clip = sfxClips[7];
                 break;
-            case SFX_Name.SFX_PickupMoney:
-                clip = sfxClips[8];
-                break;
             case SFX_Name.SFX_ButtonClick:
-                clip = sfxClips[9];
+                clip = sfxClips[8];
                 break;
             default:
                 Debug.LogWarning("SFX clip not found for: " + name);
@@ -112,16 +143,18 @@ public class SoundManager : MonoBehaviour
 
         }
 
-        sfxSource.PlayOneShot(clip, volume);
+        sfxSource.PlayOneShot(clip, sfxVolume);
     }
 
-    public void SetSFXVolume(float volume)
+    public void SetSFXVolume(Slider slider)
     {
-        sfxSource.volume = volume;
+        sfxVolume = slider.value;
+        sfxSource.volume = sfxVolume;
     }
 
-    public void SetBGMVolume(float volume)
+    public void SetBGMVolume(Slider slider)
     {
-        bgmSource.volume = volume;
+        bgmVolume = slider.value;
+        bgmSource.volume = bgmVolume;
     }
 }
