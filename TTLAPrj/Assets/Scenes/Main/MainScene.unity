@@ -1456,6 +1456,7 @@ MonoBehaviour:
   player: {fileID: 1533430389}
   isPlaying: 0
   isPaused: 0
+  currentStage: 1
 --- !u!4 &208092182
 Transform:
   m_ObjectHideFlags: 0
@@ -4219,7 +4220,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5747,10 +5748,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c6548d17094e02a42b9263403fee88ac, type: 3}
   - {fileID: 8300000, guid: 4f01e011a38fef54aa06262f52776086, type: 3}
   - {fileID: 8300000, guid: d598b87782012e641b12da5aae0d196d, type: 3}
-  - {fileID: 8300000, guid: 11b802f6723d6524193d6ad809240692, type: 3}
   - {fileID: 8300000, guid: 08f1569bd5f02a14b89db14745777b10, type: 3}
   - {fileID: 8300000, guid: 5acd56ff851409a4d8b007a8ff62c28e, type: 3}
   - {fileID: 8300000, guid: 5cd4aad784a02024b97b3844782e83bd, type: 3}
+  - {fileID: 8300000, guid: 11b802f6723d6524193d6ad809240692, type: 3}
 --- !u!1 &971806517
 GameObject:
   m_ObjectHideFlags: 0

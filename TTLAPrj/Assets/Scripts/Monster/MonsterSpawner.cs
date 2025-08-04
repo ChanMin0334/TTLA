@@ -11,44 +11,38 @@ public class MonsterSpawner : MonoBehaviour
     }
 
     public SpawnInfo[] spawnList;
-    private BoxCollider2D area; // 스폰 구역
 
-    void Awake()
-    {
-        area = GetComponent<BoxCollider2D>();
-        if (area == null)
-        {
-            Debug.LogError("SpawnArea에 BoxCollider2D가 필요합니다!");
-        }
-    }
-
-    void Start()
-    {
-        SpawnMonsters();
-    }
-
-    void SpawnMonsters()
+    public void SpawnMonsters()
     {
         foreach (var info in spawnList)
         {
             for (int i = 0; i < info.count; i++)
             {
                 Vector3 spawnPos = GetRandomPositionInArea();
-                // 부모 없이 먼저 생성
                 GameObject monster = Instantiate(info.monsterPrefab, spawnPos, Quaternion.identity);
-                // 부모로 설정하되, 월드 좌표/스케일 유지
                 monster.transform.SetParent(this.transform, true);
             }
         }
     }
 
-
     Vector3 GetRandomPositionInArea()
     {
-        Bounds bounds = area.bounds;
-        float x = Random.Range(bounds.min.x, bounds.max.x);
-        float y = Random.Range(bounds.min.y, bounds.max.y);
+        // transform.position을 중심으로, localScale.x, localScale.y를 영역 크기로 사용
+        Vector3 center = transform.position;
+        Vector3 size = transform.localScale;
+
+        float x = Random.Range(center.x - size.x / 2f, center.x + size.x / 2f);
+        float y = Random.Range(center.y - size.y / 2f, center.y + size.y / 2f);
 
         return new Vector3(x, y, 0f);
     }
+
+#if UNITY_EDITOR
+    // 씬 뷰에서 영역을 시각적으로 표시
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, new Vector3(transform.localScale.x, transform.localScale.y, 0.1f));
+    }
+#endif
 }

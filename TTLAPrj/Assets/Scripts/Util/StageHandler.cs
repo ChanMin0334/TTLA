@@ -24,6 +24,7 @@ public class StageHandler : MonoBehaviour
     {
         InitializeStages();
         ActivateCurrentStage();
+        SpawnMonstersOnMapLoaded(); // 맵 로드 완료 시 몬스터 스폰
     }
     private void Update()
     {
@@ -80,6 +81,25 @@ public class StageHandler : MonoBehaviour
         }
     }
 
+    // 맵 로드가 완료되었을 때 스포너에서 몬스터를 스폰
+    public void SpawnMonstersOnMapLoaded()
+    {
+        if (spawners == null || spawners.Length == 0)
+            return;
+
+        foreach (var spawner in spawners)
+        {
+            if (spawner != null)
+            {
+                var monsterSpawner = spawner.GetComponent<MonsterSpawner>();
+                if (monsterSpawner != null)
+                {
+                    monsterSpawner.SpawnMonsters();
+                }
+            }
+        }
+    }
+
     public void LoadNextStage()
     {
         int nextStageIndex = GameManager.Instance.currentStage;
@@ -123,6 +143,7 @@ public class StageHandler : MonoBehaviour
         GameManager.Instance.currentStage++;
         InitializeStages();
         ActivateCurrentStage();
+        SpawnMonstersOnMapLoaded(); // 다음 스테이지 맵 로드 후 몬스터 스폰
         isCleared = false;
     }
 
@@ -155,3 +176,4 @@ public class StageHandler : MonoBehaviour
         }
     }
 }
+
