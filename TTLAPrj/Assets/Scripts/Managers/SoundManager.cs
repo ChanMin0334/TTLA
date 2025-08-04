@@ -1,6 +1,7 @@
 using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum BGMName
 {
@@ -20,7 +21,6 @@ public enum SFX_Name
     Player_ByAttack,
     SFX_ButtonClick,
     SFX_GameOver,
-    SFX_IntroSound,
     SFX_EnterBoss,
     SFX_PickupMoney
 }
@@ -77,7 +77,7 @@ public class SoundManager : MonoBehaviour
                 PlayBGM(BGMName.BGM_01);
                 break;
             case "GameScene":
-                PlayBGM(BGMName.BGM_02); //아직 없음
+                PlayBGM(BGMName.BGM_02); 
                 break;
             default:
                 break;
@@ -126,17 +126,14 @@ public class SoundManager : MonoBehaviour
             case SFX_Name.SFX_GameOver:
                 clip = sfxClips[5];
                 break;
-            case SFX_Name.SFX_IntroSound:
+            case SFX_Name.SFX_EnterBoss:
                 clip = sfxClips[6];
                 break;
-            case SFX_Name.SFX_EnterBoss:
+            case SFX_Name.SFX_PickupMoney:
                 clip = sfxClips[7];
                 break;
-            case SFX_Name.SFX_PickupMoney:
-                clip = sfxClips[8];
-                break;
             case SFX_Name.SFX_ButtonClick:
-                clip = sfxClips[9];
+                clip = sfxClips[8];
                 break;
             default:
                 Debug.LogWarning("SFX clip not found for: " + name);
@@ -147,13 +144,13 @@ public class SoundManager : MonoBehaviour
         sfxSource.PlayOneShot(clip, volume);
     }
 
-    public void SetSFXVolume(float volume)
+    public void SetSFXVolume(Slider slider)
     {
-        sfxSource.volume = volume;
+        sfxSource.volume = slider.value;
     }
 
-    public void SetBGMVolume(float volume)
+    public void SetBGMVolume(Slider slider)
     {
-        bgmSource.volume = volume;
+        bgmSource.volume = slider.value;
     }
 }

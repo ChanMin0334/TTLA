@@ -147,8 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats:
     Atk: 0
-    HpMax: 0
-    Hp: 0
+    HpMax: 5
+    Hp: 5
     AtkSpeed: 3
     Speed: 5
   anim: {fileID: 1524736543254483648}
