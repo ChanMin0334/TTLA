@@ -28,14 +28,16 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         // 싱글톤 인스턴스 할당 및 중복 방지
-        if (Instance == null)
+        if (Instance != null)
         {
+            Destroy(Instance.gameObject); 
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
