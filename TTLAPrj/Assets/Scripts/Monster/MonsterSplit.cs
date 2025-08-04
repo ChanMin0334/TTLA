@@ -12,13 +12,16 @@ public class MonsterSplit : Monster
 
     protected override void Update()
     {
-        if (target == null || isDashing)
-        {
-            return;
-        }
+        if (target == null || isDashing) return;
+
         base.HandleSpriteFlip((target.transform.position - transform.position).normalized);
 
-        if (Time.time - lastAttackTime >= dashCooldown)
+        if (agent != null && !agent.pathPending && agent.enabled)
+        {
+            agent.SetDestination(target.transform.position);
+        }
+
+        if (Time.time - lastAttackTime >= dashCooldown && agent.hasPath)
         {
             StartCoroutine(DashTowardsTarget());
             lastAttackTime = Time.time;
@@ -28,15 +31,20 @@ public class MonsterSplit : Monster
     private IEnumerator DashTowardsTarget()
     {
         isDashing = true;
-        Vector2 direction = (target.transform.position - transform.position).normalized;
+
+        if (agent != null)
+        {
+            agent.isStopped = true;
+        }
+
+        yield return new WaitUntil(() => agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathComplete && agent.path.corners.Length > 1);
+
+        Vector3 dashTarget = agent.path.corners[1]; // Use next waypoint in path
+        Vector2 direction = (dashTarget - transform.position).normalized;
+
         float dashedDistance = 0f;
         float dashStep;
 
-        // Temporarily disable NavMeshAgent if active
-        if (agent != null)
-        {
-            agent.enabled = false; // When Moving disabled in order to stop chasing. 
-        }
         while (dashedDistance < dashDistance)
         {
             dashStep = dashForce * Time.deltaTime;
@@ -50,12 +58,11 @@ public class MonsterSplit : Monster
 
         if (agent != null)
         {
-            agent.enabled = true;
+            agent.isStopped = false;
         }
 
         isDashing = false;
     }
-
     public override void Damaged(float damage)
     {
         Stats.Hp -= damage;

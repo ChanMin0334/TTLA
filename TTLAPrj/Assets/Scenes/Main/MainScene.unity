@@ -18794,6 +18794,7 @@ MonoBehaviour:
   - {fileID: 160569857}
   levelUpPanel: {fileID: 994687107}
   soundPanel: {fileID: 132567784}
+  savePanel: {fileID: 0}
   player: {fileID: 1533430389}
   upgradeUI: {fileID: 1055115703}
   gamestateUI: {fileID: 1889576615}

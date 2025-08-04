@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a21c19b5beee142ba523d13a88fd52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathParticlePrefab: {fileID: 0}
+  deathParticlePrefab: {fileID: 1079384419354578262, guid: aad47824352766d45b84e832eea9ef3d, type: 3}
 --- !u!1 &6210297569376009035
 GameObject:
   m_ObjectHideFlags: 0

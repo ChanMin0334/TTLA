@@ -566,10 +566,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2954695676922321780, guid: e396726e39b71854192016941c7b69b3, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3553684819609887497, guid: e396726e39b71854192016941c7b69b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1208,14 +1204,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1865558343949659829, guid: cdb6b5a12fd499247b83d1a0c5183058, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983246479758717530, guid: cdb6b5a12fd499247b83d1a0c5183058, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3553684819609887497, guid: cdb6b5a12fd499247b83d1a0c5183058, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1257,8 +1245,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1865558343949659829, guid: cdb6b5a12fd499247b83d1a0c5183058, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb6b5a12fd499247b83d1a0c5183058, type: 3}
@@ -1541,6 +1528,7 @@ MonoBehaviour:
   - {fileID: 700499647}
   levelUpPanel: {fileID: 228774734}
   soundPanel: {fileID: 0}
+  savePanel: {fileID: 0}
   player: {fileID: 728289054}
   upgradeUI: {fileID: 0}
   gamestateUI: {fileID: 1244625281}
@@ -2016,14 +2004,6 @@ PrefabInstance:
     - target: {fileID: 3553684819609887497, guid: 708e10ee114cd404798bca66e5ff314d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4024980413977778861, guid: 708e10ee114cd404798bca66e5ff314d, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6507397839634342979, guid: 708e10ee114cd404798bca66e5ff314d, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3390,6 +3370,7 @@ MonoBehaviour:
   - {fileID: 631159933}
   - {fileID: 896652962}
   overPanel: {fileID: 1918784174}
+  startBtn: {fileID: 0}
   mainBtn: {fileID: 284709949}
   exitBtn: {fileID: 779817278}
 --- !u!4 &1244625282
@@ -4838,6 +4819,10 @@ PrefabInstance:
     - target: {fileID: 3553684819609887497, guid: ceb59d6a935c6e04b89056a2012f77a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677897175152116817, guid: ceb59d6a935c6e04b89056a2012f77a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
