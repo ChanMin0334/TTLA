@@ -127,14 +127,18 @@ public class StageHandler : MonoBehaviour
         float elapsed = 0f;
         if (nextStage != null) nextStage.SetActive(true);
 
+
+        // 부드럽게 이동
         while (elapsed < stageMoveDuration)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / stageMoveDuration);
+
             if (currentStage != null)
                 currentStage.transform.position = Vector3.Lerp(currentStart, currentEnd, t);
             if (nextStage != null)
                 nextStage.transform.position = Vector3.Lerp(nextStart, nextEnd, t);
+
             yield return null;
         }
         if (currentStage != null) currentStage.transform.position = currentEnd;
@@ -144,8 +148,11 @@ public class StageHandler : MonoBehaviour
         InitializeStages();
         ActivateCurrentStage();
         SpawnMonstersOnMapLoaded(); // 다음 스테이지 맵 로드 후 몬스터 스폰
+        GameManager.Instance.playerObj.transform.position = new Vector3(0f, -4f, 0); // 플레이어 위치 이동
+        GameManager.Instance.playerObj.SetActive(true); // 플레이어 활성화
         isCleared = false;
     }
+
 
     private void SetPortalType()
     {
@@ -170,7 +177,7 @@ public class StageHandler : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("플레이어가 포탈에 닿았습니다!");
+                GameManager.Instance.playerObj.SetActive(false); // 플레이어 비활성화
                 stageHandler.LoadNextStage();
             }
         }
