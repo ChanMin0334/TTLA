@@ -193,6 +193,4 @@ public class UIManager : MonoBehaviour
     {
         inventoryUI.InventoryReDraw();
     }
-
-
 }

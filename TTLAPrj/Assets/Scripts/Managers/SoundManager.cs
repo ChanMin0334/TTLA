@@ -157,4 +157,10 @@ public class SoundManager : MonoBehaviour
         bgmVolume = slider.value;
         bgmSource.volume = bgmVolume;
     }
+
+    public void SetSliderValues(Slider sfxSlider, Slider bgmSlider)
+    {
+        sfxSlider.value = sfxVolume;
+        bgmSlider.value = bgmVolume;
+    }
 }

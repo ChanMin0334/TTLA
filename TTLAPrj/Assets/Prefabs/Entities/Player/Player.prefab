@@ -466,7 +466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats:
     Atk: 5
-    HpMax: 0
+    HpMax: 200
     Hp: 200
     AtkSpeed: 5
     Speed: 5
