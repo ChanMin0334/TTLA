@@ -76,6 +76,7 @@ public class UIManager : MonoBehaviour
         foreach (var card in cards)
         {
             card.Showout();
+            GameManager.Instance.isPaused = false;
         }
 
         //Debug.Log($"플레이어의 카드선택후 공격력 : {player.Stats.Atk}");

@@ -99,7 +99,7 @@ public class MonsterBoss : Monster
     {
         float maxOffset = projectileSpreadAngle;
 
-        soundManager.PlaySFX(SFX_Name.Player_Attack);
+        SoundManager.Instance.PlaySFX(SFX_Name.Player_Attack);
         for (int i = 0; i < projectileCount; i++)
         {
             float randomAngle = Random.Range(-maxOffset, maxOffset);
@@ -160,7 +160,7 @@ public class MonsterBoss : Monster
         float angle = 0f;
         float angleStep = 15f;
 
-        soundManager.PlaySFX(SFX_Name.Player_Attack);
+        SoundManager.Instance.PlaySFX(SFX_Name.Player_Attack);
 
         for (int i = 0; i < totalShots; i++)
         {

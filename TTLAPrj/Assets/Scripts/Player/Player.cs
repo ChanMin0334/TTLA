@@ -28,6 +28,8 @@ public class Player : Entity
     public Sprite unpulledSprite;
     public Sprite pulledSprite;
 
+    public bool canMove = true;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -61,7 +63,6 @@ public class Player : Entity
         }
 
         base.Damaged(damage);
-        soundManager.PlaySFX(SFX_Name.Player_Attack);
         StartCoroutine(InvincibilityCoroutine());
     }
 
@@ -98,6 +99,12 @@ public class Player : Entity
     }
     public override void Move(Vector2 direction)
     {
+        if(!canMove)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         if (CameraManager.Instance != null && CameraManager.Instance.mainCamera != null)
         {
             Camera cam = CameraManager.Instance.mainCamera;

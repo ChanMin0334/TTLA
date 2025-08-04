@@ -37,7 +37,7 @@ public class StageHandler : MonoBehaviour
             {
                 isReward = true;
                 UIManager.Instance.levelUpUI();
-                //GameManager.Instance.isPaused = true;
+                GameManager.Instance.isPaused = true;
             }
             //호출
             //정지

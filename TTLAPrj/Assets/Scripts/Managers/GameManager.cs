@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public Player player;
     //[HideInInspector]
     public GameObject playerObj;
-    // 게임 진입 했는지 여부
+    // 게임 진입 했는지 여부 (사용 안함)
     public bool isPlaying = false;
 
     // 일시 정지 여부
@@ -42,22 +42,19 @@ public class GameManager : MonoBehaviour
     // Update는 매 프레임마다 호출됩니다.
     void Update()
     {
-        if (isPlaying)
+        if (isPaused)
         {
-            if (isPaused)
-            {
-                Time.timeScale = 0f; // 일시정지: 시간 멈춤
-            }
-            else
-            {
-                Time.timeScale = 1f; // 일시정지 해제: 시간 정상 진행
-            }
+            player.canMove = false; // 일시 정지 상태에서는 플레이어 이동 불가
+        }
+        else
+        {
+            if (!isPlaying) player.canMove = true; // 일시 정지 해제 시 플레이어 이동 가능
         }
     }
 
     private void Init()
     {
-         SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 등록
+        SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 등록
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
