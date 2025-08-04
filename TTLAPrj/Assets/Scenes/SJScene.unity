@@ -539,6 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats:
     Atk: 5
+    HpMax: 0
     Hp: 10
     AtkSpeed: 1
     Speed: 5
@@ -3290,7 +3291,7 @@ PrefabInstance:
       objectReference: {fileID: 6585539213759686725, guid: 9c5ec1790f64c544eabafcea1d791d2a, type: 3}
     - target: {fileID: 4553066227845203007, guid: f80f7b7629f4d7b499964367f5099744, type: 3}
       propertyPath: Stats.AtkSpeed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4842630351029171672, guid: f80f7b7629f4d7b499964367f5099744, type: 3}
       propertyPath: m_Name
@@ -3654,3 +3655,4 @@ SceneRoots:
   - {fileID: 794327518}
   - {fileID: 161486500}
   - {fileID: 344291516}
+  - {fileID: 139234398}
