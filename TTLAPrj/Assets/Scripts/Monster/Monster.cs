@@ -9,6 +9,7 @@ public class Monster : Entity
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
     protected NavMeshAgent agent;
+    
 
     [Header("Combat")]
     public float attackRange = 1.5f;
@@ -20,7 +21,6 @@ public class Monster : Entity
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         agent = GetComponent<NavMeshAgent>();
 
-        agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.speed = Stats.Speed;
