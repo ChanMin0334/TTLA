@@ -28,14 +28,16 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         // 싱글톤 인스턴스 할당 및 중복 방지
-        if (Instance == null)
+        if (Instance != null)
         {
+            Destroy(Instance.gameObject); 
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -66,8 +68,8 @@ public class UIManager : MonoBehaviour
 
         Debug.Log("선택된 카드: " + selectedCard.GetSkillID());
 
-        Debug.Log($"플레이어의 카드선택전 공격력 : {player.Stats.Atk}");
-        Debug.Log($"플레이어의 카드선택전 공격속도 {player.Stats.AtkSpeed}");
+        //Debug.Log($"플레이어의 카드선택전 공격력 : {player.Stats.Atk}");
+        //Debug.Log($"플레이어의 카드선택전 공격속도 {player.Stats.AtkSpeed}");
 
         selectedCard.currentSkill.ApplySkill(player);
 
@@ -76,8 +78,8 @@ public class UIManager : MonoBehaviour
             card.Showout();
         }
 
-        Debug.Log($"플레이어의 카드선택후 공격력 : {player.Stats.Atk}");
-        Debug.Log($"플레이어의 카드선택후 공격속도 {player.Stats.AtkSpeed}");
+        //Debug.Log($"플레이어의 카드선택후 공격력 : {player.Stats.Atk}");
+        //Debug.Log($"플레이어의 카드선택후 공격속도 {player.Stats.AtkSpeed}");
 
     }
 
@@ -116,7 +118,7 @@ public class UIManager : MonoBehaviour
             onComplete?.Invoke();
         });
     }
-    void levelUpUI() //ShowLevelUp 끝난후 ShowCard 호출
+    public void levelUpUI() //ShowLevelUp 끝난후 ShowCard 호출
     {
         SoundManager.Instance.PlaySFX(SFX_Name.Player_LevelUp);
         ShowlevelUp(() =>
