@@ -33,8 +33,8 @@ public class UIEnterTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             return;
 
         UIManager.Instance.CallInventoryReDraw();
+        UIManager.Instance.CallUpdateUI();
         targetUI.SlideOn(duration);
-        SoundManager.Instance.PlaySFX(SFX_Name.SFX_ButtonClick);
     }
 
     public void SlideOffBtn() // ¹öÆ°¿ë
@@ -43,7 +43,7 @@ public class UIEnterTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             return;
 
         UIManager.Instance.CallInventoryReDraw();
+        UIManager.Instance.CallUpdateUI();
         targetUI.SlideOff(duration);
-        SoundManager.Instance.PlaySFX(SFX_Name.SFX_ButtonClick);
     }
 }
