@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class MonsterClose : Monster
 {
-    public override void Attack()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (target != null)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            StopMovement();
-            target.Damaged(Stats.Atk);
-            //Animation for Attack
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damaged(Stats.Atk);
+            }
         }
     }
 }

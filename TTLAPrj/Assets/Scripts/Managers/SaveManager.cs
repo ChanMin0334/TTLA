@@ -2,28 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
+
+//데이터 나눠야함 
+[System.Serializable]
+class EternalData
+{
+    public List<InventoryItem> invItems;
+}
+
+[System.Serializable]
+class VolatileData
+{
+    //public float stageNumber;
+    public Player player;
+}
 
 public class SaveManager : MonoBehaviour
 {
-    //디버그용
-    public class TestPlayer
-    {
-        public float hp;
-        public float mp;
-
-        public TestPlayer(){
-            hp = 4;
-            mp = 3;
-        }
-    }
-
-    TestPlayer playerTest = new TestPlayer(); 
-
     Player playerData;
+    List<InventoryItem> invItemsData;
 
     private string path;
-    [SerializeField] private string fileName = "save.json";
+    [SerializeField] private string eternalName = "eternalData.json";
+    [SerializeField] private string volatileName = "volatileData.json";
 
     private void Start()
     {
@@ -31,46 +32,46 @@ public class SaveManager : MonoBehaviour
         {
             playerData = GameManager.Instance.player;
         }
+
+        if(ItemManager.Instance.inventory != null)
+        {
+            invItemsData = ItemManager.Instance.inventory;
+        }
+
         path = Application.persistentDataPath + "/";
         Debug.Log(path);
     }
 
-    private void Update() //디버그용
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SaveData();
-        }
-
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            LoadData();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Delete))
-        {
-            DeleteData();
-        }
-    }
-
-    public void SaveData()
+    public void SaveVolatileData()
     {
         if (playerData == null) {
             Debug.LogError("playerData is Null");
+            return;
         }
 
-        string data = JsonUtility.ToJson(playerData, true);
-        File.WriteAllText(path + fileName, data);
-        Debug.Log("Data Save");
+        VolatileData volatileData = new();
+        volatileData.player = playerData;
+
+        string data = JsonUtility.ToJson(volatileData, true);
+        File.WriteAllText(path + volatileName, data);
+        Debug.Log("Volatile Data Save");
     }
 
-    public void LoadData()
+    public void LoadVolatileData()
     {
-        if (HasData())
+        if (HasData(volatileName))
         {
-            string data = File.ReadAllText(path + fileName);
-            JsonUtility.FromJsonOverwrite(data, playerData);
-            Debug.Log("Data Load");
+            string data = File.ReadAllText(path + volatileName);
+
+            VolatileData volatileData = new();
+            JsonUtility.FromJsonOverwrite(data, volatileData);
+
+            if(volatileData == null)
+            {
+                Debug.Log("휘발성 데이터가 없음");
+                return;
+            }
+            Debug.Log("Volatile Data Load");
         }
         else
         {
@@ -78,9 +79,47 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void DeleteData()
+    public void SaveEternalData()
     {
-        if (HasData()) {
+        if (invItemsData == null)
+        {
+            Debug.LogError("invItemsData is Null");
+            return;
+        }
+
+        EternalData eternalData = new();
+        eternalData.invItems = invItemsData;
+
+        string data = JsonUtility.ToJson(eternalData, true);
+        File.WriteAllText(path + eternalName, data);
+        Debug.Log("Eternal Data Save");
+    }
+
+    public void LoadEternalData()
+    {
+        if (HasData(eternalName))
+        {
+            string data = File.ReadAllText(path + eternalName);
+
+            EternalData eternalData = new();
+            JsonUtility.FromJsonOverwrite(data, eternalData);
+
+            if (eternalData == null)
+            {
+                Debug.Log("영구 데이터가 없음");
+                return;
+            }
+            Debug.Log("Eternal Data Load");
+        }
+        else
+        {
+            Debug.LogError("No Data Found");
+        }
+    }
+
+    public void DeleteData(string fileName)
+    {
+        if (HasData(fileName)) {
             File.Delete(path + fileName);
             Debug.Log("Data Delete");
         }
@@ -90,7 +129,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public bool HasData()
+    public bool HasData(string fileName)
     {
         string pathFull = path + fileName;
 

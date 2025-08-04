@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
+
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -18,6 +21,11 @@ public class Player : Entity
     [Header("Invicibility")]
     private bool isInvincible = false;
     public float invicibilityDuration = 1f;
+    [Header("Bow Settings")]
+    public Transform bowTransform; 
+    public SpriteRenderer bowSpriteRenderer;
+    public Sprite unpulledSprite;
+    public Sprite pulledSprite;
 
     private void Awake()
     {
@@ -27,6 +35,7 @@ public class Player : Entity
     private void Update()
     {
         HandleInput();
+        UpdateBowDirection();
 
         if (inputDir == Vector2.zero && Time.time - lastAttackTime >= 1f / Stats.AtkSpeed)
         {
@@ -107,25 +116,7 @@ public class Player : Entity
         {
             return;
         }
-        Vector2 dir = (nearest.transform.position - transform.position).normalized;
-
-        if (projectile != null)
-        {
-            GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
-            proj.layer = LayerMask.NameToLayer("PlayerProjectile");
-            Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
-            if (projRb != null)
-            {
-                projRb.velocity = dir * 10f; // 임시 코드
-            }
-            ProjectileTarget projTarget = proj.GetComponent<ProjectileTarget>();
-            if (projTarget != null)
-            {
-                projTarget.damage = Stats.Atk;
-                projTarget.shooterLayer = gameObject.layer;
-                projTarget.targetLayers = LayerMask.GetMask("Monster");
-            }
-        }
+        StartCoroutine(BowAttackCoroutine(nearest));
     }
     private GameObject FindNearestEnemy()
     {
@@ -146,6 +137,71 @@ public class Player : Entity
         return closest;
     }
 
+    private void UpdateBowDirection()
+    {
+        if (bowTransform == null)
+        {
+            return;
+        }
+        GameObject nearest = FindNearestEnemy();
+        if (nearest == null)
+        {
+            return;
+        }
+
+        Vector2 dir = (nearest.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        bowTransform.rotation = Quaternion.Euler(0, 0, angle);
+
+        if (bowSpriteRenderer != null)
+        {
+            bowSpriteRenderer.flipY = dir.x < 0;
+        }
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = dir.x < 0;
+        }
+    }
+
+    private IEnumerator BowAttackCoroutine(GameObject target)
+    {
+        Vector2 dir = (target.transform.position - transform.position).normalized;
+
+        if (bowSpriteRenderer != null && pulledSprite != null)
+        {
+            bowSpriteRenderer.sprite = pulledSprite;
+        }
+        yield return new WaitForSeconds(0.1f);
+
+        if (projectile != null)
+        {
+            GameObject proj = Instantiate(projectile, bowTransform.position, Quaternion.identity);
+            proj.layer = LayerMask.NameToLayer("PlayerProjectile");
+
+            Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
+            if (projRb != null)
+            {
+                projRb.velocity = dir * 10f;
+            }
+
+            ProjectileTarget projTarget = proj.GetComponent<ProjectileTarget>();
+            if (projTarget != null)
+            {
+                projTarget.damage = Stats.Atk;
+                projTarget.shooterLayer = gameObject.layer;
+                projTarget.targetLayers = LayerMask.GetMask("Monster");
+            }
+        }
+
+        yield return null;
+        if (bowSpriteRenderer != null && unpulledSprite != null)
+        {
+            bowSpriteRenderer.sprite = unpulledSprite;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Interact"))
@@ -162,5 +218,24 @@ public class Player : Entity
             interact = collision.GetComponent<Interact>();
             interact.OnExitTrigger(this);
         }
+    }
+
+
+    //Test
+
+    public void AddStats(Stats stats)
+    {
+        this.Stats.Atk += stats.Atk;
+        this.Stats.Hp += stats.Hp;
+        this.Stats.AtkSpeed += stats.AtkSpeed;
+        this.Stats.Speed += stats.Speed;
+    }
+
+    public void RemoveStats(Stats stats)
+    {
+        this.Stats.Atk -= stats.Atk;
+        this.Stats.Hp -= stats.Hp;
+        this.Stats.AtkSpeed -= stats.AtkSpeed;
+        this.Stats.Speed -= stats.Speed;
     }
 }
