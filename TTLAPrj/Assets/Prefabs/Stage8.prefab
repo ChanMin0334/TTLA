@@ -122,8 +122,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1498175819
+  m_SortingLayer: 1
   m_SortingOrder: 100
   m_Sprite: {fileID: -1632530084, guid: c84762bd7844e413faeaacaa1e450db4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 466586827084698349}
   - component: {fileID: 5807543633953221017}
   - component: {fileID: 5223080887705480645}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawnArea2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.47058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 3844136878515956253}
   - component: {fileID: 1156144298017840559}
   - component: {fileID: 1939796612233110210}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1188,15 +1188,15 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -950331231
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.6428572, y: 0.78571427, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
-  m_Mode: 0
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!114 &1156144298017840559
@@ -1264,7 +1264,7 @@ GameObject:
   - component: {fileID: 4778156403629543250}
   - component: {fileID: 2043310074144217303}
   - component: {fileID: 6381729038133853987}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1516,8 +1516,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -950331231
+  m_SortingLayer: 2
   m_SortingOrder: 12
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.203125, y: 0.1875, z: 0}
@@ -3577,7 +3577,7 @@ GameObject:
   - component: {fileID: 7864225459202382892}
   - component: {fileID: 8399151438031381408}
   - component: {fileID: 6105669041345869507}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WallDeco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3947,8 +3947,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -950331231
+  m_SortingLayer: 2
   m_SortingOrder: 100
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0.328125, z: 0}

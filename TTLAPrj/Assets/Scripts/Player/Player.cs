@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 
 //using UnityEditor.Experimental.GraphView;
@@ -177,7 +178,9 @@ public class Player : Entity
 
         if (projectile != null)
         {
-            GameObject proj = Instantiate(projectile, bowTransform.position, Quaternion.identity);
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
+            GameObject proj = Instantiate(projectile, bowTransform.position, rotation);
             proj.layer = LayerMask.NameToLayer("PlayerProjectile");
 
             Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
