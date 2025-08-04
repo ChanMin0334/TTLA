@@ -114,13 +114,12 @@ public class StageHandler : MonoBehaviour
     {
         int nextStageIndex = GameManager.Instance.currentStage;
         if (nextStageIndex < stages.Length)
-        {
+        {    
             StartCoroutine(MoveStagesAndLoad(nextStageIndex));
         }
         else
         {
             Debug.Log("모든 스테이지를 클리어했습니다!");
-            // UI로 나가기 버튼
         }
     }
 
