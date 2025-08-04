@@ -2888,7 +2888,7 @@ GameObject:
   - component: {fileID: 7959235319539174754}
   - component: {fileID: 35754627988211435}
   - component: {fileID: 3792632644889549929}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawnArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
