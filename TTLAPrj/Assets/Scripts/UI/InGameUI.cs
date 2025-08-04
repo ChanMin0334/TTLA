@@ -8,9 +8,13 @@ public class InGameUI : MonoBehaviour
 {
     [SerializeField] TMP_Text enemyCount;
     [SerializeField] Player player;
+    [SerializeField] MonsterBoss boss;
 
     [SerializeField] Image healthBar;
+    [SerializeField] GameObject bossInfo;
+    [SerializeField] Image bossHealthBar;
     float maxHP;
+
 
     private void Start()
     {
@@ -22,8 +26,17 @@ public class InGameUI : MonoBehaviour
         Monster[] monsters = FindObjectsOfType<Monster>();
         int count = monsters.Length;
 
+        boss = FindObjectOfType<MonsterBoss>();
+
         enemyCount.text = $"³²Àº Àû {count}";
 
         healthBar.fillAmount = player.Stats.Hp / maxHP;
+
+        if(boss != null)
+        {
+            bossInfo.SetActive(true);
+
+            bossHealthBar.fillAmount = boss.Stats.Hp / 100f;
+        }
     }
 }
