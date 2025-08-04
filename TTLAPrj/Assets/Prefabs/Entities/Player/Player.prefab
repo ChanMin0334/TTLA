@@ -471,7 +471,7 @@ MonoBehaviour:
     AtkSpeed: 5
     Speed: 5
   anim: {fileID: 915065562891632534}
-  projectile: {fileID: 6585539213759686725, guid: 9c5ec1790f64c544eabafcea1d791d2a, type: 3}
+  projectile: {fileID: 6585539213759686725, guid: 39c8e2f8acd0e7b4293ba8301486a3da, type: 3}
   animationManager: {fileID: 5560468207253085551}
   EquipList: []
   SkillEffect: {fileID: 0}

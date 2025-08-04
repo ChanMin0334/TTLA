@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1152
   shooterLayer: 0
   damage: 0
 --- !u!1 &8146974992341474405

@@ -40,7 +40,8 @@ public class BossSpawner : MonoBehaviour
 
         // Step 4: 보스 생성
         GameObject boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
-
+        // 부모로 설정하되, 월드 좌표/스케일 유지
+        boss.transform.SetParent(this.transform, true);
         // Step 5: 암전 해제 + 줌 아웃
         yield return FadeOutBlack(0.5f);
         yield return ZoomCamera(originalSize, zoomDuration);
