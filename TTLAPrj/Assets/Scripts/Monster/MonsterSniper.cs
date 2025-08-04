@@ -106,6 +106,7 @@ public class MonsterSniper : Monster
             return;
 
         GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
+        soundManager.PlaySFX(SFX_Name.Player_Attack);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.velocity = dir * 50f;

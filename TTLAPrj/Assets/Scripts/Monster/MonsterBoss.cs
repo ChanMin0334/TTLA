@@ -16,11 +16,13 @@ public class MonsterBoss : Monster
     private float initialHp;
     private bool isPerformingAttack = false;
     public bool isActive = false;
+
     protected override void Awake()
     {
         base.Awake();
         initialHp = Stats.Hp;
     }
+
     protected override void Update()
     {
         if (!isActive) return;
@@ -95,6 +97,7 @@ public class MonsterBoss : Monster
     {
         float maxOffset = projectileSpreadAngle;
 
+        soundManager.PlaySFX(SFX_Name.Player_Attack);
         for (int i = 0; i < projectileCount; i++)
         {
             float randomAngle = Random.Range(-maxOffset, maxOffset);
@@ -154,6 +157,8 @@ public class MonsterBoss : Monster
         int totalShots = 30;
         float angle = 0f;
         float angleStep = 15f;
+
+        soundManager.PlaySFX(SFX_Name.Player_Attack);
 
         for (int i = 0; i < totalShots; i++)
         {

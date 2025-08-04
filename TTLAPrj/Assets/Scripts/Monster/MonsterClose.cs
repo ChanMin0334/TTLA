@@ -12,6 +12,7 @@ public class MonsterClose : Monster
             if (player != null)
             {
                 player.Damaged(Stats.Atk);
+                soundManager.PlaySFX(SFX_Name.Player_Attack);
             }
         }
     }
