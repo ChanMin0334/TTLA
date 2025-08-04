@@ -12,7 +12,7 @@ public class Player : Entity
 {
     public List<Item> EquipList;
     public Skill SkillEffect;
-
+    protected SoundManager soundManager;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Vector2 inputDir;
@@ -32,6 +32,10 @@ public class Player : Entity
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+    public void Start()
+    {
+        soundManager = SoundManager.Instance;
     }
     private void Update()
     {
