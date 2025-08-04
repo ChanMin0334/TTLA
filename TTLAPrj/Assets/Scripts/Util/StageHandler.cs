@@ -147,9 +147,10 @@ public class StageHandler : MonoBehaviour
         GameManager.Instance.currentStage++;
         InitializeStages();
         ActivateCurrentStage();
-        SpawnMonstersOnMapLoaded(); // 다음 스테이지 맵 로드 후 몬스터 스폰
         GameManager.Instance.playerObj.transform.position = new Vector3(0f, -4f, 0); // 플레이어 위치 이동
         GameManager.Instance.playerObj.SetActive(true); // 플레이어 활성화
+
+        SpawnMonstersOnMapLoaded(); // 다음 스테이지 맵 로드 후 몬스터 스폰
         isCleared = false;
     }
 
