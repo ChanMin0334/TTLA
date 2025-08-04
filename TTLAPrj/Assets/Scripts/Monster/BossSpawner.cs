@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class BossSpawner : MonoBehaviour
 {
@@ -16,12 +17,12 @@ public class BossSpawner : MonoBehaviour
     public float zoomDuration = 0.5f;
     private float originalSize;
 
-    void Start()
+    private void OnEnable()
     {
-        StartBossIntro(); // 시작하자마자 연출 실행
+        SpawnMonsters();
     }
 
-    public void StartBossIntro()
+    public void SpawnMonsters()
     {
         StartCoroutine(BossIntro());
     }

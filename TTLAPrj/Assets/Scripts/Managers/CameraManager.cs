@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraManager : MonoBehaviour
 {
@@ -25,19 +26,38 @@ public class CameraManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
         }
 
-        if (mainCamera == null)
-            mainCamera = Camera.main;
-
-        // FHD(1920x1080) 비율로 고정 (16:9)
-        mainCamera.aspect = 1920f / 1080f;
+        FindAndSetupCamera();
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FindAndSetupCamera();
+    }
+
+    private void FindAndSetupCamera()
+    {
+        mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            // FHD(1920x1080) 비율로 고정 (16:9)
+            mainCamera.aspect = 1920f / 1080f;
+        }
+    }
 
     void LateUpdate()
     {
