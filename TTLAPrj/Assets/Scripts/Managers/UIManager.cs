@@ -118,7 +118,7 @@ public class UIManager : MonoBehaviour
             onComplete?.Invoke();
         });
     }
-    void levelUpUI() //ShowLevelUp 끝난후 ShowCard 호출
+    public void levelUpUI() //ShowLevelUp 끝난후 ShowCard 호출
     {
         SoundManager.Instance.PlaySFX(SFX_Name.Player_LevelUp);
         ShowlevelUp(() =>

@@ -2646,6 +2646,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &570115282 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4553066227845203007, guid: f80f7b7629f4d7b499964367f5099744, type: 3}
+  m_PrefabInstance: {fileID: 728289053}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab1f73d27c5f3a4da3e0328f555c210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &574512127
 GameObject:
   m_ObjectHideFlags: 0
@@ -5425,7 +5436,7 @@ MonoBehaviour:
   - {fileID: 200140337}
   levelUpPanel: {fileID: 1762489391}
   soundPanel: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 570115282}
   upgradeUI: {fileID: 0}
   gamestateUI: {fileID: 1881807719}
   characterInfoUI: {fileID: 0}
