@@ -10,9 +10,19 @@ public class GameStateUI : MonoBehaviour
     [SerializeField] GameObject clearPanel;
     [SerializeField] SpriteRenderer[] clearStars;
     [SerializeField] GameObject overPanel;
-    [SerializeField] GameObject mainBtn;
-    [SerializeField] GameObject exitBtn;
+    //[SerializeField] GameObject mainBtn;
+    //[SerializeField] GameObject exitBtn;
 
+    [SerializeField] Button startBtn;
+    [SerializeField] Button mainBtn;
+    [SerializeField] Button exitBtn;
+
+    public void Start()
+    {
+        if(startBtn != null)
+        startBtn.onClick.AddListener(GameManager.Instance.GoGameScene);
+
+    }
     public IEnumerator GameClear()
     {
         clearPanel.SetActive(true);
@@ -52,10 +62,14 @@ public class GameStateUI : MonoBehaviour
     {
         Sequence seq = DOTween.Sequence();
 
-        mainBtn.SetActive(true);
-        exitBtn.SetActive(true);
+        mainBtn.gameObject.SetActive(true);
+        exitBtn.gameObject.SetActive(true);
 
-        seq.Append(mainBtn.transform.DOScale(new Vector3(400f, 200f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
-        seq.Append(exitBtn.transform.DOScale(new Vector3(400f, 200f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        mainBtn.onClick.RemoveAllListeners();
+        mainBtn.onClick.AddListener(GameManager.Instance.GoMainScene);
+
+
+        seq.Append(mainBtn.transform.DOScale(new Vector3(1f, 1f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
+        seq.Append(exitBtn.transform.DOScale(new Vector3(1f, 1f), 0.5f).From(Vector3.zero).SetEase(Ease.OutBack));
     }
 }
