@@ -118,6 +118,7 @@ public class UIManager : MonoBehaviour
     }
     void levelUpUI() //ShowLevelUp 끝난후 ShowCard 호출
     {
+        SoundManager.Instance.PlaySFX(SFX_Name.Player_LevelUp);
         ShowlevelUp(() =>
         {
             ShowCard();
@@ -142,11 +143,13 @@ public class UIManager : MonoBehaviour
     public void CallGameClear() // 게임클리어시 호출
     {
         StartCoroutine(gamestateUI.GameClear());
+        SoundManager.Instance.PlaySFX(SFX_Name.Player_LevelUp);
     }
 
     public void CallGameOver() // 게임 오버시 호출
     {
         StartCoroutine(gamestateUI.GameOver());
+        SoundManager.Instance.PlaySFX(SFX_Name.Player_LevelUp);
     }
 
     public void CallUpdateUI()
