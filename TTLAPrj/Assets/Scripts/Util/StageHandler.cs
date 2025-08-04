@@ -116,10 +116,12 @@ public class StageHandler : MonoBehaviour
         if (nextStageIndex < stages.Length)
         {
             StartCoroutine(MoveStagesAndLoad(nextStageIndex));
+            GameManager.Instance.SaveStage?.Invoke(); // 스테이지 저장 호출
         }
         else
         {
             Debug.Log("모든 스테이지를 클리어했습니다!");
+            GameManager.Instance.DeleteStage?.Invoke(); // 스테이지 삭제 호출
             // UI로 나가기 버튼
         }
     }

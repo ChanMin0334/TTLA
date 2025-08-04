@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -71,7 +72,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void SaveVolatileData()
+    private void SaveVolatileData()
     {
         if (playerData == null) {
             Debug.LogError("playerData is Null");
@@ -86,7 +87,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Volatile Data Save");
     }
 
-    public void LoadVolatileData()
+    private void LoadVolatileData()
     {
         if (HasData(volatileName))
         {
@@ -107,7 +108,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void SaveEternalData()
+    private void SaveEternalData()
     {
         if (invItemsData == null)
         {
@@ -125,7 +126,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Eternal Data Save");
     }
 
-    public void LoadEternalData()
+    private void LoadEternalData()
     {
         if (HasData(eternalName))
         {
@@ -157,7 +158,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void DeleteData(string fileName)
+    private void DeleteData(string fileName)
     {
         if (HasData(fileName)) {
             File.Delete(path + fileName);
@@ -169,10 +170,25 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public bool HasData(string fileName)
+    private bool HasData(string fileName)
     {
         string pathFull = path + fileName;
 
         return File.Exists(pathFull);
+    }
+
+    internal void SaveGame()
+    {
+        SaveEternalData();
+    }
+
+    internal void SaveStage()
+    {
+        SaveVolatileData();
+    }
+
+    internal void DeleteStage()
+    {
+        DeleteData(volatileName);
     }
 }

@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
 
     public int currentStage = 1; // 현재 레벨
 
+    public Action SaveStage; // 스테이지(휘발성) 저장 액션
+    public Action DeleteStage; // 스테이지 끝나면 삭제
+    public Action SaveGame; // 게임 저장 액션
+
+    public SaveManager saveManager; // SaveManager 인스턴스
     private void Awake()
     {
         // 싱글톤 인스턴스 할당 및 중복 방지
@@ -55,6 +60,9 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 등록
+        SaveStage += saveManager.SaveStage; // SaveGame 액션에 SaveManager의 SaveGame 메서드 등록
+        DeleteStage += saveManager.DeleteStage; // DeleteStage 액션에 SaveManager의 DeleteStage 메서드 등록
+        SaveGame += saveManager.SaveGame; // SaveGame 액션에 SaveManager의 SaveGame 메서드 등록
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
