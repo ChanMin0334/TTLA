@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     [Header("Option UI")]
     [SerializeField] GameObject soundPanel;
 
+    [SerializeField] GameObject savePanel;
+
     [Header("UI Component")]
     [SerializeField] Player player;
     [SerializeField] UpgradeUI upgradeUI; //upgrade UI 호출용
@@ -195,5 +197,16 @@ public class UIManager : MonoBehaviour
     public void CallInventoryReDraw()
     {
         inventoryUI.InventoryReDraw();
+    }
+
+    public void SaveUIOn()
+    {
+        savePanel.gameObject.SetActive(true);
+        Debug.Log("세이브UI 활성화");
+    }
+
+    public void SaveUIOff()
+    {
+        savePanel.gameObject.SetActive(false);
     }
 }

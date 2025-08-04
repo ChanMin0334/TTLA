@@ -47,8 +47,23 @@ public class SaveManager : MonoBehaviour
             sound = SoundManager.Instance;
         }
 
+
         path = Application.persistentDataPath + "/";
         Debug.Log(path);
+
+        //TEst
+        if (HasData(eternalName))
+        {
+            Debug.Log("세이브 파일 있음, 데이터 불러오기");
+            if (UIManager.Instance != null)
+                UIManager.Instance.SaveUIOn();
+            else
+                Debug.Log("UI매니저가 아직 없음");
+        }
+        else
+        {
+            Debug.Log("세이브 파일 없음");
+        }
     }
 
     public void Update()
