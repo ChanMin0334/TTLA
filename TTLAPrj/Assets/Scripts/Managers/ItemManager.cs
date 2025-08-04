@@ -38,11 +38,11 @@ public class ItemManager : MonoBehaviour
     //추가 제거 테스트
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Home))
+        if (Input.GetKeyDown(KeyCode.PageUp))
         {
             InventoryItemRemove(inventory[0]);
         }
-        if (Input.GetKeyDown(KeyCode.End))
+        if (Input.GetKeyDown(KeyCode.PageDown))
         {
             InventoryItem testItem = new InventoryItem(slots[0]);
             InventoryItemAdd(testItem);

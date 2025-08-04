@@ -16,6 +16,8 @@ public class MonsterRange : Monster
         if (projectile != null)
         {
             GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
+            soundManager.PlaySFX(SFX_Name.Player_Attack);
+
             proj.layer = LayerMask.NameToLayer("EnemyProjectile");
 
             Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();

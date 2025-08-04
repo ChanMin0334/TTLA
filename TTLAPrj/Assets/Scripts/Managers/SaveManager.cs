@@ -8,6 +8,8 @@ using UnityEngine;
 class EternalData
 {
     public List<InventoryItem> invItems;
+    public float sfxVolume;
+    public float bgmVolume;
 }
 
 [System.Serializable]
@@ -21,6 +23,7 @@ public class SaveManager : MonoBehaviour
 {
     Player playerData;
     List<InventoryItem> invItemsData;
+    SoundManager sound;
 
     private string path;
     [SerializeField] private string eternalName = "eternalData.json";
@@ -28,18 +31,44 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        if(GameManager.Instance.player != null) // 임시
+        if(GameManager.Instance != null) // 임시
         {
             playerData = GameManager.Instance.player;
         }
 
-        if(ItemManager.Instance.inventory != null)
+        if(ItemManager.Instance != null)
         {
             invItemsData = ItemManager.Instance.inventory;
         }
 
+        if(SoundManager.Instance != null)
+        {
+            sound = SoundManager.Instance;
+        }
+
         path = Application.persistentDataPath + "/";
         Debug.Log(path);
+    }
+
+    public void Update()
+    {
+        //test
+        if (Input.GetKeyDown(KeyCode.Insert))
+        {
+            SaveEternalData();
+        }
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            LoadEternalData();
+        }
+        if (Input.GetKeyDown(KeyCode.Home))
+        {
+            SaveVolatileData();
+        }
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            LoadVolatileData();
+        }
     }
 
     public void SaveVolatileData()
@@ -63,10 +92,9 @@ public class SaveManager : MonoBehaviour
         {
             string data = File.ReadAllText(path + volatileName);
 
-            VolatileData volatileData = new();
-            JsonUtility.FromJsonOverwrite(data, volatileData);
+            JsonUtility.FromJsonOverwrite(data, playerData);
 
-            if(volatileData == null)
+            if(data == null)
             {
                 Debug.Log("휘발성 데이터가 없음");
                 return;
@@ -89,6 +117,8 @@ public class SaveManager : MonoBehaviour
 
         EternalData eternalData = new();
         eternalData.invItems = invItemsData;
+        eternalData.bgmVolume = sound.bgmVolume;
+        eternalData.sfxVolume = sound.sfxVolume;
 
         string data = JsonUtility.ToJson(eternalData, true);
         File.WriteAllText(path + eternalName, data);
@@ -109,6 +139,16 @@ public class SaveManager : MonoBehaviour
                 Debug.Log("영구 데이터가 없음");
                 return;
             }
+
+            if (ItemManager.Instance != null) {
+                ItemManager.Instance.inventory = eternalData.invItems;
+            }
+
+            if (SoundManager.Instance != null) {
+                SoundManager.Instance.bgmVolume = eternalData.bgmVolume;
+                SoundManager.Instance.sfxVolume = eternalData.sfxVolume;
+            }
+
             Debug.Log("Eternal Data Load");
         }
         else
