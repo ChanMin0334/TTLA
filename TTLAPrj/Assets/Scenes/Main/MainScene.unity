@@ -1667,6 +1667,7 @@ MonoBehaviour:
   isPlaying: 0
   isPaused: 0
   currentStage: 1
+  saveManager: {fileID: 1674443375}
 --- !u!4 &208092182
 Transform:
   m_ObjectHideFlags: 0
@@ -19225,6 +19226,7 @@ MonoBehaviour:
   bowSpriteRenderer: {fileID: 0}
   unpulledSprite: {fileID: 0}
   pulledSprite: {fileID: 0}
+  canMove: 1
 --- !u!4 &1533430390
 Transform:
   m_ObjectHideFlags: 0

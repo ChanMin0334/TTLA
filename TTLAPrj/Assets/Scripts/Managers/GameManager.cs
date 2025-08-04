@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 등록
-        SaveStage += saveManager.SaveStage; // SaveGame 액션에 SaveManager의 SaveGame 메서드 등록
+
+        SaveStage = saveManager.SaveStage; // SaveGame 액션에 SaveManager의 SaveGame 메서드 등록
         DeleteStage += saveManager.DeleteStage; // DeleteStage 액션에 SaveManager의 DeleteStage 메서드 등록
         SaveGame += saveManager.SaveGame; // SaveGame 액션에 SaveManager의 SaveGame 메서드 등록
     }
