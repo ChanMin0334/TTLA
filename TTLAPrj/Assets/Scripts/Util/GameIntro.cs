@@ -9,12 +9,14 @@ public class GameIntro : MonoBehaviour
     public GameObject introPanel; // 인트로 패널
     public GameObject titleText; // 타이틀 이미지
     public GameObject titleSubText; // 타이틀 텍스트
+    public AudioSource introBGM; // 인트로 BGM
+    public AudioSource introSound; // 인트로 사운드
+    public AudioSource gameStartSound; // 인트로 사운드
     public float fadeDuration = 10f; // 패널 밝아지는 시간
     public float titleFadeDuration = 5f; // 패널 밝아지는 시간
     public float moveDuration = 1f; // 패널 올라오는 시간
     public float moveDistance = 40f; // 패널이 올라오는 거리 (픽셀 단위)
 
-    private AudioSource audioSource;
     private Image panelImage;
     private RectTransform panelRect;
     private bool isPanelOn = false; // 패널이 켜져 있는지 여부
@@ -24,7 +26,6 @@ public class GameIntro : MonoBehaviour
     {
         panelImage = introPanel.GetComponent<Image>();
         panelRect = introPanel.GetComponent<RectTransform>();
-        audioSource = GetComponent<AudioSource>();
         StartCoroutine(ShowIntroAndLoadNext());
     }
 
@@ -37,7 +38,7 @@ public class GameIntro : MonoBehaviour
             if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
             {
                 canStart = false; // 중복 입력 방지
-                SoundManager.Instance.PlaySFX(SFX_Name.SFX_ButtonClick); // 버튼 클릭 사운드 재생
+                gameStartSound.Play(); // 인트로 사운드 재생
                 LoadNextScene();
             }
         }
@@ -46,7 +47,7 @@ public class GameIntro : MonoBehaviour
     IEnumerator ShowIntroAndLoadNext()
     {
         yield return new WaitForSeconds(1f);
-        SoundManager.Instance.PlaySFX(SFX_Name.SFX_IntroSound);
+        introSound.Play(); // 인트로 사운드 재생
         introText.SetActive(true);
         yield return new WaitForSeconds(1.3f);
         introText.SetActive(false);
@@ -110,7 +111,7 @@ public class GameIntro : MonoBehaviour
             if (!audioPlayed && (color.r * 255f >= 120f || color.g * 255f >= 120f || color.b * 255f >= 120f))
             {
                 isPanelOn = true; // 패널이 켜졌음을 표시
-                audioSource.Play();
+                introBGM.Play();
                 audioPlayed = true;
             }
 

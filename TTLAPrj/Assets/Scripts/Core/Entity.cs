@@ -11,7 +11,7 @@ public class Entity : MonoBehaviour
 
     public void Awake()
     {
-        Stats = new Stats(0f, 0f, 0f, 0f);
+        Stats = new Stats(0f, 0f, 0f, 0f, 0f);
     }
     public virtual void Damaged(float damage)
     {
