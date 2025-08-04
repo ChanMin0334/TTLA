@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] UpgradeUI upgradeUI; //upgrade UI 호출용
     [SerializeField] GameStateUI gamestateUI; //gamestate UI 호출용
     [SerializeField] CharacterInfoUI characterInfoUI; // 호출용
+    [SerializeField] InventoryUI inventoryUI;
 
     private void Awake()
     {
@@ -184,8 +185,11 @@ public class UIManager : MonoBehaviour
     {
         characterInfoUI.ShowCharacterInfo();
     }
-    public Player GetPlayer() //테스트
+
+    public void CallInventoryReDraw()
     {
-        return player;
+        inventoryUI.InventoryReDraw();
     }
+
+
 }

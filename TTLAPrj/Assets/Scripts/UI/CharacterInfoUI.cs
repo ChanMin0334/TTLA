@@ -7,9 +7,10 @@ using TMPro;
 
 public class CharacterInfoUI : MonoBehaviour
 {
-    [Header("Utility UI")]
+    [Header("Character UI")]
     [SerializeField] Image character;
     [SerializeField] Sprite[] otherCharacters;
+
     int characterIndex;
 
     [Header("Character Info")]
@@ -17,6 +18,12 @@ public class CharacterInfoUI : MonoBehaviour
     [SerializeField] TMP_Text atkText;
     [SerializeField] TMP_Text atkSpeedText;
     [SerializeField] TMP_Text speedText;
+
+    [Header("Background UI")]
+    [SerializeField] Image background;
+    [SerializeField] Sprite[] otherBackground;
+
+    int backgroundIndex;
 
     //Å×½ºÆ®
     [SerializeField] Player player;
@@ -41,8 +48,28 @@ public class CharacterInfoUI : MonoBehaviour
         });
     }
 
-    public void OnLeftButton() => ChangeSprite(-1);
-    public void OnRightButton() => ChangeSprite(1);
+    public void ChangeBackground(int index)
+    {
+        backgroundIndex += index;
+
+        if (backgroundIndex < 0)
+            backgroundIndex = otherBackground.Length - 1;
+        else if (backgroundIndex >= otherBackground.Length)
+            backgroundIndex = 0;
+
+        background.DOFade(0f, 0.2f).OnComplete(() =>
+        {
+            background.sprite = otherBackground[backgroundIndex];
+            background.DOFade(1f, 0.2f);
+        });
+    }
+
+    public void OnLeftButtonSprite() => ChangeSprite(-1);
+    public void OnRightButtonSprite() => ChangeSprite(1);
+
+    public void OnLeftButtonBackground() => ChangeBackground(-1);
+
+    public void OnRightButtonBackground() => ChangeBackground(1);
 
     public void ShowCharacterInfo()
     {
