@@ -8,24 +8,24 @@ public class StageHandler : MonoBehaviour
     GameObject[] stages;
 
     private GameObject portal;
-    private GameObject[] spawners; // ¿©·¯ ½ºÆ÷³Ê¸¦ ¹è¿­·Î °ü¸®
-    private bool isCleared = false; // ½ºÅ×ÀÌÁö Å¬¸®¾î ¿©ºÎ
-    private bool isReward = false; // UIÈ£Ãâ¿ë
-    public float stageMoveDistance = 10f; // ½ºÅ×ÀÌÁö°¡ ÀÌµ¿ÇÒ °Å¸®
-    public float stageMoveDuration = 1f;  // ÀÌµ¿ ¾Ö´Ï¸ÞÀÌ¼Ç ½Ã°£(ÃÊ)
+    private GameObject[] spawners; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private bool isCleared = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private bool isReward = false; // UIÈ£ï¿½ï¿½ï¿½
+    public float stageMoveDistance = 10f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+    public float stageMoveDuration = 1f;  // ï¿½Ìµï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Ã°ï¿½(ï¿½ï¿½)
 
     private void Awake()
     {
         if (stages.Length == 0)
         {
-            Debug.LogError("½ºÅ×ÀÌÁö°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
         }
     }
     void Start()
     {
         InitializeStages();
         ActivateCurrentStage();
-        SpawnMonstersOnMapLoaded(); // ¸Ê ·Îµå ¿Ï·á ½Ã ¸ó½ºÅÍ ½ºÆù
+        SpawnMonstersOnMapLoaded(); // ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
     private void Update()
     {
@@ -33,19 +33,19 @@ public class StageHandler : MonoBehaviour
         {
             isCleared = true;
 
-            if(!isReward && isCleared)
+            if (!isReward && isCleared)
             {
                 isReward = true;
                 UIManager.Instance.levelUpUI();
                 GameManager.Instance.isPaused = true;
             }
-            //È£Ãâ
-            //Á¤Áö
-            SetPortalType(); // Æ÷Å» Å¸ÀÔ ¼³Á¤
+            //È£ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½
+            SetPortalType(); // ï¿½ï¿½Å» Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    // ¸ðµç ½ºÆ÷³ÊÀÇ ÀÚ½ÄÀÌ 0°³ÀÎÁö È®ÀÎ
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     private bool AllSpawnersCleared()
     {
         if (spawners == null || spawners.Length == 0)
@@ -63,18 +63,18 @@ public class StageHandler : MonoBehaviour
     {
         foreach (GameObject stage in stages)
         {
-            stage.SetActive(false); // ¸ðµç ½ºÅ×ÀÌÁö ºñÈ°¼ºÈ­
+            stage.SetActive(false); // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         }
     }
     void ActivateCurrentStage()
     {
-        int currentStageIndex = GameManager.Instance.currentStage - 1; // 0ºÎÅÍ ½ÃÀÛÇÏ´Â ÀÎµ¦½º
+        int currentStageIndex = GameManager.Instance.currentStage - 1; // 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îµï¿½ï¿½ï¿½
         if (currentStageIndex >= 0 && currentStageIndex < stages.Length)
         {
-            stages[currentStageIndex].SetActive(true); // ÇöÀç ½ºÅ×ÀÌÁö È°¼ºÈ­
-            portal = stages[currentStageIndex].transform.Find("Portal").gameObject; // Æ÷Å» ¿ÀºêÁ§Æ® Ã£±â
+            stages[currentStageIndex].SetActive(true); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
+            portal = stages[currentStageIndex].transform.Find("Portal").gameObject; // ï¿½ï¿½Å» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ã£ï¿½ï¿½
 
-            // ¿©·¯ ½ºÆ÷³Ê¸¦ ¹è¿­·Î ÇÒ´ç
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Ò´ï¿½
             var spawnerList = new List<GameObject>();
             foreach (Transform child in stages[currentStageIndex].transform)
             {
@@ -87,11 +87,11 @@ public class StageHandler : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ÇöÀç ½ºÅ×ÀÌÁö ÀÎµ¦½º°¡ ¹üÀ§¸¦ ¹þ¾î³µ½À´Ï´Ù!");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³µï¿½ï¿½ï¿½Ï´ï¿½!");
         }
     }
 
-    // ¸Ê ·Îµå°¡ ¿Ï·áµÇ¾úÀ» ¶§ ½ºÆ÷³Ê¿¡¼­ ¸ó½ºÅÍ¸¦ ½ºÆù
+    // ï¿½ï¿½ ï¿½Îµå°¡ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SpawnMonstersOnMapLoaded()
     {
         if (spawners == null || spawners.Length == 0)
@@ -114,15 +114,15 @@ public class StageHandler : MonoBehaviour
     {
         int nextStageIndex = GameManager.Instance.currentStage;
         if (nextStageIndex < stages.Length)
-        {    
+        {
             StartCoroutine(MoveStagesAndLoad(nextStageIndex));
-            GameManager.Instance.SaveStage?.Invoke(); // ½ºÅ×ÀÌÁö ÀúÀå È£Ãâ
+            GameManager.Instance.SaveStage?.Invoke(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
         }
         else
         {
-            Debug.Log("¸ðµç ½ºÅ×ÀÌÁö¸¦ Å¬¸®¾îÇß½À´Ï´Ù!");
-            GameManager.Instance.DeleteStage?.Invoke(); // ½ºÅ×ÀÌÁö »èÁ¦ È£Ãâ
-            // UI·Î ³ª°¡±â ¹öÆ°
+            Debug.Log("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½!");
+            GameManager.Instance.DeleteStage?.Invoke(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+            // UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
         }
     }
 
@@ -141,7 +141,7 @@ public class StageHandler : MonoBehaviour
         if (nextStage != null) nextStage.SetActive(true);
 
 
-        // ºÎµå·´°Ô ÀÌµ¿
+        // ï¿½Îµå·´ï¿½ï¿½ ï¿½Ìµï¿½
         while (elapsed < stageMoveDuration)
         {
             elapsed += Time.deltaTime;
@@ -160,9 +160,9 @@ public class StageHandler : MonoBehaviour
         GameManager.Instance.currentStage++;
         InitializeStages();
         ActivateCurrentStage();
-        GameManager.Instance.playerObj.transform.position = new Vector3(0f, -4f, 0); // ÇÃ·¹ÀÌ¾î À§Ä¡ ÀÌµ¿
-        GameManager.Instance.playerObj.SetActive(true); // ÇÃ·¹ÀÌ¾î È°¼ºÈ­
-        SpawnMonstersOnMapLoaded(); // ´ÙÀ½ ½ºÅ×ÀÌÁö ¸Ê ·Îµå ÈÄ ¸ó½ºÅÍ ½ºÆù
+        GameManager.Instance.playerObj.transform.position = new Vector3(0f, -4f, 0); // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ ï¿½Ìµï¿½
+        GameManager.Instance.playerObj.SetActive(true); // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ È°ï¿½ï¿½È­
+        SpawnMonstersOnMapLoaded(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         isCleared = false;
         isReward = false;
     }
@@ -171,17 +171,29 @@ public class StageHandler : MonoBehaviour
     private void SetPortalType()
     {
         var collider = portal.GetComponent<BoxCollider2D>();
-        collider.isTrigger = true; // Æ÷Å» È°¼ºÈ­
+        collider.isTrigger = true; // ï¿½ï¿½Å» È°ï¿½ï¿½È­
         portal.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 255f, 0.4f);
 
-        // PortalTriggerHandler°¡ ¾øÀ¸¸é Ãß°¡
+        // PortalTriggerHandlerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         if (portal.GetComponent<PortalTriggerHandler>() == null)
         {
             portal.AddComponent<PortalTriggerHandler>().stageHandler = this;
         }
     }
 
-    // Æ÷Å» Æ®¸®°Å ÀÌº¥Æ® Ã³¸®¿ë Å¬·¡½º
+    private void ShuffleStagesExceptLast() //Randomness ì¶”ê°€?
+    {
+        int n = stages.Length - 1; 
+        for (int i = 0; i < n; i++)
+        {
+            int rand = Random.Range(i, n); 
+            GameObject temp = stages[i];
+            stages[i] = stages[rand];
+            stages[rand] = temp;
+        }
+    }
+
+    // ï¿½ï¿½Å» Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® Ã³ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
     public class PortalTriggerHandler : MonoBehaviour
     {
         [HideInInspector]
@@ -191,7 +203,7 @@ public class StageHandler : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                GameManager.Instance.playerObj.SetActive(false); // ÇÃ·¹ÀÌ¾î ºñÈ°¼ºÈ­
+                GameManager.Instance.playerObj.SetActive(false); // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
                 stageHandler.LoadNextStage();
             }
         }

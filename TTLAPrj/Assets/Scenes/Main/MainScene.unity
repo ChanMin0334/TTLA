@@ -1663,7 +1663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1533430389}
-  playerObj: {fileID: 0}
+  playerObj: {fileID: 1533430388}
   isPlaying: 0
   isPaused: 0
   currentStage: 1
@@ -19228,6 +19228,7 @@ MonoBehaviour:
   unpulledSprite: {fileID: 0}
   pulledSprite: {fileID: 0}
   canMove: 1
+  canShoot: 1
 --- !u!4 &1533430390
 Transform:
   m_ObjectHideFlags: 0
