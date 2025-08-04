@@ -227,5 +227,4 @@ public class MonsterBoss : Monster
         }
         SoundManager.Instance.PlaySFX(SFX_Name.Player_Attack);
     }
-
 }
