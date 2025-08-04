@@ -30,6 +30,7 @@ public class Player : Entity
 
     public bool canMove = true;
 
+    bool isDead = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -57,12 +58,20 @@ public class Player : Entity
 
     public override void Damaged(float damage)
     {
-        if (isInvincible)
+        
+        if (isInvincible || isDead)
         {
             return;
         }
 
         base.Damaged(damage);
+
+        if (!isDead && this.Stats.Hp <= 0)
+        {
+            isDead = true;
+            UIManager.Instance.CallGameOver();
+        }
+  
         StartCoroutine(InvincibilityCoroutine());
     }
 
@@ -284,4 +293,5 @@ public class Player : Entity
         this.Stats.AtkSpeed -= stats.AtkSpeed;
         this.Stats.Speed -= stats.Speed;
     }
+
 }
