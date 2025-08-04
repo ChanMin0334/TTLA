@@ -27,7 +27,7 @@ public class Entity : MonoBehaviour
             animationManager.PlayDeath();
             Destroy(gameObject);
         }
-        soundManager.PlaySFX(SFX_Name.Player_Attack);
+        soundManager.PlaySFX(SFX_Name.Player_ByAttack);
     }
     public virtual void Attack()
     {

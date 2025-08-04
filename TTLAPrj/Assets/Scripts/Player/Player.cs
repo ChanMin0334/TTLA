@@ -61,7 +61,6 @@ public class Player : Entity
         }
 
         base.Damaged(damage);
-        soundManager.PlaySFX(SFX_Name.Player_Attack);
         StartCoroutine(InvincibilityCoroutine());
     }
 

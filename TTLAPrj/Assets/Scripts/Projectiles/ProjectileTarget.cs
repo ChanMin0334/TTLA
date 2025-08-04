@@ -13,7 +13,8 @@ public class ProjectileTarget : MonoBehaviour
         int otherLayer = collision.gameObject.layer;
 
         // Ignore collision with the shooter
-        if (otherLayer == shooterLayer)
+        Debug.Log(otherLayer);
+        if (otherLayer == shooterLayer || otherLayer == 0)
         {
             return;
         }
@@ -27,7 +28,6 @@ public class ProjectileTarget : MonoBehaviour
                 entity.Damaged(damage);
             }
         }
-
         // Destroy the projectile on any collision
         Destroy(gameObject);
     }
