@@ -57,6 +57,7 @@ public class Player : Entity
         }
 
         base.Damaged(damage);
+        soundManager.PlaySFX(SFX_Name.Player_Attack);
         StartCoroutine(InvincibilityCoroutine());
     }
 
@@ -119,6 +120,7 @@ public class Player : Entity
         }
         StartCoroutine(BowAttackCoroutine(nearest));
     }
+
     private GameObject FindNearestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -181,6 +183,7 @@ public class Player : Entity
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
             GameObject proj = Instantiate(projectile, bowTransform.position, rotation);
+            soundManager.PlaySFX(SFX_Name.Player_Attack);
             proj.layer = LayerMask.NameToLayer("PlayerProjectile");
 
             Rigidbody2D projRb = proj.GetComponent<Rigidbody2D>();
