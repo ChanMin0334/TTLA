@@ -19,8 +19,9 @@ public class DamageTrap : Interact
         //InteractAnimation();
         GameManager.Instance.player.Damaged(value);
     }
+
     public override void OnExitTrigger(Player player)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
