@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 
 //using UnityEditor.Experimental.GraphView;
@@ -11,7 +12,7 @@ public class Player : Entity
 {
     public List<Item> EquipList;
     public Skill SkillEffect;
-
+    protected SoundManager soundManager;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Vector2 inputDir;
@@ -31,6 +32,10 @@ public class Player : Entity
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+    public void Start()
+    {
+        soundManager = SoundManager.Instance;
     }
     private void Update()
     {
@@ -179,7 +184,9 @@ public class Player : Entity
 
         if (projectile != null)
         {
-            GameObject proj = Instantiate(projectile, bowTransform.position, Quaternion.identity);
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
+            GameObject proj = Instantiate(projectile, bowTransform.position, rotation);
             soundManager.PlaySFX(SFX_Name.Player_Attack);
             proj.layer = LayerMask.NameToLayer("PlayerProjectile");
 
