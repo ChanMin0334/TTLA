@@ -66,8 +66,8 @@ public class UIManager : MonoBehaviour
 
         Debug.Log("선택된 카드: " + selectedCard.GetSkillID());
 
-        Debug.Log($"플레이어의 카드선택전 공격력 : {player.Stats.Atk}");
-        Debug.Log($"플레이어의 카드선택전 공격속도 {player.Stats.AtkSpeed}");
+        //Debug.Log($"플레이어의 카드선택전 공격력 : {player.Stats.Atk}");
+        //Debug.Log($"플레이어의 카드선택전 공격속도 {player.Stats.AtkSpeed}");
 
         selectedCard.currentSkill.ApplySkill(player);
 
@@ -76,8 +76,8 @@ public class UIManager : MonoBehaviour
             card.Showout();
         }
 
-        Debug.Log($"플레이어의 카드선택후 공격력 : {player.Stats.Atk}");
-        Debug.Log($"플레이어의 카드선택후 공격속도 {player.Stats.AtkSpeed}");
+        //Debug.Log($"플레이어의 카드선택후 공격력 : {player.Stats.Atk}");
+        //Debug.Log($"플레이어의 카드선택후 공격속도 {player.Stats.AtkSpeed}");
 
     }
 
