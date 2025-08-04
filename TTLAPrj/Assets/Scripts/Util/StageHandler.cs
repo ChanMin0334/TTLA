@@ -10,6 +10,7 @@ public class StageHandler : MonoBehaviour
     private GameObject portal;
     private GameObject[] spawners; // 여러 스포너를 배열로 관리
     private bool isCleared = false; // 스테이지 클리어 여부
+    private bool isReward = false; // UI호출용
     public float stageMoveDistance = 10f; // 스테이지가 이동할 거리
     public float stageMoveDuration = 1f;  // 이동 애니메이션 시간(초)
 
@@ -31,6 +32,15 @@ public class StageHandler : MonoBehaviour
         if (!isCleared && AllSpawnersCleared())
         {
             isCleared = true;
+
+            if(!isReward && isCleared)
+            {
+                isReward = true;
+                UIManager.Instance.levelUpUI();
+                //GameManager.Instance.isPaused = true;
+            }
+            //호출
+            //정지
             SetPortalType(); // 포탈 타입 설정
         }
     }
@@ -152,6 +162,7 @@ public class StageHandler : MonoBehaviour
 
         SpawnMonstersOnMapLoaded(); // 다음 스테이지 맵 로드 후 몬스터 스폰
         isCleared = false;
+        isReward = false;
     }
 
 
