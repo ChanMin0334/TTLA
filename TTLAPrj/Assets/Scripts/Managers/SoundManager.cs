@@ -29,13 +29,15 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    private AudioSource bgmSource;
-    private AudioSource sfxSource;
-
     // 여러 BGM을 Inspector에서 할당
     public AudioClip[] bgmClips;
     public AudioClip[] sfxClips;
 
+    private AudioSource bgmSource;
+    private AudioSource sfxSource;
+
+    private float bgmVolume = 1f;
+    private float sfxVolume = 1f;
     private void Awake()
     {
         if (Instance == null)
@@ -76,7 +78,7 @@ public class SoundManager : MonoBehaviour
             case "MainScene":
                 PlayBGM(BGMName.BGM_01);
                 break;
-            case "GameScene":
+            case "Level1_Forest":
                 PlayBGM(BGMName.BGM_02); 
                 break;
             default:
@@ -85,7 +87,7 @@ public class SoundManager : MonoBehaviour
     }
 
     // 인덱스로 BGM 재생
-    public void PlayBGM(BGMName soundName, float volume = 1f)
+    public void PlayBGM(BGMName soundName)
     {
         int index = (int)soundName;
 
@@ -93,7 +95,7 @@ public class SoundManager : MonoBehaviour
         if (bgmSource.clip == bgmClips[index]) return;
 
         bgmSource.clip = bgmClips[index];
-        bgmSource.volume = volume;
+        bgmSource.volume = bgmVolume;
         bgmSource.Play();
     }
 
@@ -102,7 +104,7 @@ public class SoundManager : MonoBehaviour
         bgmSource.Stop();
     }
 
-    public void PlaySFX(SFX_Name name, float volume = 1f)
+    public void PlaySFX(SFX_Name name)
     {
         AudioClip clip;
 
@@ -141,16 +143,18 @@ public class SoundManager : MonoBehaviour
 
         }
 
-        sfxSource.PlayOneShot(clip, volume);
+        sfxSource.PlayOneShot(clip, sfxVolume);
     }
 
     public void SetSFXVolume(Slider slider)
     {
-        sfxSource.volume = slider.value;
+        sfxVolume = slider.value;
+        sfxSource.volume = sfxVolume;
     }
 
     public void SetBGMVolume(Slider slider)
     {
-        bgmSource.volume = slider.value;
+        bgmVolume = slider.value;
+        bgmSource.volume = bgmVolume;
     }
 }
