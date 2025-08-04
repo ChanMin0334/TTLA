@@ -38,8 +38,17 @@ public class InventoryUI : MonoBehaviour
     public void InventoryReDraw()
     {
         InventoryClear(InvSlotPlace);
-        InventoryClear(enhancePlace);
-        InventoryClear(equipPlace);
+
+        if (enhancePlace != null)
+        {
+            InventoryClear(enhancePlace);
+        }
+        
+        if (equipPlace != null)
+        {
+            InventoryClear(equipPlace);
+        }
+
         InventoryUIPrint();
     }
 

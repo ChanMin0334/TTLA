@@ -36,8 +36,8 @@ public class SoundManager : MonoBehaviour
     private AudioSource bgmSource;
     private AudioSource sfxSource;
 
-    private float bgmVolume = 1f;
-    private float sfxVolume = 1f;
+    public float bgmVolume { get; set; } = 1f;
+    public float sfxVolume { get; set; } = 1f;
     private void Awake()
     {
         if (Instance == null)
