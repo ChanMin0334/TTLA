@@ -1908,9 +1908,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5acd56ff851409a4d8b007a8ff62c28e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e16ed355b1cdc4caa8ca950eaa67130e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.101
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4677,5 +4677,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 6982558984815092796}
   blackScreen: {fileID: 5127037247930366054}
   boomSound: {fileID: 3329145673985488822}
+  bgmSource: {fileID: 0}
   zoomSize: 2.5
   zoomDuration: 0.5
