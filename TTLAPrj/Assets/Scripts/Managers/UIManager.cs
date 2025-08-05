@@ -44,15 +44,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-        if (SaveManager.Instance.HasData("volatileData.json"))
-        {
-            SaveUIOn();
-            SaveManager.Instance.LoadVolatileData();
-        }
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Keypad2))

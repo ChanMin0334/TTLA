@@ -28,7 +28,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    // ¿©·¯ BGMÀ» Inspector¿¡¼­ ÇÒ´ç
+    // ï¿½ï¿½ï¿½ï¿½ BGMï¿½ï¿½ Inspectorï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
     public AudioClip[] bgmClips;
     public AudioClip[] sfxClips;
 
@@ -48,8 +48,8 @@ public class SoundManager : MonoBehaviour
             sfxSource = gameObject.AddComponent<AudioSource>();
 
             bgmSource.loop = true;
-            sfxSource.playOnAwake = false; // SFX´Â ÀÚµ¿ Àç»ýÇÏÁö ¾ÊÀ½
-            SceneManager.sceneLoaded += OnSceneLoaded; // ¾À ·Îµå ÀÌº¥Æ® µî·Ï
+            sfxSource.playOnAwake = false; // SFXï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            SceneManager.sceneLoaded += OnSceneLoaded; // ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½
         }
         else
         {
@@ -61,14 +61,14 @@ public class SoundManager : MonoBehaviour
     {
         if (Instance == this)
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded; // ÀÌº¥Æ® ÇØÁ¦
+            SceneManager.sceneLoaded -= OnSceneLoaded; // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    // ¾ÀÀÌ ·ÎµåµÉ ¶§¸¶´Ù È£ÃâµÇ´Â ¸Þ¼­µå
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log($"¾À ·ÎµåµÊ: {scene.name}");
+        Debug.Log($"ï¿½ï¿½ ï¿½Îµï¿½ï¿½: {scene.name}");
 
         switch(scene.name)
         {
@@ -85,7 +85,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // ÀÎµ¦½º·Î BGM Àç»ý
+    // ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ BGM ï¿½ï¿½ï¿½
     public void PlayBGM(BGMName soundName)
     {
         int index = (int)soundName;
@@ -162,4 +162,15 @@ public class SoundManager : MonoBehaviour
         sfxSlider.value = sfxVolume;
         bgmSlider.value = bgmVolume;
     }
+public void PauseBGM()
+{
+    if (bgmSource.isPlaying)
+        bgmSource.Pause();
+}
+
+public void ResumeBGM()
+{
+    if (!bgmSource.isPlaying && bgmSource.clip != null)
+        bgmSource.UnPause();
+}
 }
