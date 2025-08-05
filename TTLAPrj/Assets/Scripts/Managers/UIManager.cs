@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,7 +44,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
+    public void Start()
+    {
+        if (SaveManager.Instance.HasData("volatileData.json"))
+        {
+            SaveUIOn();
+            SaveManager.Instance.LoadVolatileData();
+        }
+    }
 
     private void Update()
     {

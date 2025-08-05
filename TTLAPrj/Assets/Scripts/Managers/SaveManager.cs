@@ -16,12 +16,14 @@ class EternalData
 [System.Serializable]
 class VolatileData
 {
-    //public float stageNumber;
+    public int stageNumber;
     public Player player;
 }
 
 public class SaveManager : MonoBehaviour
 {
+    public static SaveManager Instance { get; private set; }
+
     Player playerData;
     List<InventoryItem> invItemsData;
     SoundManager sound;
@@ -29,6 +31,14 @@ public class SaveManager : MonoBehaviour
     private string path;
     [SerializeField] private string eternalName = "eternalData.json";
     [SerializeField] private string volatileName = "volatileData.json";
+
+    public void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -96,19 +106,24 @@ public class SaveManager : MonoBehaviour
 
         VolatileData volatileData = new();
         volatileData.player = playerData;
+        volatileData.stageNumber = GameManager.Instance.currentStage;
 
         string data = JsonUtility.ToJson(volatileData, true);
         File.WriteAllText(path + volatileName, data);
         Debug.Log("Volatile Data Save");
     }
 
-    private void LoadVolatileData()
+    public void LoadVolatileData()
     {
         if (HasData(volatileName))
         {
             string data = File.ReadAllText(path + volatileName);
 
-            JsonUtility.FromJsonOverwrite(data, playerData);
+            VolatileData volatileData = new VolatileData();
+            JsonUtility.FromJsonOverwrite(data, volatileData);
+
+            playerData = volatileData.player;
+            GameManager.Instance.currentStage = volatileData.stageNumber;
 
             if(data == null)
             {
@@ -173,7 +188,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private void DeleteData(string fileName)
+    public void DeleteData(string fileName)
     {
         if (HasData(fileName)) {
             File.Delete(path + fileName);
@@ -185,7 +200,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private bool HasData(string fileName)
+    public bool HasData(string fileName)
     {
         string pathFull = path + fileName;
 
