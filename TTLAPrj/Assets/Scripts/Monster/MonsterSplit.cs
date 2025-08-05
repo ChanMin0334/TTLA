@@ -78,8 +78,13 @@ public class MonsterSplit : Monster
 
         if (splitMonsterPrefab != null)
         {
-            Instantiate(splitMonsterPrefab, transform.position + Vector3.left * 0.5f, Quaternion.identity);
-            Instantiate(splitMonsterPrefab, transform.position + Vector3.right * 0.5f, Quaternion.identity);
+            GameObject slug1 = Instantiate(splitMonsterPrefab, transform.position + Vector3.left * 0.5f, Quaternion.identity);
+            GameObject slug2 = Instantiate(splitMonsterPrefab, transform.position + Vector3.right * 0.5f, Quaternion.identity);
+            if (transform.parent != null)
+            {
+                slug1.transform.SetParent(transform.parent);
+                slug2.transform.SetParent(transform.parent);
+            }
         }
 
         Destroy(gameObject);

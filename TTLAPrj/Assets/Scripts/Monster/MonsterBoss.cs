@@ -81,6 +81,7 @@ public class MonsterBoss : Monster
     {
         animationManager?.SetMoveAnimation(true);
         HandleSpriteFlip(direction);
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
         float elapsed = 0f;
 
@@ -92,11 +93,13 @@ public class MonsterBoss : Monster
         }
 
         rb.velocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Dynamic;
         animationManager?.SetMoveAnimation(false);
     }
 
     private void SpreadShot(Vector2 baseDir)
     {
+        rb.bodyType = RigidbodyType2D.Kinematic;
         float maxOffset = projectileSpreadAngle;
 
         SoundManager.Instance.PlaySFX(SFX_Name.Player_Attack);
@@ -122,6 +125,7 @@ public class MonsterBoss : Monster
                 projTarget.targetLayers = LayerMask.GetMask("Player");
             }
         }
+        rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void EnterPhaseTwo()
@@ -142,6 +146,7 @@ public class MonsterBoss : Monster
     private IEnumerator SpiralShotAttack()
     {
         isPerformingAttack = true;
+        rb.bodyType = RigidbodyType2D.Kinematic;
         Vector2 centerPosition = Vector2.zero; // Change if Center is not 0,0
         float moveSpeed = 6f;
 
@@ -188,7 +193,7 @@ public class MonsterBoss : Monster
             yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(0.5f); // Pause before resuming normal behavior
-
+        rb.bodyType = RigidbodyType2D.Dynamic;
         isPerformingAttack = false;
     }
 

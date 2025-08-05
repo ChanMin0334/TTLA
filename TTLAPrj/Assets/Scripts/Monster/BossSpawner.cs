@@ -16,6 +16,7 @@ public class BossSpawner : MonoBehaviour
     public float zoomSize = 2.5f;
     public float zoomDuration = 0.5f;
     private float originalSize;
+    private Player player;
 
     private void OnEnable()
     {
@@ -24,11 +25,14 @@ public class BossSpawner : MonoBehaviour
 
     public void SpawnMonsters()
     {
+        player = GameManager.Instance.player;
         StartCoroutine(BossIntro());
     }
 
     IEnumerator BossIntro()
     {
+        player.canShoot = false;
+        player.canMove = false;
         // Step 1: 화면 어둡게
         yield return FadeInBlack(0.5f);
 
@@ -49,6 +53,8 @@ public class BossSpawner : MonoBehaviour
 
         // Step 6: ?초 후 보스 활성화
         yield return new WaitForSeconds(1.0f);
+        player.canShoot = true;
+        player.canMove = true;
         boss.GetComponent<MonsterBoss>()?.ActivateBoss();
     }
 

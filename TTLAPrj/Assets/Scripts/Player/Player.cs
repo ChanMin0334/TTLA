@@ -29,6 +29,7 @@ public class Player : Entity
     public Sprite pulledSprite;
 
     public bool canMove = true;
+    public bool canShoot = true;
 
     bool isDead = false;
     private void Awake()
@@ -45,7 +46,7 @@ public class Player : Entity
         HandleInput();
         UpdateBowDirection();
 
-        if (inputDir == Vector2.zero && Time.time - lastAttackTime >= 1f / Stats.AtkSpeed)
+        if (canShoot && inputDir == Vector2.zero && Time.time - lastAttackTime >= 1f / Stats.AtkSpeed)
         {
             AttackNearestEnemy();
             lastAttackTime = Time.time;
@@ -121,16 +122,16 @@ public class Player : Entity
             float vertExtent = cam.orthographicSize;
             float horzExtent = vertExtent * cam.aspect;
 
-            // ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç À§Ä¡¿Í ÀÌµ¿ ÈÄ À§Ä¡ °è»ê
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
             Vector3 nextPos = rb.position + direction * Stats.Speed * Time.fixedDeltaTime;
 
-            // Ä«¸Þ¶ó ºäÀÇ ¿ùµå ÁÂÇ¥ ¹üÀ§ °è»ê
+            // Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             float minX = camPos.x - horzExtent;
             float maxX = camPos.x + horzExtent;
             float minY = camPos.y - vertExtent;
             float maxY = camPos.y + vertExtent;
 
-            // ÇÃ·¹ÀÌ¾îÀÇ ½ºÇÁ¶óÀÌÆ® Å©±â¸¸Å­ ¿©À¯¸¦ µÑ °æ¿ì
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Å©ï¿½â¸¸Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
             float offsetX = 0f;
             float offsetY = 0f;
 
