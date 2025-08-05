@@ -37,12 +37,17 @@ public class SaveManager : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
     private void Start()
     {
-        if(GameManager.Instance != null) // 임시
+        if(GameManager.Instance.player != null) // 임시
         {
             playerData = GameManager.Instance.player;
         }
@@ -62,7 +67,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log(path);
 
         //TEst
-        if (HasData(eternalName))
+        if (HasData(volatileName))
         {
             Debug.Log("세이브 파일 있음, 데이터 불러오기");
             if (UIManager.Instance != null)
@@ -99,6 +104,7 @@ public class SaveManager : MonoBehaviour
 
     private void SaveVolatileData()
     {
+        playerData = GameManager.Instance.player;
         if (playerData == null) {
             Debug.LogError("playerData is Null");
             return;
@@ -197,6 +203,7 @@ public class SaveManager : MonoBehaviour
         else
         {
             Debug.LogError("Data Delete Failed");
+            Debug.Log(path + fileName);
         }
     }
 

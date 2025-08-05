@@ -14,15 +14,6 @@ public class LoadUI : MonoBehaviour
     public Button checkButton;
     public Button exitButton;
 
-    private void Awake()
-    {
-        checkButton = GetComponentInChildren<Button>(true);
-        exitButton = GetComponentInChildren<Button>(true);
-
-        checkButton.onClick.AddListener(CheckButtonDo);
-        exitButton.onClick.AddListener(ExitButtonDo);
-    }
-
     public void CheckButtonDo()
     {
         GameManager.Instance.GoGameScene();

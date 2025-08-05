@@ -18716,8 +18716,8 @@ MonoBehaviour:
   Name: {fileID: 350242084}
   Level: {fileID: 1320498341}
   Gold: {fileID: 913468330}
-  checkButton: {fileID: 0}
-  exitButton: {fileID: 0}
+  checkButton: {fileID: 1313416570}
+  exitButton: {fileID: 1272013743}
 --- !u!1 &1790336365
 GameObject:
   m_ObjectHideFlags: 0
