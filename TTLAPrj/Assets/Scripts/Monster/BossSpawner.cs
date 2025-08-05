@@ -11,7 +11,7 @@ public class BossSpawner : MonoBehaviour
     [Header("연출 관련")]
     public CanvasGroup blackScreen;
     public AudioSource boomSound;
-
+    public AudioSource bgmSource;
     [Header("카메라 줌 설정")]
     public float zoomSize = 2.5f;
     public float zoomDuration = 0.5f;
@@ -35,7 +35,8 @@ public class BossSpawner : MonoBehaviour
         player.canMove = false;
         // Step 1: 화면 어둡게
         yield return FadeInBlack(0.5f);
-
+        //기존 bgm일시정지
+        SoundManager.Instance.PauseBGM();
         // Step 2: 카메라 줌인
         yield return ZoomCamera(zoomSize, zoomDuration);
 
@@ -50,12 +51,17 @@ public class BossSpawner : MonoBehaviour
         // Step 5: 암전 해제 + 줌 아웃
         yield return FadeOutBlack(0.5f);
         yield return ZoomCamera(originalSize, zoomDuration);
-
+        SoundManager.Instance.ResumeBGM();
         // Step 6: ?초 후 보스 활성화
         yield return new WaitForSeconds(1.0f);
         player.canShoot = true;
         player.canMove = true;
         boss.GetComponent<MonsterBoss>()?.ActivateBoss();
+        //bgm 다시 재생
+        if (bgmSource != null)
+        {
+            bgmSource.UnPause();
+        }
     }
 
     IEnumerator FadeInBlack(float duration)
