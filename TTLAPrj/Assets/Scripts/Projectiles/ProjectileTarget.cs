@@ -13,7 +13,7 @@ public class ProjectileTarget : MonoBehaviour
         int otherLayer = collision.gameObject.layer;
 
         // Ignore collision with the shooter
-        Debug.Log(otherLayer);
+        //Debug.Log(otherLayer);
         if (otherLayer == shooterLayer || otherLayer == 0)
         {
             return;
