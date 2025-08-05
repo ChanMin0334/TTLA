@@ -76,8 +76,5 @@ h8man/NavMeshPlus: https://github.com/h8man/NavMeshPlus.git#master
 │  ├─ 캐릭터 및 몬스터 스프라이트 이미지
 |─────
 
-# 알려진 문제점
-
-
 # 앞으로 추가할 콘텐츠
 
