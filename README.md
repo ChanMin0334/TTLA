@@ -55,27 +55,7 @@ h8man/NavMeshPlus: https://github.com/h8man/NavMeshPlus.git#master
 
 # 프로젝트 구조
 일부분의 프로젝트 파일과, 구조. 
-📦Assets
-├─ 📁Scripts
-│  ├─ Player.cs : 플레이어 캐릭터의 이동, 공격, 피격, 활 조준 등 주요 기능 구현
-│  ├─ MonsterBoss.cs : 보스 몬스터의 AI 및 공격 패턴 관리
-│  ├─ BossSpawner.cs : 보스 스폰 및 등장 연출 담당
-│  ├─ Entity.cs : 플레이어 및 몬스터의 공통 기반 클래스
-│  ├─ GameManager.cs : 싱글톤으로 게임 전반 흐름 및 상태 관리
-│  ├─ UIManager.cs : UI 관련 처리를 담당 (게임 오버, 클리어 등)
-├─ 📁Prefabs
-│  ├─ Player.prefab : 플레이어 프리팹
-│  ├─ Boss.prefab : 보스 프리팹
-├─ 📁Scenes
-│  ├─ MainScene.unity : 메인 메뉴 씬
-│  ├─ Level1_Forest.unity : 1스테이지 전투 씬
-├─ 📁Animations
-│  ├─ 애니메이션 클립 및 컨트롤러
-├─ 📁Audio
-│  ├─ 사운드 효과 파일들
-├─ 📁Sprites
-│  ├─ 캐릭터 및 몬스터 스프라이트 이미지
-|─────
+<img width="1056" height="848" alt="image" src="https://github.com/user-attachments/assets/eebfe0c3-2720-49ed-92b7-749820e1462f" />
 
 # 앞으로 추가할 콘텐츠
 게임을 더욱 풍부하게 만들기 위해 다음과 같은 기능들을 추가할 계획입니다:
